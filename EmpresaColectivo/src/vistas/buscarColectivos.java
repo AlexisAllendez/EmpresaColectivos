@@ -344,6 +344,7 @@ public class buscarColectivos extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione un colectivo para eliminar");
         }
+        
         limpiarCampos();
 
     }//GEN-LAST:event_jBEliminarActionPerformed
