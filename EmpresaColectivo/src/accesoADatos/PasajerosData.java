@@ -238,4 +238,32 @@ public class PasajerosData {
         }
         return listaPasajeros;
     }
+    
+    public List<Pasajeros> listarPasajerosPorDni(String dni) {
+        ArrayList<Pasajeros> listaPasajeros = new ArrayList<>();
+        String sql = "SELECT nombre, apellido, dni, correo, telefono FROM pasajeros WHERE dni = ? AND estado = 1";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, dni);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Pasajeros pasaj = new Pasajeros();
+                
+                pasaj.setNombre(rs.getString("nombre"));
+                pasaj.setApellido(rs.getString("apellido"));
+                pasaj.setDni(rs.getString("dni"));
+                pasaj.setCorreo(rs.getString("correo"));
+                pasaj.setTelefono(rs.getString("telefono"));
+               
+
+                listaPasajeros.add(pasaj);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
+        }
+        return listaPasajeros;
+    }
 }

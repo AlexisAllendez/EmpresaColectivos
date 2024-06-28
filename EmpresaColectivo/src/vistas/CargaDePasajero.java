@@ -4,7 +4,10 @@
  */
 package vistas;
 
+import accesoADatos.PasajerosData;
+import entidades.Pasajeros;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,9 +15,8 @@ import java.awt.Color;
  */
 public class CargaDePasajero extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CargaDePasajero
-     */
+    Pasajeros pasajero = null;
+    
     public CargaDePasajero() {
         initComponents();
     }
@@ -78,6 +80,11 @@ public class CargaDePasajero extends javax.swing.JPanel {
                 jBGuardarMouseExited(evt);
             }
         });
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         jBLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         jBLimpiar.setForeground(new java.awt.Color(102, 102, 102));
@@ -89,6 +96,11 @@ public class CargaDePasajero extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBLimpiarMouseExited(evt);
+            }
+        });
+        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarActionPerformed(evt);
             }
         });
 
@@ -373,8 +385,49 @@ public class CargaDePasajero extends javax.swing.JPanel {
             jTCorreo.setText("Ingrese su correo electronico");
             jTCorreo.setForeground(Color.GRAY);
         }
+        
+        
+        
     }//GEN-LAST:event_jTTelefonoMousePressed
 
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        // TODO add your handling code here:
+        if(jTDNI.getText().isEmpty() || jTNombre.getText().isEmpty() || jTApellido.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTTelefono.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos para guardar un Pasajero");
+        }else{
+            String dni = jTDNI.getText();
+            String nombre = jTNombre.getText();
+            String apellido = jTApellido.getText();
+            String correo = jTCorreo.getText();
+            String telefono = jTTelefono.getText();
+            boolean estado = true;
+            
+           pasajero = new Pasajeros(nombre, apellido, dni, correo, telefono, estado);
+           
+           String texto = "DESEA GUARDAR EL/LA PASAJERO:\n"+"Nombre: " + nombre
+                   +"\nApellido: " + apellido + "\nDNI: " + dni;
+           int guardar = JOptionPane.showConfirmDialog(this,texto, "CONFIRMAR PASAJERO", JOptionPane.YES_NO_OPTION);
+           if(guardar == 0){
+               new PasajerosData().guardarPasajero(pasajero);
+               limpiarCampos();
+           }
+        }
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+    }//GEN-LAST:event_jBLimpiarActionPerformed
+
+    private void limpiarCampos(){
+        
+        jTDNI.setText("");
+        jTNombre.setText("");
+        jTApellido.setText("");
+        jTCorreo.setText("");
+        jTTelefono.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
