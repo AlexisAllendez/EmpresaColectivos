@@ -339,27 +339,27 @@ public class cargaDeColectivos extends javax.swing.JPanel {
    
     private static void inicializarCapacidades() {
         capacidadMap = new HashMap<>();
-        capacidadMap.put("VolksBus", "50");
-        capacidadMap.put("Meteor", "60");
-        capacidadMap.put("Intouro", "40");
-        capacidadMap.put("Citaro", "45");
-        capacidadMap.put("Citywide", "55");
-        capacidadMap.put("K-series", "65");
-          capacidadMap.put("Paradise", "60");
-          capacidadMap.put("Viaggio", "42");
+        capacidadMap.put("VolksBus", "20");
+        capacidadMap.put("Meteor", "25");
+        capacidadMap.put("Intouro", "30");
+        capacidadMap.put("Citaro", "22");
+        capacidadMap.put("Citywide", "28");
+        capacidadMap.put("K-series", "35");
+          capacidadMap.put("Paradise", "32");
+          capacidadMap.put("Viaggio", "15");
     }
     
    private static void actualizarCombo2(JComboBox<String> jComboBox2, String valorSeleccionado) {
-        // Limpiar el segundo JComboBox
+      
         jComboBox2.removeAllItems();
 
-        // Definir las opciones para cada marca de vehículos
+        
         String[] VolkswagenOpciones = {"VolksBus", "Meteor"};
         String[] MercedesOpciones = {"OL", "OH"};
         String[] ScaniaOpcines = {"Citywide", "K-series"};
-        String[] MarcopoloOptions = {}; // Asumo que Marcopolo no tiene opciones, puedes agregar si es necesario
+        String[] MarcopoloOptions = {}; 
 
-        // Agregar las opciones relevantes al segundo JComboBox según la marca seleccionada
+        
         switch (valorSeleccionado) {
             case "Volkswagen":
                 for (String opcion : VolkswagenOpciones) {

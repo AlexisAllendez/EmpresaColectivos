@@ -4,37 +4,64 @@
  */
 package vistas;
 
+import accesoADatos.ColectivosData;
+import accesoADatos.HorarioData;
+import accesoADatos.PasajeData;
+import accesoADatos.PasajerosData;
+import accesoADatos.RutaData;
+import entidades.Colectivos;
+import entidades.Horarios;
+import entidades.Pasaje;
+import entidades.Pasajeros;
+import entidades.Ruta;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-/**
- *
- * @author 54266
- */
-public class venderPasajes extends javax.swing.JPanel{
+public class venderPasajes extends javax.swing.JPanel {
 
-   
+    List<Pasajeros> listaPasajeros;
+    List<Ruta> listaRutasOrigen;
+    List <Colectivos> listaColectivos;
+    List<Horarios> listaHorarios;
+
+    private ArrayList lista = new ArrayList();
+    RutaData rutaData = new RutaData();
+    PasajerosData pasajeroData = new PasajerosData();
+    HorarioData horarioData = new HorarioData();
+    ColectivosData colectivoData = new ColectivosData();
+
     public venderPasajes() {
        initComponents();
-        
+       listaHorarios = horarioData.listarHorarios();
+       listaPasajeros= pasajeroData.listarPasajeros();
+       listaRutasOrigen = rutaData.listarRutasPorOrigenBusqueda();
+       listaColectivos = colectivoData.listarColectivos();
+   
+     llenarComboPasajero();
+     llenarComboRutaorigen();
+     llenarComboHorarios();
+     llenarComboColectivos();
    }
 
-  private void mostrarCargarUsuario() {
-        crearUsuario p1 = new crearUsuario();
-        p1.setSize(817, 602);
-        p1.setLocation(0, 0);
-
-        jPFondo3.removeAll();
-        jPFondo3.add(p1, BorderLayout.CENTER);
-        jPFondo3.revalidate();
-        jPFondo3.repaint();
-    }
-
-  
-    
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,32 +70,26 @@ public class venderPasajes extends javax.swing.JPanel{
         jPFondo3 = new javax.swing.JPanel();
         jLBuscarPasaje = new javax.swing.JLabel();
         jLFecha = new javax.swing.JLabel();
-        jDateChFecha = new com.toedter.calendar.JDateChooser();
+        jCHFecha = new com.toedter.calendar.JDateChooser();
         jPanel11 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        jTDNI = new javax.swing.JTextField();
-        jBBuscar = new javax.swing.JButton();
-        jBCrearUsuario = new javax.swing.JButton();
-        jTDNI2 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jCBPasajero = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLRuta = new javax.swing.JLabel();
         jLOrigen = new javax.swing.JLabel();
-        jLDestino = new javax.swing.JLabel();
         jCBOrigen = new javax.swing.JComboBox<>();
-        jCBDestino = new javax.swing.JComboBox<>();
-        jLHorario = new javax.swing.JLabel();
-        jCBHorario = new javax.swing.JComboBox<>();
-        jPanel4 = new javax.swing.JPanel();
-        jLPrecio = new javax.swing.JLabel();
         jBVender = new javax.swing.JButton();
         jBLimpiar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
         jLAsiento = new javax.swing.JLabel();
         jCBAsiento = new javax.swing.JComboBox<>();
-        jBAsignar = new javax.swing.JButton();
         jLCargaColectivo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jCBColectivo = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jCBHorario = new javax.swing.JComboBox<>();
+        jLHorario = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(817, 602));
 
@@ -77,14 +98,14 @@ public class venderPasajes extends javax.swing.JPanel{
 
         jLBuscarPasaje.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLBuscarPasaje.setForeground(new java.awt.Color(51, 51, 51));
-        jLBuscarPasaje.setText("Buscar Pasaje");
+        jLBuscarPasaje.setText("Vender Pasaje");
 
         jLFecha.setForeground(new java.awt.Color(102, 102, 102));
         jLFecha.setText("Fecha");
 
-        jDateChFecha.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChFecha.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-        jDateChFecha.setForeground(new java.awt.Color(102, 102, 102));
+        jCHFecha.setBackground(new java.awt.Color(255, 255, 255));
+        jCHFecha.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
+        jCHFecha.setForeground(new java.awt.Color(102, 102, 102));
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
@@ -92,81 +113,47 @@ public class venderPasajes extends javax.swing.JPanel{
         jLabel26.setForeground(new java.awt.Color(51, 51, 51));
         jLabel26.setText("Pasajero");
 
-        jTDNI.setBackground(new java.awt.Color(255, 255, 255));
-        jTDNI.setForeground(new java.awt.Color(102, 102, 102));
-        jTDNI.setText("Ingrese el DNI");
-        jTDNI.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 102, 102)));
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Pasajero");
 
-        jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        jBBuscar.setForeground(new java.awt.Color(102, 102, 102));
-        jBBuscar.setText("Buscar");
-        jBBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-        jBBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jBBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jBBuscarMouseExited(evt);
+        jCBPasajero.setBackground(new java.awt.Color(255, 255, 255));
+        jCBPasajero.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCBPasajero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCBPasajeroMouseClicked(evt);
             }
         });
-
-        jBCrearUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        jBCrearUsuario.setForeground(new java.awt.Color(102, 102, 102));
-        jBCrearUsuario.setText("Crear Usuario");
-        jBCrearUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-        jBCrearUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jBCrearUsuarioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jBCrearUsuarioMouseExited(evt);
-            }
-        });
-        jBCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jCBPasajero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jCBPasajeroActionPerformed(evt);
             }
         });
-
-        jTDNI2.setBackground(new java.awt.Color(255, 255, 255));
-        jTDNI2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(242, 242, 242)
-                .addComponent(jLabel26)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jTDNI)
+                        .addComponent(jLabel26)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTDNI2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jBCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                        .addComponent(jCBPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addComponent(jLabel26)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTDNI2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jCBPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -179,18 +166,10 @@ public class venderPasajes extends javax.swing.JPanel{
         jLOrigen.setForeground(new java.awt.Color(102, 102, 102));
         jLOrigen.setText("Origen");
 
-        jLDestino.setForeground(new java.awt.Color(102, 102, 102));
-        jLDestino.setText("Destino");
-
         jCBOrigen.setBackground(new java.awt.Color(255, 255, 255));
         jCBOrigen.setForeground(new java.awt.Color(102, 102, 102));
-        jCBOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCBOrigen.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
-
-        jCBDestino.setBackground(new java.awt.Color(255, 255, 255));
-        jCBDestino.setForeground(new java.awt.Color(102, 102, 102));
-        jCBDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCBDestino.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCBOrigen.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -199,16 +178,11 @@ public class venderPasajes extends javax.swing.JPanel{
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLRuta)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLOrigen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCBOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(jLDestino))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLRuta)
-                        .addGap(43, 43, 43)))
-                .addComponent(jCBDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jCBOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -218,41 +192,8 @@ public class venderPasajes extends javax.swing.JPanel{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLOrigen)
-                    .addComponent(jCBDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLDestino))
+                    .addComponent(jLOrigen))
                 .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jLHorario.setForeground(new java.awt.Color(102, 102, 102));
-        jLHorario.setText("Horario");
-
-        jCBHorario.setBackground(new java.awt.Color(255, 255, 255));
-        jCBHorario.setForeground(new java.awt.Color(102, 102, 102));
-        jCBHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCBHorario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
-
-        jLPrecio.setForeground(new java.awt.Color(51, 51, 51));
-        jLPrecio.setText("Precio");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jLPrecio)
-                .addContainerGap(70, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLPrecio)
-                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         jBVender.setBackground(new java.awt.Color(255, 255, 255));
@@ -265,6 +206,11 @@ public class venderPasajes extends javax.swing.JPanel{
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBVenderMouseExited(evt);
+            }
+        });
+        jBVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBVenderActionPerformed(evt);
             }
         });
 
@@ -284,48 +230,24 @@ public class venderPasajes extends javax.swing.JPanel{
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
 
-        jTable.setBackground(new java.awt.Color(255, 255, 255));
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable);
-
-        jLAsiento.setForeground(new java.awt.Color(51, 51, 51));
-        jLAsiento.setText("Asiento");
+        jLAsiento.setForeground(new java.awt.Color(102, 102, 102));
+        jLAsiento.setText("Seleccionar asiento");
 
         jCBAsiento.setBackground(new java.awt.Color(255, 255, 255));
         jCBAsiento.setForeground(new java.awt.Color(102, 102, 102));
-        jCBAsiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCBAsiento.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-
-        jBAsignar.setBackground(new java.awt.Color(255, 255, 255));
-        jBAsignar.setForeground(new java.awt.Color(102, 102, 102));
-        jBAsignar.setText("Asignar Unidad");
-        jBAsignar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
-        jBAsignar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jBAsignarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jBAsignarMouseExited(evt);
-            }
-        });
-        jBAsignar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAsignarActionPerformed(evt);
-            }
-        });
+        jCBAsiento.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCBAsiento.setEnabled(false);
 
         jLCargaColectivo.setForeground(new java.awt.Color(51, 51, 51));
-        jLCargaColectivo.setText("Carga de colectivo");
+        jLCargaColectivo.setText("Seleccion de colectivo");
+
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText("Colectivo");
+
+        jCBColectivo.setBackground(new java.awt.Color(255, 255, 255));
+        jCBColectivo.setForeground(new java.awt.Color(102, 102, 102));
+        jCBColectivo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCBColectivo.setEnabled(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -336,33 +258,59 @@ public class venderPasajes extends javax.swing.JPanel{
                 .addComponent(jLCargaColectivo)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLAsiento)
-                        .addGap(72, 72, 72))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCBAsiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCBColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLAsiento)
+                .addGap(18, 18, 18)
+                .addComponent(jCBAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addComponent(jLCargaColectivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLAsiento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCBAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jCBColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLAsiento)
+                    .addComponent(jCBAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
+        );
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
+
+        jCBHorario.setBackground(new java.awt.Color(255, 255, 255));
+        jCBHorario.setForeground(new java.awt.Color(102, 102, 102));
+        jCBHorario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCBHorario.setEnabled(false);
+
+        jLHorario.setForeground(new java.awt.Color(102, 102, 102));
+        jLHorario.setText("Horario");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLHorario)
+                .addGap(18, 18, 18)
+                .addComponent(jCBHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCBHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLHorario))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout jPFondo3Layout = new javax.swing.GroupLayout(jPFondo3);
@@ -373,29 +321,25 @@ public class venderPasajes extends javax.swing.JPanel{
                 .addGap(43, 43, 43)
                 .addComponent(jLFecha)
                 .addGap(40, 40, 40)
-                .addComponent(jDateChFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 573, Short.MAX_VALUE))
+                .addComponent(jCHFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPFondo3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPFondo3Layout.createSequentialGroup()
-                        .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLBuscarPasaje)
-                            .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPFondo3Layout.createSequentialGroup()
-                                    .addComponent(jLHorario)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                    .addComponent(jCBHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(9, 9, 9))
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                        .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPFondo3Layout.createSequentialGroup()
+                                .addComponent(jLBuscarPasaje)
+                                .addGap(12, 12, 12)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBVender, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         jPFondo3Layout.setVerticalGroup(
             jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,26 +348,24 @@ public class venderPasajes extends javax.swing.JPanel{
                 .addComponent(jLBuscarPasaje)
                 .addGap(2, 2, 2)
                 .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCHFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLFecha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPFondo3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPFondo3Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addComponent(jBVender, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53)
+                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCBHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLHorario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -437,34 +379,6 @@ public class venderPasajes extends javax.swing.JPanel{
             .addComponent(jPFondo3, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAsignarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBAsignarActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        mostrarCargarUsuario();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jBBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseEntered
-        jBBuscar.setBackground(new Color(0,102,102));
-        jBBuscar.setForeground(new Color(255,255,255));
-    }//GEN-LAST:event_jBBuscarMouseEntered
-
-    private void jBBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseExited
-         jBBuscar.setBackground(new Color(255,255,255)); 
-         jBBuscar.setForeground(new Color(102,102,102));
-    }//GEN-LAST:event_jBBuscarMouseExited
-
-    private void jBCrearUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBCrearUsuarioMouseEntered
-        jBCrearUsuario.setBackground(new Color(0,102,102));
-        jBCrearUsuario.setForeground(new Color(255,255,255));
-    }//GEN-LAST:event_jBCrearUsuarioMouseEntered
-
-    private void jBCrearUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBCrearUsuarioMouseExited
-         jBCrearUsuario.setBackground(new Color(255,255,255)); 
-         jBCrearUsuario.setForeground(new Color(102,102,102));
-    }//GEN-LAST:event_jBCrearUsuarioMouseExited
 
     private void jBVenderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBVenderMouseEntered
         jBVender.setBackground(new Color(0,102,102));
@@ -486,46 +400,119 @@ public class venderPasajes extends javax.swing.JPanel{
          jBLimpiar.setForeground(new Color(102,102,102));
     }//GEN-LAST:event_jBLimpiarMouseExited
 
-    private void jBAsignarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAsignarMouseEntered
-        jBAsignar.setBackground(new Color(0,102,102));
-        jBAsignar.setForeground(new Color(255,255,255));
-    }//GEN-LAST:event_jBAsignarMouseEntered
+    private void jCBPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPasajeroActionPerformed
+        
+    }//GEN-LAST:event_jCBPasajeroActionPerformed
 
-    private void jBAsignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAsignarMouseExited
-         jBAsignar.setBackground(new Color(255,255,255)); 
-         jBAsignar.setForeground(new Color(102,102,102));
-    }//GEN-LAST:event_jBAsignarMouseExited
+    private void jBVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVenderActionPerformed
+      
+    }//GEN-LAST:event_jBVenderActionPerformed
+
+    private void jCBPasajeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCBPasajeroMouseClicked
+        if(jCBPasajero != null){
+        jCBOrigen.setEnabled(true);
+        jCBHorario.setEnabled(true);
+        jCBColectivo.setEnabled(true);
+        jCBAsiento.setEnabled(true);
+        }
+    }//GEN-LAST:event_jCBPasajeroMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAsignar;
-    private javax.swing.JButton jBBuscar;
-    private javax.swing.JButton jBCrearUsuario;
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBVender;
-    private javax.swing.JComboBox<String> jCBAsiento;
-    private javax.swing.JComboBox<String> jCBDestino;
+    private javax.swing.JComboBox<Integer> jCBAsiento;
+    private javax.swing.JComboBox<String> jCBColectivo;
     private javax.swing.JComboBox<String> jCBHorario;
     private javax.swing.JComboBox<String> jCBOrigen;
-    private com.toedter.calendar.JDateChooser jDateChFecha;
+    private javax.swing.JComboBox<String> jCBPasajero;
+    private com.toedter.calendar.JDateChooser jCHFecha;
     private javax.swing.JLabel jLAsiento;
     private javax.swing.JLabel jLBuscarPasaje;
     private javax.swing.JLabel jLCargaColectivo;
-    private javax.swing.JLabel jLDestino;
     private javax.swing.JLabel jLFecha;
     private javax.swing.JLabel jLHorario;
     private javax.swing.JLabel jLOrigen;
-    private javax.swing.JLabel jLPrecio;
     private javax.swing.JLabel jLRuta;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JPanel jPFondo3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTDNI;
-    private javax.swing.JTextField jTDNI2;
-    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
+
+
+    private void llenarCombo(JComboBox<String> combo, Collection lista){
+        combo.removeAllItems();
+        combo.addItem("---");
+        for (Object x : lista){
+            combo.addItem(x.toString());
+        }
+    }
+    
+    
+    private String recuperarDato(String cadena, String patron){
+        Pattern pattern = Pattern.compile(patron, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(cadena);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return "No se encontro";
+    }
+
+ 
+    public void llenarComboPasajero(){
+        for (Pasajeros pasajeros : listaPasajeros) {
+            jCBPasajero.addItem(pasajeros.getNombre()+", "+pasajeros.getApellido());
+            
+        }
+        jCBPasajero.setSelectedIndex(-1);
+    }
+      public void llenarComboRutaorigen(){
+        for (Ruta rutas : listaRutasOrigen) {
+            jCBOrigen.addItem(rutas.getOrigen());
+            
+        }
+        jCBOrigen.setSelectedIndex(-1);
+    }
+   
+           public void llenarComboHorarios(){
+        for (Horarios Horariosmuestra : listaHorarios) {
+           jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " +"Llegada "+ Horariosmuestra.getHoraLLegada());
+        }
+        jCBHorario.setSelectedIndex(-1);
+    }
+   
+    private void llenarComboColectivos() {
+              for (Colectivos cole : listaColectivos) {
+           jCBColectivo.addItem(cole.getMarca() + " - " + cole.getModelo());
+        }
+        jCBColectivo.setSelectedIndex(-1);
+    }
+    
+    private void llenarComboasientos() {
+              for (Colectivos cole : listaColectivos) {
+           jCBAsiento.addItem(cole.getCapacidad());
+        }
+        jCBAsiento.setSelectedIndex(-1);
+    }
+    
+    
+    private void limpiarCampos() {
+ 
+        jCBOrigen.setSelectedIndex(-1);
+
+        jCBHorario.setSelectedIndex(-1);
+        jCBColectivo.setSelectedIndex(-1);
+        jCHFecha.setDate(Date.valueOf(LocalDate.now()));        
+    }
+
+
 }
+
+
+
+
