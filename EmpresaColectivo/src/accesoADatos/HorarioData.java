@@ -5,7 +5,7 @@
 package accesoADatos;
 
 import entidades.Horarios;
-import entidades.Rutas;
+import entidades.Ruta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class HorarioData {
      private Connection con = null;
-    private RutasData rutaData = new RutasData();
+    private RutaData rutaData = new RutaData();
     
 
     public HorarioData() {
@@ -67,7 +67,7 @@ public class HorarioData {
                 horario = new Horarios();
                 
                 horario.setIdHorarios(rs.getInt("id_horario"));
-                Rutas ruta = new RutasData().buscarRuta(rs.getInt("id_ruta"));
+                Ruta ruta = new RutaData().buscarRuta(rs.getInt("id_ruta"));
                 horario.setRuta(ruta);
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());

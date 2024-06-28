@@ -4,7 +4,11 @@
  */
 package vistas;
 
+import accesoADatos.RutaData;
+import entidades.Ruta;
 import java.awt.Color;
+import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +16,12 @@ import java.awt.Color;
  */
 public class cargaRuta extends javax.swing.JPanel {
 
+    Ruta ruta = null;
+
     public cargaRuta() {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,9 +32,9 @@ public class cargaRuta extends javax.swing.JPanel {
         jLDestino = new javax.swing.JLabel();
         jLDuracion = new javax.swing.JLabel();
         jTOrigen = new javax.swing.JTextField();
-        jSP1 = new javax.swing.JSpinner();
+        jSHora = new javax.swing.JSpinner();
         jTDestino = new javax.swing.JTextField();
-        jSP2 = new javax.swing.JSpinner();
+        jSMinutos = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jBGuardar = new javax.swing.JButton();
         jBLimpiar2 = new javax.swing.JButton();
@@ -69,7 +74,7 @@ public class cargaRuta extends javax.swing.JPanel {
             }
         });
 
-        jSP1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jSHora.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jTDestino.setBackground(new java.awt.Color(255, 255, 255));
         jTDestino.setForeground(new java.awt.Color(153, 153, 153));
@@ -81,7 +86,7 @@ public class cargaRuta extends javax.swing.JPanel {
             }
         });
 
-        jSP2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jSMinutos.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText(":");
@@ -98,6 +103,11 @@ public class cargaRuta extends javax.swing.JPanel {
                 jBGuardarMouseExited(evt);
             }
         });
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         jBLimpiar2.setBackground(new java.awt.Color(255, 255, 255));
         jBLimpiar2.setForeground(new java.awt.Color(102, 102, 102));
@@ -109,6 +119,11 @@ public class cargaRuta extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBLimpiar2MouseExited(evt);
+            }
+        });
+        jBLimpiar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiar2ActionPerformed(evt);
             }
         });
 
@@ -129,11 +144,11 @@ public class cargaRuta extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSHora, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSP2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTDestino)
                             .addComponent(jTOrigen))
                         .addGap(111, 111, 111)
@@ -171,8 +186,8 @@ public class cargaRuta extends javax.swing.JPanel {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLDuracion)
-                            .addComponent(jSP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSP2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -238,31 +253,55 @@ public class cargaRuta extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiar2MouseExited
 
     private void jTOrigenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTOrigenMousePressed
-          if (jTOrigen.getText().equals("Ingrese origen")) {
+        if (jTOrigen.getText().equals("Ingrese origen")) {
             jTOrigen.setText("");
-            jTOrigen.setForeground(Color.black);
         }
         if (jTDestino.getText().isEmpty()) {
-          jTDestino.setText("Ingrese destino");
-           jTDestino.setForeground(Color.GRAY);
+            jTDestino.setText("Ingrese destino");
         }
     }//GEN-LAST:event_jTOrigenMousePressed
 
     private void jTDestinoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDestinoMousePressed
-          if (jTDestino.getText().equals("Ingrese destino")) {
-           jTDestino.setText("");
-           jTDestino.setForeground(Color.black);
+        if (jTDestino.getText().equals("Ingrese destino")) {
+            jTDestino.setText("");
         }
         if (jTOrigen.getText().isEmpty()) {
             jTOrigen.setText("Ingrese origen");
-           jTOrigen.setForeground(Color.gray);
         }
     }//GEN-LAST:event_jTDestinoMousePressed
 
     private void jTOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTOrigenActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTOrigenActionPerformed
 
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        String origen = jTOrigen.getText().toUpperCase();
+        String destino = jTDestino.getText().toUpperCase();
+        int horas = Integer.parseInt(jSHora.getValue().toString());
+        int minutos = Integer.parseInt(jSMinutos.getValue().toString());
+        LocalTime tiempoEstimado = LocalTime.of(horas, minutos);
+        boolean estado = true;
+
+        if (jTOrigen.getText().isEmpty() || jTDestino.getText().isEmpty() || (horas <= 0 && minutos <= 0)) {
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para continuar");
+        } else {
+            String texto = "DESEA GUARDAR LA RUTA:\nRuta: " + origen + " - " + destino + "\nTiempo est.: " + tiempoEstimado;
+            ruta = new Ruta(origen, destino, tiempoEstimado, estado);
+            new RutaData().guardarRuta(ruta);
+            limpiarCampos();
+        }
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBLimpiar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiar2ActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_jBLimpiar2ActionPerformed
+
+    public void limpiarCampos() {
+        jTDestino.setText("");
+        jTOrigen.setText("");
+        jSHora.setValue(0);
+        jSMinutos.setValue(0);
+        ruta = null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
@@ -274,8 +313,8 @@ public class cargaRuta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner jSP1;
-    private javax.swing.JSpinner jSP2;
+    private javax.swing.JSpinner jSHora;
+    private javax.swing.JSpinner jSMinutos;
     private javax.swing.JTextField jTDestino;
     private javax.swing.JTextField jTOrigen;
     // End of variables declaration//GEN-END:variables

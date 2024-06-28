@@ -4,7 +4,7 @@ package accesoADatos;
 import entidades.Colectivos;
 import entidades.Pasaje;
 import entidades.Pasajeros;
-import entidades.Rutas;
+import entidades.Ruta;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class PasajeData {
        private Connection con = null;
     private PasajerosData pasajeroData = null;
-    private RutasData rutaData =  null;
+    private RutaData rutaData =  null;
     private ColectivosData coleData =  null;
     
 
@@ -78,7 +78,7 @@ public class PasajeData {
                 pasaje.setPasajero(psjr);
                 Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
                 pasaje.setColectivo(cole);
-                Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
+                Ruta ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
                 pasaje.setRuta(ruta);
                 pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
@@ -126,7 +126,7 @@ public class PasajeData {
                 Pasaje pasaje = new Pasaje();
                 pasajeroData = new PasajerosData();
                 coleData = new ColectivosData();
-                rutaData = new RutasData();
+                rutaData = new RutaData();
                 
                 pasaje.setIdPasaje(rs.getInt("id_pasajes"));
                 pasaje.setPasajero(pasajeroData.buscarPasajero(rs.getInt("id_pasajero")));
@@ -157,7 +157,7 @@ public class PasajeData {
                 Pasaje pasaje = new Pasaje();
                 pasajeroData = new PasajerosData();
                 coleData = new ColectivosData();
-                rutaData = new RutasData();
+                rutaData = new RutaData();
                 
                 pasaje.setIdPasaje(rs.getInt("id_pasajes"));
                 pasaje.setPasajero(pasajeroData.buscarPasajero(rs.getInt("id_pasajero")));
@@ -221,7 +221,7 @@ public class PasajeData {
                 pasaje.setPasajero(psjr);
                 Colectivos cole = new ColectivosData().buscarColectivo(rs.getInt("id_colectivo"));
                 pasaje.setColectivo(cole);
-                Rutas ruta = new RutasData().buscarRuta(rs.getInt("id_ruta"));
+                Ruta ruta = new RutaData().buscarRuta(rs.getInt("id_ruta"));
                 pasaje.setRuta(ruta);
                 pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());

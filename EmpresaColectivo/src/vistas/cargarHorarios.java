@@ -4,16 +4,40 @@
  */
 package vistas;
 
+import accesoADatos.HorarioData;
+import accesoADatos.RutaData;
+import entidades.Horarios;
+import entidades.Ruta;
 import java.awt.Color;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 public class cargarHorarios extends javax.swing.JPanel {
 
-  
+    ArrayList<Ruta> listaRutas;
+    Horarios horario = null;
+    Ruta ruta;
+    LocalTime horaSalida;
+    LocalTime horaLlegada;
+
     public cargarHorarios() {
         initComponents();
+        formatoSpinner();
+        jCRuta.removeAllItems();
+        listaRutas = new RutaData().listarRutas();
+        llenarCombo();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -42,20 +66,35 @@ public class cargarHorarios extends javax.swing.JPanel {
 
         jCRuta.setBackground(new java.awt.Color(255, 255, 255));
         jCRuta.setForeground(new java.awt.Color(102, 102, 102));
-        jCRuta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCRuta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCRuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCRutaActionPerformed(evt);
+            }
+        });
 
         jLHorarioSalida.setBackground(new java.awt.Color(51, 51, 51));
         jLHorarioSalida.setForeground(new java.awt.Color(102, 102, 102));
         jLHorarioSalida.setText("Horario de salida ");
 
         jSPHorarioSalida.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jSPHorarioSalida.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSPHorarioSalidaStateChanged(evt);
+            }
+        });
 
         jLHorarioLlegada.setForeground(new java.awt.Color(102, 102, 102));
         jLHorarioLlegada.setText("Horario Llegada");
 
+        jTHorarioLlegada.setEditable(false);
         jTHorarioLlegada.setBackground(new java.awt.Color(255, 255, 255));
         jTHorarioLlegada.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jTHorarioLlegada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTHorarioLlegadaActionPerformed(evt);
+            }
+        });
 
         jBGuardar.setBackground(new java.awt.Color(255, 255, 255));
         jBGuardar.setForeground(new java.awt.Color(102, 102, 102));
@@ -69,6 +108,11 @@ public class cargarHorarios extends javax.swing.JPanel {
                 jBGuardarMouseExited(evt);
             }
         });
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         jBLimpiar2.setBackground(new java.awt.Color(255, 255, 255));
         jBLimpiar2.setForeground(new java.awt.Color(102, 102, 102));
@@ -80,6 +124,11 @@ public class cargarHorarios extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBLimpiar2MouseExited(evt);
+            }
+        });
+        jBLimpiar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiar2ActionPerformed(evt);
             }
         });
 
@@ -170,24 +219,108 @@ public class cargarHorarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBGuardarMouseEntered
-        jBGuardar.setBackground(new Color(0,102,102));
-        jBGuardar.setForeground(new Color(255,255,255));
+        jBGuardar.setBackground(new Color(0, 102, 102));
+        jBGuardar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBGuardarMouseEntered
 
     private void jBGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBGuardarMouseExited
-        jBGuardar.setBackground(new Color(255,255,255));
-        jBGuardar.setForeground(new Color(102,102,102));
+        jBGuardar.setBackground(new Color(255, 255, 255));
+        jBGuardar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBGuardarMouseExited
 
     private void jBLimpiar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiar2MouseEntered
-        jBLimpiar2.setBackground(new Color(0,102,102));
-        jBLimpiar2.setForeground(new Color(255,255,255));
+        jBLimpiar2.setBackground(new Color(0, 102, 102));
+        jBLimpiar2.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBLimpiar2MouseEntered
 
     private void jBLimpiar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiar2MouseExited
-        jBLimpiar2.setBackground(new Color(255,255,255));
-        jBLimpiar2.setForeground(new Color(102,102,102));
+        jBLimpiar2.setBackground(new Color(255, 255, 255));
+        jBLimpiar2.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBLimpiar2MouseExited
+
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        if(ruta==null||horaLlegada==null||horaSalida==null){
+            JOptionPane.showMessageDialog(this, "Complete todos los campos", "CAMPOS VACIOS", JOptionPane.ERROR_MESSAGE);
+        }else{
+            guardar();
+        }
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBLimpiar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiar2ActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_jBLimpiar2ActionPerformed
+
+    private void jSPHorarioSalidaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSPHorarioSalidaStateChanged
+        calcularLlegada();
+    }//GEN-LAST:event_jSPHorarioSalidaStateChanged
+
+    private void jTHorarioLlegadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTHorarioLlegadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTHorarioLlegadaActionPerformed
+
+    private void jCRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCRutaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jCRutaActionPerformed
+
+    public void formatoSpinner() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Date hora = sdf.parse("00:00");
+
+            SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
+            jSPHorarioSalida.setModel(sm);
+
+            JSpinner.DateEditor de = new JSpinner.DateEditor(jSPHorarioSalida, "HH:mm");
+            jSPHorarioSalida.setEditor(de);
+
+            JFormattedTextField txt = ((JSpinner.DefaultEditor) jSPHorarioSalida.getEditor()).getTextField();
+            txt.setEditable(false);
+
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "El formato de horario ingresado no es válido, reintente.");
+        }
+    }
+
+    public void llenarCombo() {
+        for (Ruta rt : listaRutas) {
+            jCRuta.addItem(rt.toString());
+        }
+        jCRuta.setSelectedIndex(-1);
+    }
+
+    public void guardar() {
+        horario = new Horarios(ruta, horaLlegada, horaSalida, true);
+        new HorarioData().guardarHorario(horario);
+        limpiarCampos();
+    }
+
+    public void limpiarCampos() {
+        formatoSpinner();
+        jTHorarioLlegada.setText("");
+        jCRuta.setSelectedIndex(-1);
+        ruta = null;
+        horaSalida = null;
+        horaLlegada = null;
+    }
+
+    private void calcularLlegada() {
+        LocalTime s = LocalTime.of(00, 00);
+        int indice = jCRuta.getSelectedIndex();
+        if(indice>=0){
+            ruta = listaRutas.get(indice);      //Recupero la ruta seleccionada
+
+    // Obtener la hora de salida del JSpinner y convertirla a LocalTime
+            Time time = new Time((long)jSPHorarioSalida.getValue().hashCode());
+            horaSalida = time.toLocalTime();
+
+    //         Calcular la hora de llegada sumando la duración estimada de la ruta a la hora de salida
+            LocalTime duracion = ruta.getDuracionEst();
+            long min = s.until(duracion, ChronoUnit.MINUTES);
+            horaLlegada = horaSalida.plusMinutes(min);
+            jTHorarioLlegada.setText(horaLlegada.toString());            
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,7 +4,15 @@
  */
 package vistas;
 
+import accesoADatos.HorarioData;
+import accesoADatos.RutaData;
+import entidades.Horarios;
+import entidades.Ruta;
 import java.awt.Color;
+import java.time.LocalTime;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,9 +20,28 @@ import java.awt.Color;
  */
 public class buscarHorarios extends javax.swing.JPanel {
 
-   
+    RutaData rutaData = new RutaData();
+    HorarioData horarioData = new HorarioData();
+    List<Horarios> listadoHorariosXID;
+    List<Ruta> listaRutas;
+    List<Horarios> listadoHorarios;
+    List<Horarios> listaXhora;
+    List<Horarios> listaXhorayRuta;
+
+    private DefaultTableModel modeloTabla = new DefaultTableModel() {
+        public boolean isCellEditable(int i, int i1) {
+            return false;
+        }
+    };
+
     public buscarHorarios() {
         initComponents();
+        armarCabecera();
+        listaRutas = rutaData.listarRutas();
+        listadoHorarios = horarioData.listarHorarios();
+        llenarTablas();
+        llenarComboRuta();
+        llenarComboHoraSalida();
     }
 
     @SuppressWarnings("unchecked")
@@ -23,13 +50,13 @@ public class buscarHorarios extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLRuta = new javax.swing.JLabel();
         jLHorarioSalida = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jCRuta = new javax.swing.JComboBox<>();
+        jCHoraSalida = new javax.swing.JComboBox<>();
         jBBuscar = new javax.swing.JButton();
         jBLimpiar = new javax.swing.JButton();
         jLBuscarHorario = new javax.swing.JLabel();
@@ -40,9 +67,9 @@ public class buscarHorarios extends javax.swing.JPanel {
         jPanel1.setForeground(new java.awt.Color(102, 102, 102));
         jPanel1.setPreferredSize(new java.awt.Dimension(817, 602));
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 255));
-        jTable1.setForeground(new java.awt.Color(0, 204, 204));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setBackground(new java.awt.Color(255, 255, 255));
+        jTable.setForeground(new java.awt.Color(0, 0, 0));
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -56,10 +83,10 @@ public class buscarHorarios extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Horario", "Llegada", "Ruta"
+                "Salida", "Llegada", "Ruta"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
@@ -74,9 +101,11 @@ public class buscarHorarios extends javax.swing.JPanel {
         jLHorarioSalida.setForeground(new java.awt.Color(102, 102, 102));
         jLHorarioSalida.setText("Horario de salida");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCRuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCRutaActionPerformed(evt);
+            }
+        });
 
         jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
         jBBuscar.setForeground(new java.awt.Color(102, 102, 102));
@@ -90,6 +119,11 @@ public class buscarHorarios extends javax.swing.JPanel {
                 jBBuscarMouseExited(evt);
             }
         });
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
 
         jBLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         jBLimpiar.setForeground(new java.awt.Color(102, 102, 102));
@@ -101,6 +135,11 @@ public class buscarHorarios extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBLimpiarMouseExited(evt);
+            }
+        });
+        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarActionPerformed(evt);
             }
         });
 
@@ -123,8 +162,8 @@ public class buscarHorarios extends javax.swing.JPanel {
                     .addComponent(jLHorarioSalida))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jComboBox3, 0, 154, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jCHoraSalida, 0, 154, Short.MAX_VALUE)
+                    .addComponent(jCRuta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(83, 83, 83)
                 .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
@@ -140,12 +179,12 @@ public class buscarHorarios extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLRuta))
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLHorarioSalida)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCHoraSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,7 +218,7 @@ public class buscarHorarios extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -190,36 +229,143 @@ public class buscarHorarios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseEntered
-        jBBuscar.setBackground(new Color(0,102,102));
-        jBBuscar.setForeground(new Color(255,255,255));
+        jBBuscar.setBackground(new Color(0, 102, 102));
+        jBBuscar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBBuscarMouseEntered
 
     private void jBBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseExited
-         jBBuscar.setBackground(new Color(255,255,255)); 
-         jBBuscar.setForeground(new Color(102,102,102));
+        jBBuscar.setBackground(new Color(255, 255, 255));
+        jBBuscar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBBuscarMouseExited
 
     private void jBLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiarMouseEntered
-        jBLimpiar.setBackground(new Color(0,102,102));
-        jBLimpiar.setForeground(new Color(255,255,255));
+        jBLimpiar.setBackground(new Color(0, 102, 102));
+        jBLimpiar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBLimpiarMouseEntered
 
     private void jBLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiarMouseExited
-       jBLimpiar.setBackground(new Color(255,255,255)); 
-       jBLimpiar.setForeground(new Color(102,102,102));
+        jBLimpiar.setBackground(new Color(255, 255, 255));
+        jBLimpiar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBLimpiarMouseExited
 
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        borrarComboBox();
+        llenarTablas();
+    }//GEN-LAST:event_jBLimpiarActionPerformed
+
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        verificarYGuardar();
+        if (jCRuta.getSelectedIndex() == -1) {
+            Ruta i = (Ruta) jCRuta.getSelectedItem();
+            listadoHorariosXID = horarioData.listarHorariosXRuta(i.getIdRuta());
+            llenarComboHoraSalidaXRuta();
+            buscarTabla();
+        } else if (jCRuta.getSelectedIndex() == -1) {
+            Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
+            listaXhora = horarioData.listarHorariosXSalida(h.getHoraSalida());
+            llenarTablaHorarios();
+        } else {
+            Ruta i = (Ruta) jCRuta.getSelectedItem();
+            Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
+            listaXhorayRuta = horarioData.listarHorariosDoble(i.getIdRuta(), h.getHoraSalida());
+            llenarTablaDoble();
+        }
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
+    private void jCRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCRutaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCRutaActionPerformed
+
+    private void armarCabecera() {
+        modeloTabla.addColumn("Salida");
+        modeloTabla.addColumn("Llegada");
+        modeloTabla.addColumn("Ruta");
+        jTable.setModel(modeloTabla);
+    }
+
+    private void borrarFilas() {
+        int filas = modeloTabla.getRowCount() - 1;
+        for (int f = filas; f >= 0; f--) {
+            modeloTabla.removeRow(f);
+        }
+    }
+
+    private void llenarTablas() {
+        borrarFilas();
+        for (Horarios x : listadoHorarios) {
+            modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
+        }
+    }
+
+    public void llenarComboRuta() {
+        for (Ruta e : listaRutas) {
+            jCRuta.addItem(e);
+        }
+        jCRuta.setSelectedIndex(-1);
+    }
+
+    private void borrarComboBox() {
+        jCRuta.setSelectedIndex(-1);
+        jCHoraSalida.setSelectedIndex(-1);
+    }
+
+    public void llenarComboHoraSalida() {
+        borrarComboBox();
+        for (Horarios s : listadoHorarios) {
+            jCHoraSalida.addItem(s);
+        }
+        jCHoraSalida.setSelectedIndex(-1);
+    }
+
+    private void borrarComboBoxHoras() {
+        jCHoraSalida.removeAllItems();
+    }
+
+    public void verificarYGuardar() {
+        if (jCRuta.getSelectedIndex() == -1 || jCHoraSalida.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos", "CAMPOS VACIOS", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void llenarComboHoraSalidaXRuta() {
+        borrarComboBoxHoras();
+        for (Horarios s : listadoHorariosXID) {
+            jCHoraSalida.addItem(s);
+        }
+        jCHoraSalida.setSelectedIndex(-1);
+    }
+
+    public void buscarTabla() {
+        borrarFilas();
+        for (Horarios x : listadoHorariosXID) {
+            modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
+        }
+    }
+
+    private void llenarTablaHorarios() {
+        borrarFilas();
+        for (Horarios x : listaXhora) {
+            modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
+        }
+    }
+    
+    private void llenarTablaDoble(){
+        borrarFilas();
+        for (Horarios x : listaXhorayRuta) {
+                modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
+        } 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBLimpiar;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<Horarios> jCHoraSalida;
+    private javax.swing.JComboBox<Ruta> jCRuta;
     private javax.swing.JLabel jLBuscarHorario;
     private javax.swing.JLabel jLHorarioSalida;
     private javax.swing.JLabel jLRuta;
@@ -227,6 +373,6 @@ public class buscarHorarios extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }

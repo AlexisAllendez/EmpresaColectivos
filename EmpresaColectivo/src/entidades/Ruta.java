@@ -3,7 +3,7 @@ package entidades;
 
 import java.time.LocalTime;
 
-public class Rutas {
+public class Ruta {
     
     private int idRuta;
     private String origen;
@@ -11,7 +11,7 @@ public class Rutas {
     private LocalTime duracionEst;
     private boolean estado;
 
-    public Rutas(int idRuta, String origen, String destino, LocalTime duracionEst, boolean estado) {
+    public Ruta(int idRuta, String origen, String destino, LocalTime duracionEst, boolean estado) {
         this.idRuta = idRuta;
         this.origen = origen;
         this.destino = destino;
@@ -19,14 +19,14 @@ public class Rutas {
         this.estado = estado;
     }
 
-    public Rutas(String origen, String destino, LocalTime duracionEst, boolean estado) {
+    public Ruta(String origen, String destino, LocalTime duracionEst, boolean estado) {
         this.origen = origen;
         this.destino = destino;
         this.duracionEst = duracionEst;
         this.estado = estado;
     }
 
-    public Rutas() {
+    public Ruta() {
     }
 
     public int getIdRuta() {
