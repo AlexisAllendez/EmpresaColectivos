@@ -17,6 +17,7 @@ import entidades.Ruta;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -31,16 +32,18 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+
 public class venderPasajes extends javax.swing.JPanel {
 
     List<Pasajeros> listaPasajeros;
     List<Ruta> listaRutasOrigen;
-    List <Colectivos> listaColectivos;
+    List<Colectivos> listaColectivos;
     List<Horarios> listaHorarios;
 
     private ArrayList lista = new ArrayList();
@@ -50,19 +53,19 @@ public class venderPasajes extends javax.swing.JPanel {
     ColectivosData colectivoData = new ColectivosData();
 
     public venderPasajes() {
-       initComponents();
-       listaHorarios = horarioData.listarHorarios();
-       listaPasajeros= pasajeroData.listarPasajeros();
-       listaRutasOrigen = rutaData.listarRutasPorOrigenBusqueda();
-       listaColectivos = colectivoData.listarColectivos();
-   
-     llenarComboPasajero();
-     llenarComboRutaorigen();
-     llenarComboHorarios();
-     llenarComboColectivos();
-   }
+        initComponents();
+        listaHorarios = horarioData.listarHorarios();
+        listaPasajeros = pasajeroData.listarPasajeros();
+        listaRutasOrigen = rutaData.listarRutasPorOrigenBusqueda();
+        listaColectivos = colectivoData.listarColectivos();
+        limpiarCampos();
+        llenarComboPasajero();
+        llenarComboRutaorigen();
+        llenarComboHorarios();
+        llenarComboColectivos();
 
- 
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -169,7 +172,6 @@ public class venderPasajes extends javax.swing.JPanel {
         jCBOrigen.setBackground(new java.awt.Color(255, 255, 255));
         jCBOrigen.setForeground(new java.awt.Color(102, 102, 102));
         jCBOrigen.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
-        jCBOrigen.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -226,6 +228,11 @@ public class venderPasajes extends javax.swing.JPanel {
                 jBLimpiarMouseExited(evt);
             }
         });
+        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarActionPerformed(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
@@ -236,7 +243,6 @@ public class venderPasajes extends javax.swing.JPanel {
         jCBAsiento.setBackground(new java.awt.Color(255, 255, 255));
         jCBAsiento.setForeground(new java.awt.Color(102, 102, 102));
         jCBAsiento.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
-        jCBAsiento.setEnabled(false);
 
         jLCargaColectivo.setForeground(new java.awt.Color(51, 51, 51));
         jLCargaColectivo.setText("Seleccion de colectivo");
@@ -247,7 +253,16 @@ public class venderPasajes extends javax.swing.JPanel {
         jCBColectivo.setBackground(new java.awt.Color(255, 255, 255));
         jCBColectivo.setForeground(new java.awt.Color(102, 102, 102));
         jCBColectivo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
-        jCBColectivo.setEnabled(false);
+        jCBColectivo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCBColectivoItemStateChanged(evt);
+            }
+        });
+        jCBColectivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCBColectivoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -287,7 +302,6 @@ public class venderPasajes extends javax.swing.JPanel {
         jCBHorario.setBackground(new java.awt.Color(255, 255, 255));
         jCBHorario.setForeground(new java.awt.Color(102, 102, 102));
         jCBHorario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
-        jCBHorario.setEnabled(false);
 
         jLHorario.setForeground(new java.awt.Color(102, 102, 102));
         jLHorario.setText("Horario");
@@ -381,41 +395,62 @@ public class venderPasajes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBVenderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBVenderMouseEntered
-        jBVender.setBackground(new Color(0,102,102));
-        jBVender.setForeground(new Color(255,255,255));
+        jBVender.setBackground(new Color(0, 102, 102));
+        jBVender.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBVenderMouseEntered
 
     private void jBVenderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBVenderMouseExited
-         jBVender.setBackground(new Color(255,255,255)); 
-         jBVender.setForeground(new Color(102,102,102));
+        jBVender.setBackground(new Color(255, 255, 255));
+        jBVender.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBVenderMouseExited
 
     private void jBLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiarMouseEntered
-        jBLimpiar.setBackground(new Color(0,102,102));
-        jBLimpiar.setForeground(new Color(255,255,255));
+        jBLimpiar.setBackground(new Color(0, 102, 102));
+        jBLimpiar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBLimpiarMouseEntered
 
     private void jBLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiarMouseExited
-        jBLimpiar.setBackground(new Color(255,255,255)); 
-         jBLimpiar.setForeground(new Color(102,102,102));
+        jBLimpiar.setBackground(new Color(255, 255, 255));
+        jBLimpiar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jCBPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPasajeroActionPerformed
-        
+
     }//GEN-LAST:event_jCBPasajeroActionPerformed
 
     private void jBVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVenderActionPerformed
-      
+
     }//GEN-LAST:event_jBVenderActionPerformed
 
     private void jCBPasajeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCBPasajeroMouseClicked
-        if(jCBPasajero != null){
-        jCBOrigen.setEnabled(true);
-        jCBHorario.setEnabled(true);
-        jCBColectivo.setEnabled(true);
-        jCBAsiento.setEnabled(true);
+        if (jCBPasajero != null) {
+            jCBOrigen.setEnabled(true);
+            jCBHorario.setEnabled(true);
+            jCBColectivo.setEnabled(true);
+            jCBAsiento.setEnabled(true);
         }
     }//GEN-LAST:event_jCBPasajeroMouseClicked
+
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+    }//GEN-LAST:event_jBLimpiarActionPerformed
+
+    private void jCBColectivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCBColectivoMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jCBColectivoMouseClicked
+
+    private void jCBColectivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBColectivoItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Colectivos colectivoSeleccionado = (Colectivos) jCBColectivo.getSelectedItem();
+            int capacidad = colectivoSeleccionado.getCapacidad();
+            jCBAsiento.setSelectedItem(capacidad);
+            
+        }
+    
+    }//GEN-LAST:event_jCBColectivoItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -444,17 +479,15 @@ public class venderPasajes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 
-
-    private void llenarCombo(JComboBox<String> combo, Collection lista){
+    private void llenarCombo(JComboBox<String> combo, Collection lista) {
         combo.removeAllItems();
         combo.addItem("---");
-        for (Object x : lista){
+        for (Object x : lista) {
             combo.addItem(x.toString());
         }
     }
-    
-    
-    private String recuperarDato(String cadena, String patron){
+
+    private String recuperarDato(String cadena, String patron) {
         Pattern pattern = Pattern.compile(patron, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(cadena);
         if (matcher.find()) {
@@ -463,56 +496,50 @@ public class venderPasajes extends javax.swing.JPanel {
         return "No se encontro";
     }
 
- 
-    public void llenarComboPasajero(){
+    public void llenarComboPasajero() {
         for (Pasajeros pasajeros : listaPasajeros) {
-            jCBPasajero.addItem(pasajeros.getNombre()+", "+pasajeros.getApellido());
-            
+            jCBPasajero.addItem(pasajeros.getNombre() + ", " + pasajeros.getApellido());
+
         }
         jCBPasajero.setSelectedIndex(-1);
     }
-      public void llenarComboRutaorigen(){
+
+    public void llenarComboRutaorigen() {
         for (Ruta rutas : listaRutasOrigen) {
             jCBOrigen.addItem(rutas.getOrigen());
-            
+
         }
         jCBOrigen.setSelectedIndex(-1);
     }
-   
-           public void llenarComboHorarios(){
+
+    public void llenarComboHorarios() {
         for (Horarios Horariosmuestra : listaHorarios) {
-           jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " +"Llegada "+ Horariosmuestra.getHoraLLegada());
+            jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " + "Llegada " + Horariosmuestra.getHoraLLegada());
         }
         jCBHorario.setSelectedIndex(-1);
     }
-   
+
     private void llenarComboColectivos() {
-              for (Colectivos cole : listaColectivos) {
-           jCBColectivo.addItem(cole.getMarca() + " - " + cole.getModelo());
+        for (Colectivos cole : listaColectivos) {
+            jCBColectivo.addItem(cole.getMarca() + " - " + cole.getModelo());
+
+            jCBColectivo.setSelectedIndex(-1);
         }
-        jCBColectivo.setSelectedIndex(-1);
+        
     }
-    
+
     private void llenarComboasientos() {
-              for (Colectivos cole : listaColectivos) {
-           jCBAsiento.addItem(cole.getCapacidad());
-        }
-        jCBAsiento.setSelectedIndex(-1);
+        
     }
-    
-    
+
     private void limpiarCampos() {
- 
+
         jCBOrigen.setSelectedIndex(-1);
 
         jCBHorario.setSelectedIndex(-1);
         jCBColectivo.setSelectedIndex(-1);
-        jCHFecha.setDate(Date.valueOf(LocalDate.now()));        
+        jCBAsiento.setSelectedIndex(-1);
+        jCHFecha.setDate(Date.valueOf(LocalDate.now()));
     }
-
 
 }
-
-
-
-
