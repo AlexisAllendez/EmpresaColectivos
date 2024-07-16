@@ -38,7 +38,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-
 public class venderPasajes extends javax.swing.JPanel {
 
     List<Pasajeros> listaPasajeros;
@@ -56,12 +55,13 @@ public class venderPasajes extends javax.swing.JPanel {
         initComponents();
         listaHorarios = horarioData.listarHorarios();
         listaPasajeros = pasajeroData.listarPasajeros();
-        listaRutasOrigen = rutaData.listarRutasPorOrigenBusqueda();
+        listaRutasOrigen = rutaData.listarRutas();
+//        listaRutasOrigen = rutaData.listarRutasPorOrigenBusqueda();
         listaColectivos = colectivoData.listarColectivos();
         limpiarCampos();
         llenarComboPasajero();
         llenarComboRutaorigen();
-        llenarComboHorarios();
+        llenarComboHorariosValoresPorDefecto();
         llenarComboColectivos();
 
     }
@@ -167,11 +167,16 @@ public class venderPasajes extends javax.swing.JPanel {
         jLRuta.setText("Ruta");
 
         jLOrigen.setForeground(new java.awt.Color(102, 102, 102));
-        jLOrigen.setText("Origen");
+        jLOrigen.setText("Origen - Destino");
 
         jCBOrigen.setBackground(new java.awt.Color(255, 255, 255));
         jCBOrigen.setForeground(new java.awt.Color(102, 102, 102));
         jCBOrigen.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCBOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBOrigenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -302,6 +307,11 @@ public class venderPasajes extends javax.swing.JPanel {
         jCBHorario.setBackground(new java.awt.Color(255, 255, 255));
         jCBHorario.setForeground(new java.awt.Color(102, 102, 102));
         jCBHorario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        jCBHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBHorarioActionPerformed(evt);
+            }
+        });
 
         jLHorario.setForeground(new java.awt.Color(102, 102, 102));
         jLHorario.setText("Horario");
@@ -343,7 +353,7 @@ public class venderPasajes extends javax.swing.JPanel {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPFondo3Layout.createSequentialGroup()
                         .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPFondo3Layout.createSequentialGroup()
@@ -353,7 +363,7 @@ public class venderPasajes extends javax.swing.JPanel {
                         .addGroup(jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBVender, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         jPFondo3Layout.setVerticalGroup(
             jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,7 +425,7 @@ public class venderPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jCBPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPasajeroActionPerformed
-          if (jCBPasajero != null) {
+        if (jCBPasajero != null) {
             jCBOrigen.setEnabled(true);
             jCBHorario.setEnabled(true);
             jCBColectivo.setEnabled(true);
@@ -428,7 +438,7 @@ public class venderPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBVenderActionPerformed
 
     private void jCBPasajeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCBPasajeroMouseClicked
-      
+
     }//GEN-LAST:event_jCBPasajeroMouseClicked
 
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
@@ -443,9 +453,26 @@ public class venderPasajes extends javax.swing.JPanel {
 
     private void jCBColectivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBColectivoItemStateChanged
         // TODO add your handling code here:
-      
-    
+
+
     }//GEN-LAST:event_jCBColectivoItemStateChanged
+
+    private void jCBHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBHorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCBHorarioActionPerformed
+
+    private void jCBOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBOrigenActionPerformed
+        Ruta rutaSeleccionada = (Ruta) jCBOrigen.getSelectedItem();
+
+        if (rutaSeleccionada != null) {
+            listaHorarios = horarioData.listarHorariosXRuta(rutaSeleccionada.getIdRuta());
+            jCBHorario.removeAllItems();
+            for (Horarios horariosVisibles : listaHorarios) {
+                jCBHorario.addItem(horariosVisibles.toString());
+            }
+            jCBHorario.setSelectedIndex(-1);
+        }
+    }//GEN-LAST:event_jCBOrigenActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -454,7 +481,7 @@ public class venderPasajes extends javax.swing.JPanel {
     private javax.swing.JComboBox<Integer> jCBAsiento;
     private javax.swing.JComboBox<String> jCBColectivo;
     private javax.swing.JComboBox<String> jCBHorario;
-    private javax.swing.JComboBox<String> jCBOrigen;
+    private javax.swing.JComboBox<Ruta> jCBOrigen;
     private javax.swing.JComboBox<String> jCBPasajero;
     private com.toedter.calendar.JDateChooser jCHFecha;
     private javax.swing.JLabel jLAsiento;
@@ -500,14 +527,14 @@ public class venderPasajes extends javax.swing.JPanel {
     }
 
     public void llenarComboRutaorigen() {
-        for (Ruta rutas : listaRutasOrigen) {
-            jCBOrigen.addItem(rutas.getOrigen());
+        for (Ruta ruta : listaRutasOrigen) {
+            jCBOrigen.addItem(ruta);
 
         }
         jCBOrigen.setSelectedIndex(-1);
     }
 
-    public void llenarComboHorarios() {
+    public void llenarComboHorariosValoresPorDefecto() {
         for (Horarios Horariosmuestra : listaHorarios) {
             jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " + "Llegada " + Horariosmuestra.getHoraLLegada());
         }
@@ -520,11 +547,11 @@ public class venderPasajes extends javax.swing.JPanel {
 
             jCBColectivo.setSelectedIndex(-1);
         }
-        
+
     }
 
     private void llenarComboasientos() {
-        
+
     }
 
     private void limpiarCampos() {
