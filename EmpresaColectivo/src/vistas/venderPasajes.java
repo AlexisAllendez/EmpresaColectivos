@@ -415,7 +415,12 @@ public class venderPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jCBPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPasajeroActionPerformed
-
+          if (jCBPasajero != null) {
+            jCBOrigen.setEnabled(true);
+            jCBHorario.setEnabled(true);
+            jCBColectivo.setEnabled(true);
+            jCBAsiento.setEnabled(true);
+        }
     }//GEN-LAST:event_jCBPasajeroActionPerformed
 
     private void jBVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVenderActionPerformed
@@ -423,12 +428,7 @@ public class venderPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBVenderActionPerformed
 
     private void jCBPasajeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCBPasajeroMouseClicked
-        if (jCBPasajero != null) {
-            jCBOrigen.setEnabled(true);
-            jCBHorario.setEnabled(true);
-            jCBColectivo.setEnabled(true);
-            jCBAsiento.setEnabled(true);
-        }
+      
     }//GEN-LAST:event_jCBPasajeroMouseClicked
 
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
@@ -443,12 +443,7 @@ public class venderPasajes extends javax.swing.JPanel {
 
     private void jCBColectivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBColectivoItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            Colectivos colectivoSeleccionado = (Colectivos) jCBColectivo.getSelectedItem();
-            int capacidad = colectivoSeleccionado.getCapacidad();
-            jCBAsiento.setSelectedItem(capacidad);
-            
-        }
+      
     
     }//GEN-LAST:event_jCBColectivoItemStateChanged
 
@@ -535,7 +530,7 @@ public class venderPasajes extends javax.swing.JPanel {
     private void limpiarCampos() {
 
         jCBOrigen.setSelectedIndex(-1);
-
+        jCBPasajero.setSelectedIndex(-1);
         jCBHorario.setSelectedIndex(-1);
         jCBColectivo.setSelectedIndex(-1);
         jCBAsiento.setSelectedIndex(-1);
