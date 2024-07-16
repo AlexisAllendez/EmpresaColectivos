@@ -91,6 +91,7 @@ public class Pasajeros {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre + "\n Apellido: " + apellido + "\n DNI: " + dni + "\n Correo: " + correo + "\n Telefono: " + telefono;
+        return apellido + ", " + nombre + " " + dni;
+//        return "Nombre: " + nombre + "\n Apellido: " + apellido + "\n DNI: " + dni + "\n Correo: " + correo + "\n Telefono: " + telefono;
     }
 }

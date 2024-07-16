@@ -20,8 +20,10 @@ import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -268,6 +270,11 @@ public class venderPasajes extends javax.swing.JPanel {
                 jCBColectivoMouseClicked(evt);
             }
         });
+        jCBColectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBColectivoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -458,31 +465,71 @@ public class venderPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jCBColectivoItemStateChanged
 
     private void jCBHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBHorarioActionPerformed
-        // TODO add your handling code here:
+        jCBAsiento.removeAllItems();
+        jCBAsiento.setSelectedIndex(-1);
     }//GEN-LAST:event_jCBHorarioActionPerformed
 
     private void jCBOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBOrigenActionPerformed
+        jCBAsiento.removeAllItems();
+        jCBAsiento.setSelectedIndex(-1);
+        jCBHorario.setSelectedIndex(-1);
+        
         Ruta rutaSeleccionada = (Ruta) jCBOrigen.getSelectedItem();
 
         if (rutaSeleccionada != null) {
             listaHorarios = horarioData.listarHorariosXRuta(rutaSeleccionada.getIdRuta());
             jCBHorario.removeAllItems();
             for (Horarios horariosVisibles : listaHorarios) {
-                jCBHorario.addItem(horariosVisibles.toString());
+                jCBHorario.addItem(horariosVisibles);
             }
             jCBHorario.setSelectedIndex(-1);
         }
     }//GEN-LAST:event_jCBOrigenActionPerformed
+
+    private void jCBColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBColectivoActionPerformed
+        jCBAsiento.setSelectedIndex(-1);
+        jCBAsiento.removeAllItems();
+        PasajeData pasajeData = new PasajeData();
+        
+        LocalDate localDate = null;
+        List<Integer> asientosDisponibles = null;
+        if(jCHFecha.getDate() != null){
+            Instant instant = jCHFecha.getDate().toInstant();
+            localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            System.out.println("colectivo=" + (Colectivos) jCBColectivo.getSelectedItem());
+            System.out.println("ruta= " + (Ruta) jCBOrigen.getSelectedItem());
+            System.out.println("horario= " + (Horarios) jCBHorario.getSelectedItem());
+            
+            asientosDisponibles = pasajeData.getAsientosDisponibles(
+                (Colectivos) jCBColectivo.getSelectedItem(),
+                (Ruta) jCBOrigen.getSelectedItem(),
+                (Horarios) jCBHorario.getSelectedItem(),
+                localDate
+            );
+        }
+        
+        if(asientosDisponibles == null){
+            System.out.println("No hay registro de asientos disponibles en esa fecha");
+        }
+        
+        if(asientosDisponibles != null){
+            for(Integer asiento : asientosDisponibles){
+                System.out.println("[" + asiento + "]");
+                jCBAsiento.addItem(asiento);
+            }
+        }
+    }//GEN-LAST:event_jCBColectivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBVender;
     private javax.swing.JComboBox<Integer> jCBAsiento;
-    private javax.swing.JComboBox<String> jCBColectivo;
-    private javax.swing.JComboBox<String> jCBHorario;
+    private javax.swing.JComboBox<Colectivos> jCBColectivo;
+    private javax.swing.JComboBox<Horarios> jCBHorario;
     private javax.swing.JComboBox<Ruta> jCBOrigen;
-    private javax.swing.JComboBox<String> jCBPasajero;
+    private javax.swing.JComboBox<Pasajeros> jCBPasajero;
     private com.toedter.calendar.JDateChooser jCHFecha;
     private javax.swing.JLabel jLAsiento;
     private javax.swing.JLabel jLBuscarPasaje;
@@ -520,7 +567,8 @@ public class venderPasajes extends javax.swing.JPanel {
 
     public void llenarComboPasajero() {
         for (Pasajeros pasajeros : listaPasajeros) {
-            jCBPasajero.addItem(pasajeros.getNombre() + ", " + pasajeros.getApellido());
+            jCBPasajero.addItem(pasajeros);
+//            jCBPasajero.addItem(pasajeros.getNombre() + ", " + pasajeros.getApellido());
 
         }
         jCBPasajero.setSelectedIndex(-1);
@@ -536,14 +584,16 @@ public class venderPasajes extends javax.swing.JPanel {
 
     public void llenarComboHorariosValoresPorDefecto() {
         for (Horarios Horariosmuestra : listaHorarios) {
-            jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " + "Llegada " + Horariosmuestra.getHoraLLegada());
+            jCBHorario.addItem(Horariosmuestra);
+//            jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " + "Llegada " + Horariosmuestra.getHoraLLegada());
         }
         jCBHorario.setSelectedIndex(-1);
     }
 
     private void llenarComboColectivos() {
         for (Colectivos cole : listaColectivos) {
-            jCBColectivo.addItem(cole.getMarca() + " - " + cole.getModelo());
+            jCBColectivo.addItem(cole);
+//            jCBColectivo.addItem(cole.getMarca() + " - " + cole.getModelo());
 
             jCBColectivo.setSelectedIndex(-1);
         }

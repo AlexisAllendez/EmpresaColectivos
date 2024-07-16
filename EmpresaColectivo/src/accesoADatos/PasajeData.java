@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author 54266
  */
 public class PasajeData {
-       private Connection con = null;
+    private Connection con = null;
     private PasajerosData pasajeroData = null;
     private RutaData rutaData =  null;
     private ColectivosData coleData =  null;
@@ -180,27 +180,40 @@ public class PasajeData {
     }
     //Stub - To do: usar getAsientosVendidos para mostrar una lista de asientos disponibles.
     public List<Integer> getAsientosDisponibles(Colectivos colectivo, Ruta ruta, Horarios horario, LocalDate fechaViaje)    {
-        ArrayList<Integer> asientosDisponibles = null;
-        int maxCapacidad = -1;
-        ArrayList<Integer> asientosVendidos = getAsientosVendidos(
-                colectivo.getIdColectivo(),
-                ruta.getIdRuta(),
-                fechaViaje,
-                horario.getHoraSalida()
-                );
-        int capacidadActual = colectivo.getCapacidad();
+        List<Integer> asientosDisponibles = new ArrayList<>();
+        System.out.println("---------------PasajeData.getAsientosDisponibles()---------------------------");
+        System.out.println("colectivo=" + colectivo);
+        System.out.println("ruta=" + ruta);
+        System.out.println("horario=" + horario);
+        System.out.println("fecha=" + fechaViaje);
         
-        for(Integer asiento: asientosVendidos){
-            if(asiento > maxCapacidad && asiento > capacidadActual){
-                maxCapacidad = asiento;
+        System.out.println("--------------------------------------------------------------------");
+        if(ruta != null){
+            int maxCapacidad = -1;
+            ArrayList<Integer> asientosVendidos = getAsientosVendidos(
+                    colectivo.getIdColectivo(),
+                    ruta.getIdRuta(),
+                    fechaViaje,
+                    horario.getHoraSalida()
+                    );
+            int capacidadActual = colectivo.getCapacidad();
+            maxCapacidad = capacidadActual;
+
+            for(Integer asiento: asientosVendidos){
+                if(asiento > maxCapacidad && asiento > capacidadActual){
+                    System.out.println("asiento max enum vendido: "  + asiento);
+                    maxCapacidad = asiento;
+                }
+            }
+
+            for(int i = 1; i <= maxCapacidad; i++){
+                asientosDisponibles.add(i);
+            }
+
+            if(asientosDisponibles != null && asientosVendidos != null){
+                asientosDisponibles.removeAll(asientosVendidos);
             }
         }
-        
-        for(int i = 1; i <= maxCapacidad; i++){
-            asientosDisponibles.add(i);
-        }
-        
-        asientosDisponibles.removeAll(asientosVendidos);
         
         return asientosDisponibles;
     }
