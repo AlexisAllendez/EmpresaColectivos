@@ -74,6 +74,7 @@ public class cargaRuta extends javax.swing.JPanel {
             }
         });
 
+        jSHora.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
         jSHora.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jTDestino.setBackground(new java.awt.Color(255, 255, 255));
@@ -86,6 +87,7 @@ public class cargaRuta extends javax.swing.JPanel {
             }
         });
 
+        jSMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 5));
         jSMinutos.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
