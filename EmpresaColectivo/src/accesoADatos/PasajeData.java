@@ -2,6 +2,7 @@
 package accesoADatos;
 
 import entidades.Colectivos;
+import entidades.Horarios;
 import entidades.Pasaje;
 import entidades.Pasajeros;
 import entidades.Ruta;
@@ -178,8 +179,29 @@ public class PasajeData {
         return listaVentas;
     }
     //Stub - To do: usar getAsientosVendidos para mostrar una lista de asientos disponibles.
-    public List<Integer> getAsientosDisponibles()    {
+    public List<Integer> getAsientosDisponibles(Colectivos colectivo, Ruta ruta, Horarios horario, LocalDate fechaViaje)    {
         ArrayList<Integer> asientosDisponibles = null;
+        int maxCapacidad = -1;
+        ArrayList<Integer> asientosVendidos = getAsientosVendidos(
+                colectivo.getIdColectivo(),
+                ruta.getIdRuta(),
+                fechaViaje,
+                horario.getHoraSalida()
+                );
+        int capacidadActual = colectivo.getCapacidad();
+        
+        for(Integer asiento: asientosVendidos){
+            if(asiento > maxCapacidad && asiento > capacidadActual){
+                maxCapacidad = asiento;
+            }
+        }
+        
+        for(int i = 1; i <= maxCapacidad; i++){
+            asientosDisponibles.add(i);
+        }
+        
+        asientosDisponibles.removeAll(asientosVendidos);
+        
         return asientosDisponibles;
     }
     //LISTO LOS ASIENTOS VENDIDOS DE DETERMINADO VIAJE Y COLECTIVO
