@@ -14,6 +14,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -176,9 +177,13 @@ public class PasajeData {
         }
         return listaVentas;
     }
-        
+    //Stub - To do: usar getAsientosVendidos para mostrar una lista de asientos disponibles.
+    public List<Integer> getAsientosDisponibles()    {
+        ArrayList<Integer> asientosDisponibles = null;
+        return asientosDisponibles;
+    }
     //LISTO LOS ASIENTOS VENDIDOS DE DETERMINADO VIAJE Y COLECTIVO
-    public ArrayList<Integer> AsientosVendidos(int id_colectivo, int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+    public ArrayList<Integer> getAsientosVendidos(int id_colectivo, int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
         ArrayList<Integer> listaAsientosAsig = new ArrayList<>();
         
         String sql = "SELECT p.nroButaca FROM pasajes p "
