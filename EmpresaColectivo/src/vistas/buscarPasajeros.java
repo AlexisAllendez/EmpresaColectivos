@@ -436,6 +436,8 @@ public class buscarPasajeros extends javax.swing.JPanel {
 
     private void llenarTabla() {
         borrarFilas();
+        PasajerosData pasajeroData = new PasajerosData();
+        listaPasajero = pasajeroData.listarPasajeros();
         for (Pasajeros c : listaPasajero) {
             modeloTabla.addRow(new Object[]{c.getDni(), c.getNombre(), c.getApellido(), c.getCorreo(), c.getTelefono()});
         }
