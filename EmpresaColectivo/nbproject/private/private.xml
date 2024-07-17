@@ -18,5 +18,13 @@
             <file>file:/C:/Users/franc/OneDrive/Documentos/GitHub/EmpresaColectivos/EmpresaColectivo/src/vistas/venderPasajes.java</file>
             <file>file:/C:/Users/franc/OneDrive/Documentos/GitHub/EmpresaColectivos/EmpresaColectivo/src/vistas/cargaDeColectivos.java</file>
         </group>
+        <group name="Sol Bus">
+            <file>file:/home/adam/edu/ULP/cuat2/lab1/final/ui-alt-repo/EmpresaColectivos/EmpresaColectivo/src/vistas/venderPasajes.java</file>
+            <file>file:/home/adam/edu/ULP/cuat2/lab1/final/ui-alt-repo/EmpresaColectivos/EmpresaColectivo/src/entidades/Pasajeros.java</file>
+            <file>file:/home/adam/edu/ULP/cuat2/lab1/final/ui-alt-repo/EmpresaColectivos/EmpresaColectivo/src/accesoADatos/RutaData.java</file>
+            <file>file:/home/adam/edu/ULP/cuat2/lab1/final/ui-alt-repo/EmpresaColectivos/EmpresaColectivo/src/vistas/buscarRutas.java</file>
+            <file>file:/home/adam/edu/ULP/cuat2/lab1/final/ui-alt-repo/EmpresaColectivos/EmpresaColectivo/src/accesoADatos/ColectivosData.java</file>
+            <file>file:/home/adam/edu/ULP/cuat2/lab1/final/ui-alt-repo/EmpresaColectivos/EmpresaColectivo/src/accesoADatos/HorarioData.java</file>
+        </group>
     </open-files>
 </project-private>
