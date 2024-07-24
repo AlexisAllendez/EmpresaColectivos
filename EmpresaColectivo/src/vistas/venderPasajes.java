@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package vistas;
 
 import accesoADatos.ColectivosData;
@@ -19,7 +16,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,6 +24,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -143,15 +141,14 @@ public class venderPasajes extends javax.swing.JPanel {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCBPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))))
+                .addComponent(jLabel26)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCBPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,13 +299,13 @@ public class venderPasajes extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addComponent(jLCargaColectivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(jCBColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
                     .addComponent(jLAsiento)
                     .addComponent(jCBAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -368,12 +365,14 @@ public class venderPasajes extends javax.swing.JPanel {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLCargaColectivo1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCargaColectivo1)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(282, 282, 282))
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,8 +413,8 @@ public class venderPasajes extends javax.swing.JPanel {
                                     .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPFondo3Layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(126, Short.MAX_VALUE))
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         jPFondo3Layout.setVerticalGroup(
             jPFondo3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,7 +442,7 @@ public class venderPasajes extends javax.swing.JPanel {
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -488,6 +487,55 @@ public class venderPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jCBPasajeroActionPerformed
 
     private void jBVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVenderActionPerformed
+        StringBuilder errorMessage = new StringBuilder();
+
+            Date fechaHoy = new Date();
+            Date fechaSeleccionada = jCHFecha.getDate();
+            if (fechaSeleccionada == null) {
+                errorMessage.append("Seleccione una fecha válida.\n");
+            } else {
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                String fechaFormateada = formato.format(fechaSeleccionada);
+
+                if (fechaSeleccionada.before(fechaHoy) && !fechaFormateada.equals(formato.format(fechaHoy))) {
+                    errorMessage.append("Seleccione una fecha válida. No puede ser una fecha anterior a hoy.\n");
+                }
+            }
+
+            if (jCBPasajero.getSelectedItem() == null || jCBPasajero.getSelectedItem().toString().isEmpty()) {
+                errorMessage.append("Seleccione un pasajero válido. Este campo no puede estar vacío.\n");
+            }
+
+            if (jCBOrigen.getSelectedItem() == null || jCBOrigen.getSelectedItem().toString().isEmpty()) {
+                errorMessage.append("Seleccione una ruta válida. Este campo no puede estar vacío.\n");
+            }
+
+            if (jCBHorario.getSelectedItem() == null || jCBHorario.getSelectedItem().toString().isEmpty()) {
+                errorMessage.append("Seleccione un horario válido. Este campo no puede estar vacío.\n");
+            }
+
+            if (jCBColectivo.getSelectedItem() == null || jCBColectivo.getSelectedItem().toString().isEmpty() ||
+                jCBAsiento.getSelectedItem() == null || jCBAsiento.getSelectedItem().toString().isEmpty()) {
+                errorMessage.append("Debe seleccionar un colectivo y un asiento válido.\n");
+            }
+
+            if (txtPrecio.getText().isEmpty()) {
+                errorMessage.append("Debe ingresar un precio válido.\n");
+            }
+
+            if (errorMessage.length() > 0) {
+                JOptionPane.showMessageDialog(null, errorMessage.toString(), "Errores de Validación", JOptionPane.ERROR_MESSAGE);
+                return; // Detener la ejecución si hay errores
+            }
+
+            // Realizar la venta
+            JOptionPane.showMessageDialog(null, "Venta realizada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        
+                   
+               
+            
+        
+        
         Pasajeros pasajero = (Pasajeros) jCBPasajero.getSelectedItem();
         Ruta ruta = (Ruta) jCBOrigen.getSelectedItem();
         Colectivos colectivo = (Colectivos) jCBColectivo.getSelectedItem();
@@ -509,6 +557,7 @@ public class venderPasajes extends javax.swing.JPanel {
         
         PasajeData pasajeData = new PasajeData();
         pasajeData.guardarPasaje(pasaje);
+        limpiarCampos();
     }//GEN-LAST:event_jBVenderActionPerformed
 
     private void jCBPasajeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCBPasajeroMouseClicked
@@ -686,13 +735,14 @@ public class venderPasajes extends javax.swing.JPanel {
     }
 
     private void limpiarCampos() {
-
+         Date fechaHoy = new Date();
+        
         jCBOrigen.setSelectedIndex(-1);
         jCBPasajero.setSelectedIndex(-1);
         jCBHorario.setSelectedIndex(-1);
         jCBColectivo.setSelectedIndex(-1);
         jCBAsiento.setSelectedIndex(-1);
-        jCHFecha.setDate(Date.valueOf(LocalDate.now()));
+        jCHFecha.setDate(fechaHoy);
     }
 
 }
