@@ -4,7 +4,7 @@
  */
 package vistas;
 
-import accesoADatos.PasajerosData;
+import accesoADatos.PasajeroData;
 import entidades.Pasajero;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -266,7 +266,7 @@ public class CargaDePasajero extends javax.swing.JPanel {
                    +"\nApellido: " + apellido + "\nDNI: " + dni;
            int guardar = JOptionPane.showConfirmDialog(this,texto, "CONFIRMAR PASAJERO", JOptionPane.YES_NO_OPTION);
            if(guardar == 0){
-               new PasajerosData().guardarPasajero(pasajero);
+               new PasajeroData().guardarPasajero(pasajero);
                limpiarCampos();
            }
         }

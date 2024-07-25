@@ -1,7 +1,7 @@
 package vistas;
 
 import accesoADatos.PasajeData;
-import accesoADatos.PasajerosData;
+import accesoADatos.PasajeroData;
 import entidades.Pasaje;
 import entidades.Pasajero;
 import entidades.Ruta;
@@ -305,7 +305,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe ingresar un DNI para poder buscar un pasajero");
         }
 
-        PasajerosData pasajeroData = new PasajerosData();
+        PasajeroData pasajeroData = new PasajeroData();
 
         Pasajero pasa = pasajeroData.buscarPasajeroDNI(jTPasaje.getText());
 

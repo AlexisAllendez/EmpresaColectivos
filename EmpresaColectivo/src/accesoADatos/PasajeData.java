@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class PasajeData {
     private Connection con = null;
-    private PasajerosData pasajeroData = null;
+    private PasajeroData pasajeroData = null;
     private RutaData rutaData =  null;
     private ColectivosData coleData =  null;
     
@@ -126,7 +126,7 @@ public class PasajeData {
 
             while (rs.next()) {
                 Pasaje pasaje = new Pasaje();
-                pasajeroData = new PasajerosData();
+                pasajeroData = new PasajeroData();
                 coleData = new ColectivosData();
                 rutaData = new RutaData();
                 
@@ -157,7 +157,7 @@ public class PasajeData {
 
             while (rs.next()) {
                 Pasaje pasaje = new Pasaje();
-                pasajeroData = new PasajerosData();
+                pasajeroData = new PasajeroData();
                 coleData = new ColectivosData();
                 rutaData = new RutaData();
                 
@@ -257,7 +257,7 @@ public class PasajeData {
                 Pasaje pasaje = new Pasaje();
                 
                 pasaje.setIdPasaje(rs.getInt("id_pasajes"));
-                Pasajero psjr = new PasajerosData().buscarPasajero(rs.getInt("id_pasajero"));
+                Pasajero psjr = new PasajeroData().buscarPasajero(rs.getInt("id_pasajero"));
                 pasaje.setPasajero(psjr);
                 Colectivo cole = new ColectivosData().buscarColectivo(rs.getInt("id_colectivo"));
                 pasaje.setColectivo(cole);

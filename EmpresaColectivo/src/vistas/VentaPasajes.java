@@ -4,7 +4,7 @@ package vistas;
 import accesoADatos.ColectivosData;
 import accesoADatos.HorarioData;
 import accesoADatos.PasajeData;
-import accesoADatos.PasajerosData;
+import accesoADatos.PasajeroData;
 import accesoADatos.RutaData;
 import entidades.Colectivo;
 import entidades.Horario;
@@ -47,7 +47,7 @@ public class VentaPasajes extends javax.swing.JPanel {
 
     private ArrayList lista = new ArrayList();
     RutaData rutaData = new RutaData();
-    PasajerosData pasajeroData = new PasajerosData();
+    PasajeroData pasajeroData = new PasajeroData();
     HorarioData horarioData = new HorarioData();
     ColectivosData colectivoData = new ColectivosData();
 

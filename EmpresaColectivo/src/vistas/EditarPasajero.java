@@ -1,7 +1,7 @@
 
 package vistas;
 
-import accesoADatos.PasajerosData;
+import accesoADatos.PasajeroData;
 import entidades.Pasajero;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -9,11 +9,11 @@ import javax.swing.JOptionPane;
 public class EditarPasajero extends javax.swing.JDialog {
 
     Pasajero pasajero = null;
-    PasajerosData pasa;
+    PasajeroData pasa;
     public EditarPasajero(java.awt.Frame parent, boolean modal,String dni) {
         super(parent, modal);
         initComponents();
-        pasa = new PasajerosData();
+        pasa = new PasajeroData();
         cargarDatos(dni);
     }
 
@@ -223,7 +223,7 @@ public class EditarPasajero extends javax.swing.JDialog {
 
             pasajero = new Pasajero(nombre, apellido, dni, correo, telefono,estado);
 
-            new PasajerosData().modificarPasajeroPorDni(pasajero);
+            new PasajeroData().modificarPasajeroPorDni(pasajero);
             this.dispose();
         }
     }//GEN-LAST:event_jBEditarActionPerformed

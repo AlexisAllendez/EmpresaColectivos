@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
  *
  * @author 54266
  */
-public class PasajerosData {
+public class PasajeroData {
      private Connection con = null;
     
-    public PasajerosData() {
+    public PasajeroData() {
         con = Conexion.getConexion();
     }
     

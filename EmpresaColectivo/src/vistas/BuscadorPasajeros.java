@@ -1,7 +1,7 @@
 
 package vistas;
 
-import accesoADatos.PasajerosData;
+import accesoADatos.PasajeroData;
 import entidades.Pasajero;
 import java.awt.Color;
 import java.awt.Frame;
@@ -16,7 +16,7 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
     Pasajero pasajero = null;
     List<Pasajero> listaPasajeroDni;
     List<Pasajero> listaPasajero;
-    PasajerosData pasajeroData = new PasajerosData();
+    PasajeroData pasajeroData = new PasajeroData();
 
  
     public BuscadorPasajeros() {
@@ -436,7 +436,7 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
 
     private void llenarTabla() {
         borrarFilas();
-        PasajerosData pasajeroData = new PasajerosData();
+        PasajeroData pasajeroData = new PasajeroData();
         listaPasajero = pasajeroData.listarPasajeros();
         for (Pasajero c : listaPasajero) {
             modeloTabla.addRow(new Object[]{c.getDni(), c.getNombre(), c.getApellido(), c.getCorreo(), c.getTelefono()});
