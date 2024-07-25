@@ -4,7 +4,7 @@
  */
 package vistas;
 
-import accesoADatos.ColectivosData;
+import accesoADatos.ColectivoData;
 import entidades.Colectivo;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
@@ -278,7 +278,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
                             + "\nCapacidad: " + capacidad;
             int guardar = JOptionPane.showConfirmDialog(this, texto, "CONFIRMAR COLECTIVO", JOptionPane.YES_NO_OPTION);
             if(guardar == 0){                               
-                new ColectivosData().guardarColectivo(colectivo);
+                new ColectivoData().guardarColectivo(colectivo);
                 limpiarCampos();
             }
         }

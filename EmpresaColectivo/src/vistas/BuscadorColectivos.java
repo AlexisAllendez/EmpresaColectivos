@@ -1,6 +1,6 @@
 
 package vistas;
-import accesoADatos.ColectivosData;
+import accesoADatos.ColectivoData;
 import dashboard.Dashboard;
 import entidades.Colectivo;
 import java.awt.BorderLayout;
@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class BuscadorColectivos extends javax.swing.JPanel {
     List<Colectivo> listaCole;
-    ColectivosData coleData = new ColectivosData();
+    ColectivoData coleData = new ColectivoData();
     List<Colectivo> listaMatri;
     List<Colectivo> listaMarca;
     List<Colectivo> listaCapac;

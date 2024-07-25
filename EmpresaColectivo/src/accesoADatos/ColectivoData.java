@@ -20,11 +20,11 @@ import javax.swing.JOptionPane;
  *
  * @author 54266
  */
-public class ColectivosData {
+public class ColectivoData {
    private Connection con =  null;
     Colectivo colectivo = null;
 
-    public ColectivosData() {
+    public ColectivoData() {
        con = Conexion.getConexion();
     }
 
