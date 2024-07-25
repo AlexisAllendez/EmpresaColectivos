@@ -46,6 +46,7 @@ public class CargaDePasajero extends javax.swing.JPanel {
         jTTelefono = new javax.swing.JTextField();
         jLCargaPasajero = new javax.swing.JLabel();
 
+        setForeground(java.awt.Color.black);
         setPreferredSize(new java.awt.Dimension(817, 472));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -105,54 +106,29 @@ public class CargaDePasajero extends javax.swing.JPanel {
         });
 
         jTDNI.setBackground(new java.awt.Color(255, 255, 255));
-        jTDNI.setForeground(new java.awt.Color(153, 153, 153));
-        jTDNI.setText("Ingrese su DNI");
+        jTDNI.setForeground(java.awt.Color.black);
         jTDNI.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
-        jTDNI.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTDNIMousePressed(evt);
+        jTDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTDNIKeyTyped(evt);
             }
         });
 
         jTNombre.setBackground(new java.awt.Color(255, 255, 255));
-        jTNombre.setForeground(new java.awt.Color(153, 153, 153));
-        jTNombre.setText("Ingrese su nombre");
+        jTNombre.setForeground(java.awt.Color.black);
         jTNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
-        jTNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTNombreMousePressed(evt);
-            }
-        });
 
         jTApellido.setBackground(new java.awt.Color(255, 255, 255));
-        jTApellido.setForeground(new java.awt.Color(153, 153, 153));
-        jTApellido.setText("Ingrese su apellido");
+        jTApellido.setForeground(java.awt.Color.black);
         jTApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
-        jTApellido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTApellidoMousePressed(evt);
-            }
-        });
 
         jTCorreo.setBackground(new java.awt.Color(255, 255, 255));
-        jTCorreo.setForeground(new java.awt.Color(153, 153, 153));
-        jTCorreo.setText("Ingrese su correo electronico");
+        jTCorreo.setForeground(java.awt.Color.black);
         jTCorreo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
-        jTCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTCorreoMousePressed(evt);
-            }
-        });
 
         jTTelefono.setBackground(new java.awt.Color(255, 255, 255));
-        jTTelefono.setForeground(new java.awt.Color(153, 153, 153));
-        jTTelefono.setText("Ingrese el numero de su telefono");
+        jTTelefono.setForeground(java.awt.Color.black);
         jTTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
-        jTTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTTelefonoMousePressed(evt);
-            }
-        });
 
         jLCargaPasajero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLCargaPasajero.setForeground(new java.awt.Color(51, 51, 51));
@@ -271,125 +247,6 @@ public class CargaDePasajero extends javax.swing.JPanel {
         jBLimpiar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBLimpiarMouseExited
 
-    private void jTDNIMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDNIMousePressed
-        if (jTDNI.getText().equals("Ingrese su DNI")) {
-            jTDNI.setText("");
-            jTDNI.setForeground(Color.BLACK);
-        }
-        if (jTNombre.getText().isEmpty()) {
-            jTNombre.setText("Ingrese su nombre");
-            jTNombre.setForeground(Color.GRAY);
-        }
-        if (jTApellido.getText().isEmpty()) {
-            jTApellido.setText("Ingrese su apellido");
-            jTApellido.setForeground(Color.GRAY);
-        }
-        if (jTCorreo.getText().isEmpty()) {
-            jTCorreo.setText("Ingrese su correo electrónico");
-            jTCorreo.setForeground(Color.GRAY);
-        }
-        if (jTTelefono.getText().isEmpty()) {
-            jTTelefono.setText("Ingrese el numero de su telefono");
-            jTTelefono.setForeground(Color.GRAY);
-        }
-
-    }//GEN-LAST:event_jTDNIMousePressed
-
-    private void jTNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNombreMousePressed
-        if (jTNombre.getText().equals("Ingrese su nombre")) {
-            jTNombre.setText("");
-            jTNombre.setForeground(Color.BLACK);
-        }
-        if (jTDNI.getText().isEmpty()) {
-            jTDNI.setText("Ingrese su DNI");
-            jTDNI.setForeground(Color.GRAY);
-        }
-        if (jTApellido.getText().isEmpty()) {
-            jTApellido.setText("Ingrese su apellido");
-            jTApellido.setForeground(Color.GRAY);
-        }
-        if (jTCorreo.getText().isEmpty()) {
-            jTCorreo.setText("Ingrese su correo electronico");
-            jTCorreo.setForeground(Color.GRAY);
-        }
-        if (jTTelefono.getText().isEmpty()) {
-            jTTelefono.setText("Ingrese el numero de su telefono");
-            jTTelefono.setForeground(Color.GRAY);
-        }
-    }//GEN-LAST:event_jTNombreMousePressed
-
-    private void jTApellidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTApellidoMousePressed
-        if (jTApellido.getText().equals("Ingrese su apellido")) {
-            jTApellido.setText("");
-            jTApellido.setForeground(Color.BLACK);
-        }
-        if (jTDNI.getText().isEmpty()) {
-            jTDNI.setText("Ingrese su DNI");
-            jTDNI.setForeground(Color.GRAY);
-        }
-        if (jTNombre.getText().isEmpty()) {
-            jTNombre.setText("Ingrese su nombre");
-            jTNombre.setForeground(Color.GRAY);
-        }
-        if (jTCorreo.getText().isEmpty()) {
-            jTCorreo.setText("Ingrese su correo electronico");
-            jTCorreo.setForeground(Color.GRAY);
-        }
-        if (jTTelefono.getText().isEmpty()) {
-            jTTelefono.setText("Ingrese el numero de su telefono");
-            jTTelefono.setForeground(Color.GRAY);
-        }
-    }//GEN-LAST:event_jTApellidoMousePressed
-
-    private void jTCorreoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCorreoMousePressed
-        if (jTCorreo.getText().equals("Ingrese su correo electronico")) {
-            jTCorreo.setText("");
-            jTCorreo.setForeground(Color.BLACK);
-        }
-        if (jTDNI.getText().isEmpty()) {
-            jTDNI.setText("Ingrese su DNI");
-            jTDNI.setForeground(Color.GRAY);
-        }
-        if (jTNombre.getText().isEmpty()) {
-            jTNombre.setText("Ingrese su nombre");
-            jTNombre.setForeground(Color.GRAY);
-        }
-        if (jTApellido.getText().isEmpty()) {
-            jTApellido.setText("Ingrese su apellido");
-            jTApellido.setForeground(Color.GRAY);
-        }
-        if (jTTelefono.getText().isEmpty()) {
-            jTTelefono.setText("Ingrese el numero de su telefono");
-            jTTelefono.setForeground(Color.GRAY);
-        }
-    }//GEN-LAST:event_jTCorreoMousePressed
-
-    private void jTTelefonoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTelefonoMousePressed
-        if (jTTelefono.getText().equals("Ingrese el numero de su telefono")) {
-            jTTelefono.setText("");
-            jTTelefono.setForeground(Color.BLACK);
-        }
-        if (jTDNI.getText().isEmpty()) {
-            jTDNI.setText("Ingrese su DNI");
-            jTDNI.setForeground(Color.GRAY);
-        }
-        if (jTNombre.getText().isEmpty()) {
-            jTNombre.setText("Ingrese su nombre");
-            jTNombre.setForeground(Color.GRAY);
-        }
-        if (jTApellido.getText().isEmpty()) {
-            jTApellido.setText("Ingrese su apellido");
-            jTApellido.setForeground(Color.GRAY);
-        }
-        if (jTCorreo.getText().isEmpty()) {
-            jTCorreo.setText("Ingrese su correo electronico");
-            jTCorreo.setForeground(Color.GRAY);
-        }
-        
-        
-        
-    }//GEN-LAST:event_jTTelefonoMousePressed
-
     private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
         // TODO add your handling code here:
         if(jTDNI.getText().isEmpty() || jTNombre.getText().isEmpty() || jTApellido.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTTelefono.getText().isEmpty()){
@@ -420,18 +277,24 @@ public class CargaDePasajero extends javax.swing.JPanel {
         limpiarCampos();
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
+    private void jTDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDNIKeyTyped
+       if(jTDNI.getText().length() >= 8){
+           evt.consume();
+       }
+    }//GEN-LAST:event_jTDNIKeyTyped
+
     private void limpiarCampos(){
         
-        jTDNI.setText("Ingrese su DNI");
-        jTDNI.setForeground(Color.gray);
-        jTNombre.setText("Ingrese su nombre");
-        jTNombre.setForeground(Color.gray);
-        jTApellido.setText("Ingrese su apellido");
-        jTApellido.setForeground(Color.gray);
-        jTCorreo.setText("Ingrese su correo electronico");
-        jTCorreo.setForeground(Color.gray);
-        jTTelefono.setText("Ingrese el numero de su telefono");
-        jTTelefono.setForeground(Color.gray);
+        jTDNI.setText("");
+       
+        jTNombre.setText("");
+      
+        jTApellido.setText("");
+      
+        jTCorreo.setText("");
+        
+        jTTelefono.setText("");
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

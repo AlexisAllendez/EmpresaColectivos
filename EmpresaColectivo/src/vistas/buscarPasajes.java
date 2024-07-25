@@ -1,4 +1,3 @@
-
 package vistas;
 
 import accesoADatos.PasajeData;
@@ -11,23 +10,23 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class buscarPasajes extends javax.swing.JPanel {
-
-   
+    PasajeData pasajedata = null;
     public buscarPasajes() {
         initComponents();
+        armarCabecera();
+        pasajedata = new PasajeData();
     }
 
-         DefaultTableModel tabla = new DefaultTableModel() {
-            //Lleva el override por que estamos sobreescribiendo un metodo que ya existe 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-    
-      @SuppressWarnings("unchecked")
+    DefaultTableModel tabla = new DefaultTableModel() {
+        //Lleva el override por que estamos sobreescribiendo un metodo que ya existe 
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -206,6 +205,11 @@ public class buscarPasajes extends javax.swing.JPanel {
                 jBEliminarMouseExited(evt);
             }
         });
+        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -231,7 +235,7 @@ public class buscarPasajes extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(267, 267, 267)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,17 +269,17 @@ public class buscarPasajes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBFiltrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBFiltrarMouseEntered
-          jBFiltrar.setBackground(new Color(0, 102, 102));
+        jBFiltrar.setBackground(new Color(0, 102, 102));
         jBFiltrar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBFiltrarMouseEntered
 
     private void jBFiltrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBFiltrarMouseExited
-         jBFiltrar.setBackground(new Color(255, 255, 255));
+        jBFiltrar.setBackground(new Color(255, 255, 255));
         jBFiltrar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBFiltrarMouseExited
 
     private void jBLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLimpiarMouseEntered
-         jBLimpiar.setBackground(new Color(0, 102, 102));
+        jBLimpiar.setBackground(new Color(0, 102, 102));
         jBLimpiar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBLimpiarMouseEntered
 
@@ -285,12 +289,12 @@ public class buscarPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jBEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEliminarMouseEntered
-         jBEliminar.setBackground(new Color(0, 102, 102));
+        jBEliminar.setBackground(new Color(0, 102, 102));
         jBEliminar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBEliminarMouseEntered
 
     private void jBEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEliminarMouseExited
-      jBEliminar.setBackground(new Color(255, 255, 255));
+        jBEliminar.setBackground(new Color(255, 255, 255));
         jBEliminar.setForeground(new Color(102, 102, 102));
     }//GEN-LAST:event_jBEliminarMouseExited
 
@@ -298,32 +302,53 @@ public class buscarPasajes extends javax.swing.JPanel {
         if (jTPasaje.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un DNI para poder buscar un pasajero");
         }
-        
+
         PasajerosData pasajero = new PasajerosData();
-        
+
         Pasajeros pasa = pasajero.buscarPasajeroDNI(jTPasaje.getText());
-        
+
         cargarTabla(pasa.getIdPasajero());
-        
-        jTPasaje2.setText(pasa.getNombre() +", " + pasa.getApellido());
+
+        jTPasaje2.setText(pasa.getNombre() + ", " + pasa.getApellido());
     }//GEN-LAST:event_jBFiltrarActionPerformed
 
     private void jTPasajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPasajeKeyTyped
-                  char c = evt.getKeyChar();
-                // Permitir solo números y el punto decimal
-                if (!Character.isDigit(c)) {
-                    evt.consume(); // Ignorar el evento
-                }
+        char c = evt.getKeyChar();
+        // Permitir solo números y el punto decimal
+        if (!Character.isDigit(c)) {
+            evt.consume(); // Ignorar el evento
+        }
     }//GEN-LAST:event_jTPasajeKeyTyped
 
     private void jTPasajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPasajeActionPerformed
-  
+
     }//GEN-LAST:event_jTPasajeActionPerformed
 
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-      limpiarCampos();
-      limpiarTabla();
+        limpiarCampos();
+        limpiarTabla();
     }//GEN-LAST:event_jBLimpiarActionPerformed
+
+    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
+        
+        if(tablaPasajes.getRowCount() > 0){
+            
+            if(tablaPasajes.getSelectedRow() != -1){
+                int id = Integer.parseInt(String.valueOf(tablaPasajes.getValueAt(tablaPasajes.getSelectedRow(), 0)));
+                
+                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres ELIMINAR?","confirmar eliminación",JOptionPane.YES_NO_OPTION);
+                if (confirmacion == JOptionPane.YES_OPTION){
+                    pasajedata.eliminarVenta(id);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "No se seleccionó ningún pasaje");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay nada para eliminar");
+        }
+        limpiarCampos();
+        limpiarTabla();
+    }//GEN-LAST:event_jBEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -346,20 +371,19 @@ public class buscarPasajes extends javax.swing.JPanel {
     private void cargarTabla(int id) {
 //Definir el modelo de la tabla y decimos que no es editable
 
-   
         //Establecer los nombres de las columnas
-        String titulos[] = {"Fecha viaje", "Hora viaje","butaca","Precio"};
+        String titulos[] = {"idPasaje", "Fecha viaje", "Hora viaje", "butaca", "Precio"};
         tabla.setColumnIdentifiers(titulos);
 
-       PasajeData pasaje = new PasajeData();
-        List<Pasaje> listaPasaje = pasaje.listarVentasXPasajero(id) ;
+        PasajeData pasaje = new PasajeData();
+        List<Pasaje> listaPasaje = pasaje.listarVentasXPasajero(id);
 
         //recorre la lista y mostrar los elementos
         if (listaPasaje != null) {
             for (Pasaje pasaj : listaPasaje) {
-                Object[] objeto = {pasaj.getFechaViaje(), pasaj.getHoraViaje(),pasaj.getAsiento(),pasaj.getPrecio()}; 
-              
-                tabla.addRow(objeto);                                                  
+                Object[] objeto = {pasaj.getIdPasaje(),pasaj.getFechaViaje(), pasaj.getHoraViaje(), pasaj.getAsiento(), pasaj.getPrecio()};
+
+                tabla.addRow(objeto);
             }
         }
 
@@ -381,9 +405,13 @@ public class buscarPasajes extends javax.swing.JPanel {
 
     }
 
-    
-
-   
-
+    private void armarCabecera() {
+        tabla.addColumn("idPasaje");
+        tabla.addColumn("Fecha viaje");
+        tabla.addColumn("Hora viaje");
+        tabla.addColumn("Butaca");
+        tabla.addColumn("Precio");
+        tablaPasajes.setModel(tabla);
+    }
 
 }

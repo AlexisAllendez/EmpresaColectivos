@@ -259,22 +259,29 @@ public class buscarHorarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        verificarYGuardar();
-        if (jCRuta.getSelectedIndex() == -1) {
-            Ruta i = (Ruta) jCRuta.getSelectedItem();
-            listadoHorariosXID = horarioData.listarHorariosXRuta(i.getIdRuta());
-            llenarComboHoraSalidaXRuta();
-            buscarTabla();
-        } else if (jCRuta.getSelectedIndex() == -1) {
-            Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
-            listaXhora = horarioData.listarHorariosXSalida(h.getHoraSalida());
-            llenarTablaHorarios();
-        } else {
-            Ruta i = (Ruta) jCRuta.getSelectedItem();
-            Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
-            listaXhorayRuta = horarioData.listarHorariosDoble(i.getIdRuta(), h.getHoraSalida());
-            llenarTablaDoble();
-        }
+      if (jCRuta.getSelectedIndex() == -1 && jCHoraSalida.getSelectedIndex() == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione al menos una ruta o una hora de salida.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (jCRuta.getSelectedIndex() != -1 && jCHoraSalida.getSelectedIndex() == -1) {
+        // Solo Ruta seleccionada
+        Ruta i = (Ruta) jCRuta.getSelectedItem();
+        listadoHorariosXID = horarioData.listarHorariosXRuta(i.getIdRuta());
+        llenarComboHoraSalidaXRuta();
+        buscarTabla();
+    } else if (jCRuta.getSelectedIndex() == -1 && jCHoraSalida.getSelectedIndex() != -1) {
+        // Solo Hora de salida seleccionada
+        Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
+        listaXhora = horarioData.listarHorariosXSalida(h.getHoraSalida());
+        llenarTablaHorarios();
+    } else if (jCRuta.getSelectedIndex() != -1 && jCHoraSalida.getSelectedIndex() != -1) {
+        // Ambas opciones seleccionadas
+        Ruta i = (Ruta) jCRuta.getSelectedItem();
+        Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
+        listaXhorayRuta = horarioData.listarHorariosDoble(i.getIdRuta(), h.getHoraSalida());
+        llenarTablaDoble();
+    }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jCRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCRutaActionPerformed

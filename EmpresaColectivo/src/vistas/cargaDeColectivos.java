@@ -59,6 +59,11 @@ public class cargaDeColectivos extends javax.swing.JPanel {
         txtMatricula.setBackground(new java.awt.Color(255, 255, 255));
         txtMatricula.setForeground(new java.awt.Color(102, 102, 102));
         txtMatricula.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        txtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMatriculaKeyTyped(evt);
+            }
+        });
 
         lblCapacidad.setForeground(new java.awt.Color(102, 102, 102));
         lblCapacidad.setText("Capacidad");
@@ -180,7 +185,7 @@ public class cargaDeColectivos extends javax.swing.JPanel {
                     .addComponent(jComboBox1)
                     .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtMatricula))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCapacidad)
                     .addComponent(lblCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,6 +288,12 @@ public class cargaDeColectivos extends javax.swing.JPanel {
     private void jBLimpiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiezaActionPerformed
        limpiarCampos();
     }//GEN-LAST:event_jBLimpiezaActionPerformed
+
+    private void txtMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatriculaKeyTyped
+       if(txtMatricula.getText().length() >= 6){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtMatriculaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

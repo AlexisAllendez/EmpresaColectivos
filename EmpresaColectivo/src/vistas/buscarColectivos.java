@@ -346,6 +346,7 @@ public class buscarColectivos extends javax.swing.JPanel {
         }
         
         limpiarCampos();
+        llenarTabla();
 
     }//GEN-LAST:event_jBEliminarActionPerformed
 
@@ -417,6 +418,7 @@ public class buscarColectivos extends javax.swing.JPanel {
       
     private void llenarTabla() {
         borrarFilas();
+        listaCole = coleData.listarColectivos();
         for (Colectivos c : listaCole) {
             modeloTabla.addRow(new Object[] {c.getIdColectivo(), c.getMarca(), c.getModelo(), c.getMatricula(), c.getCapacidad()});
         }

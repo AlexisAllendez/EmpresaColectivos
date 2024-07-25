@@ -527,9 +527,6 @@ public class venderPasajes extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, errorMessage.toString(), "Errores de Validación", JOptionPane.ERROR_MESSAGE);
                 return; // Detener la ejecución si hay errores
             }
-
-            // Realizar la venta
-            JOptionPane.showMessageDialog(null, "Venta realizada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         
                    
                
@@ -743,6 +740,7 @@ public class venderPasajes extends javax.swing.JPanel {
         jCBColectivo.setSelectedIndex(-1);
         jCBAsiento.setSelectedIndex(-1);
         jCHFecha.setDate(fechaHoy);
+        txtPrecio.setText("");
     }
 
 }
