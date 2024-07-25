@@ -14,10 +14,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 
-public class cargaDeColectivos extends javax.swing.JPanel {
+public class CargaDeColectivos extends javax.swing.JPanel {
  Colectivos colectivo = null;
    
-    public cargaDeColectivos() {
+    public CargaDeColectivos() {
         initComponents();
     }
     private static Map<String, String> capacidadMap;

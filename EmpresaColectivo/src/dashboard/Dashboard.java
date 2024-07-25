@@ -13,11 +13,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import vistas.ColectivoPresentacion;
-import vistas.buscarColectivos;
+import vistas.BuscadorColectivos;
 import vistas.Principal;
-import vistas.buscarHorarios;
-import vistas.buscarRutas;
-import vistas.cargaDeColectivos;
+import vistas.BuscadorHorarios;
+import vistas.BuscadorRutas;
+import vistas.CargaDeColectivos;
 import vistas.HorarioPresentacion;
 import vistas.PasajePresentacion;
 import vistas.PasajeroPresentacion;
@@ -65,7 +65,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
     
        private void mostrarCargaColectivos() {
-           cargaDeColectivos d1 = new cargaDeColectivos();
+           CargaDeColectivos d1 = new CargaDeColectivos();
         d1.setSize(817, 602);
         d1.setLocation(0, 0);
 

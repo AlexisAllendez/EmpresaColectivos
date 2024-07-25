@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 54266
  */
-public class buscarHorarios extends javax.swing.JPanel {
+public class BuscadorHorarios extends javax.swing.JPanel {
 
     RutaData rutaData = new RutaData();
     HorarioData horarioData = new HorarioData();
@@ -34,7 +34,7 @@ public class buscarHorarios extends javax.swing.JPanel {
         }
     };
 
-    public buscarHorarios() {
+    public BuscadorHorarios() {
         initComponents();
         armarCabecera();
         listaRutas = rutaData.listarRutas();
@@ -229,7 +229,7 @@ public class buscarHorarios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

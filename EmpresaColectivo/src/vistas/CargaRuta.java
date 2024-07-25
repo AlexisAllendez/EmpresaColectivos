@@ -14,11 +14,11 @@ import javax.swing.JOptionPane;
  *
  * @author 54266
  */
-public class cargaRuta extends javax.swing.JPanel {
+public class CargaRuta extends javax.swing.JPanel {
 
     Ruta ruta = null;
 
-    public cargaRuta() {
+    public CargaRuta() {
         initComponents();
     }
 

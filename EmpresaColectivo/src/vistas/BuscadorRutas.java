@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 54266
  */
-public class buscarRutas extends javax.swing.JPanel {
+public class BuscadorRutas extends javax.swing.JPanel {
 
     RutaData rutaData = new RutaData();
     List<Ruta> listaRutas;
@@ -30,7 +30,7 @@ public class buscarRutas extends javax.swing.JPanel {
         }
     };
 
-    public buscarRutas() {
+    public BuscadorRutas() {
         initComponents();
         armarCabecera();
         listaRutas = rutaData.listarRutas();

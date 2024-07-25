@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
-public class buscarColectivos extends javax.swing.JPanel {
+public class BuscadorColectivos extends javax.swing.JPanel {
     List<Colectivos> listaCole;
     ColectivosData coleData = new ColectivosData();
     List<Colectivos> listaMatri;
@@ -26,7 +26,7 @@ public class buscarColectivos extends javax.swing.JPanel {
     List<Colectivos> listaColeDist;
     List<Colectivos> listaColeDistCap;
     
-    public buscarColectivos() {
+    public BuscadorColectivos() {
          initComponents();
        
         listaCole = coleData.listarColectivos();
@@ -73,7 +73,6 @@ public class buscarColectivos extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(0, 51, 51));
         jScrollPane1.setBorder(null);
         jScrollPane1.setForeground(new java.awt.Color(0, 51, 51));
-        jScrollPane1.setOpaque(false);
 
         jTable.setBackground(new java.awt.Color(255, 255, 255));
         jTable.setBorder(new javax.swing.border.MatteBorder(null));

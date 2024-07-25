@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
-public class cargarHorarios extends javax.swing.JPanel {
+public class CargaHorarios extends javax.swing.JPanel {
 
     ArrayList<Ruta> listaRutas;
     Horarios horario = null;
@@ -30,7 +30,7 @@ public class cargarHorarios extends javax.swing.JPanel {
     LocalTime horaSalida;
     LocalTime horaLlegada;
 
-    public cargarHorarios() {
+    public CargaHorarios() {
         initComponents();
         formatoSpinner();
         jCRuta.removeAllItems();

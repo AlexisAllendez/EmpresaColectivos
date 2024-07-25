@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class buscarPasajeros extends javax.swing.JPanel {
+public class BuscadorPasajeros extends javax.swing.JPanel {
 
     Pasajeros pasajero = null;
     List<Pasajeros> listaPasajeroDni;
@@ -19,7 +19,7 @@ public class buscarPasajeros extends javax.swing.JPanel {
     PasajerosData pasajeroData = new PasajerosData();
 
  
-    public buscarPasajeros() {
+    public BuscadorPasajeros() {
         initComponents();
         listaPasajero = pasajeroData.listarPasajeros();
         jLBusquedaPasajero.requestFocusInWindow();

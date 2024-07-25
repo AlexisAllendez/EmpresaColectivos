@@ -38,7 +38,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-public class venderPasajes extends javax.swing.JPanel {
+public class VentaPasajes extends javax.swing.JPanel {
 
     List<Pasajeros> listaPasajeros;
     List<Ruta> listaRutasOrigen;
@@ -51,7 +51,7 @@ public class venderPasajes extends javax.swing.JPanel {
     HorarioData horarioData = new HorarioData();
     ColectivosData colectivoData = new ColectivosData();
 
-    public venderPasajes() {
+    public VentaPasajes() {
         initComponents();
         listaHorarios = horarioData.listarHorarios();
         listaPasajeros = pasajeroData.listarPasajeros();

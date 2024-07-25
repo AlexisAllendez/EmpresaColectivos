@@ -10,11 +10,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class buscarPasajes extends javax.swing.JPanel {
+public class BuscadorPasajes extends javax.swing.JPanel {
 
     PasajeData pasajedata = null;
 
-    public buscarPasajes() {
+    public BuscadorPasajes() {
         initComponents();
         armarCabecera();
         pasajedata = new PasajeData();
