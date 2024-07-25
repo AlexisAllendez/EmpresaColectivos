@@ -71,12 +71,11 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
         jLDNI.setText("DNI");
 
         jTDNI.setBackground(new java.awt.Color(255, 255, 255));
-        jTDNI.setForeground(new java.awt.Color(153, 153, 153));
-        jTDNI.setText("Ingrese su DNI");
+        jTDNI.setForeground(new java.awt.Color(0, 0, 0));
         jTDNI.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
-        jTDNI.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTDNIMousePressed(evt);
+        jTDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTDNIKeyTyped(evt);
             }
         });
 
@@ -255,7 +254,7 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
                     .addComponent(jLDNI)
                     .addComponent(jTDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -298,15 +297,6 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
         jBBuscar.setBackground(new Color(0, 102, 102));
         jBBuscar.setForeground(new Color(255, 255, 255));
     }//GEN-LAST:event_jBBuscarMouseEntered
-
-    private void jTDNIMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDNIMousePressed
-        if (jTDNI.getText().equals("Ingrese su DNI")) {
-            jTDNI.setText("");
-            jTDNI.setForeground(Color.BLACK);
-        }
-
-
-    }//GEN-LAST:event_jTDNIMousePressed
 
     private void jBEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEliminarMouseExited
         jBEliminar.setBackground(new Color(255, 255, 255));
@@ -385,7 +375,7 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
         borrarFilas();
         String dni = jTDNI.getText();
         buscarpasajero(dni);
-        limpiarCampos();
+        
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
@@ -411,6 +401,16 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
              JOptionPane.showMessageDialog(null, "No hay nada para eliminar en la tabla");
         }
     }//GEN-LAST:event_jBEditarActionPerformed
+
+    private void jTDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDNIKeyTyped
+         if(jTDNI.getText().length() >= 8){
+           evt.consume();
+       }
+       char c = evt.getKeyChar();
+       if (!Character.isDigit(c)){
+           evt.consume();
+       }
+    }//GEN-LAST:event_jTDNIKeyTyped
 
     private void limpiarCampos() {
 

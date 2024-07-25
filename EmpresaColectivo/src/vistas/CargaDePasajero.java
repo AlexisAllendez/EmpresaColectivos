@@ -7,6 +7,8 @@ package vistas;
 import accesoADatos.PasajeroData;
 import entidades.Pasajero;
 import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -117,18 +119,38 @@ public class CargaDePasajero extends javax.swing.JPanel {
         jTNombre.setBackground(new java.awt.Color(255, 255, 255));
         jTNombre.setForeground(java.awt.Color.black);
         jTNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        jTNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTNombreKeyTyped(evt);
+            }
+        });
 
         jTApellido.setBackground(new java.awt.Color(255, 255, 255));
         jTApellido.setForeground(java.awt.Color.black);
         jTApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        jTApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTApellidoKeyTyped(evt);
+            }
+        });
 
         jTCorreo.setBackground(new java.awt.Color(255, 255, 255));
         jTCorreo.setForeground(java.awt.Color.black);
         jTCorreo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        jTCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTCorreoFocusLost(evt);
+            }
+        });
 
         jTTelefono.setBackground(new java.awt.Color(255, 255, 255));
         jTTelefono.setForeground(java.awt.Color.black);
         jTTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        jTTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTTelefonoKeyTyped(evt);
+            }
+        });
 
         jLCargaPasajero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLCargaPasajero.setForeground(new java.awt.Color(51, 51, 51));
@@ -281,8 +303,64 @@ public class CargaDePasajero extends javax.swing.JPanel {
        if(jTDNI.getText().length() >= 8){
            evt.consume();
        }
+       char c = evt.getKeyChar();
+       if (!Character.isDigit(c)){
+           evt.consume();
+       }
+       
     }//GEN-LAST:event_jTDNIKeyTyped
 
+    private void jTTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTelefonoKeyTyped
+        if(jTTelefono.getText().length() >= 10){
+           evt.consume();
+       }
+       char c = evt.getKeyChar();
+       if (!Character.isDigit(c)){
+           evt.consume();
+       }
+       
+    }//GEN-LAST:event_jTTelefonoKeyTyped
+
+    private void jTNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNombreKeyTyped
+          if(jTNombre.getText().length() >= 20){
+           evt.consume();
+       }
+       char c = evt.getKeyChar();
+       if (Character.isDigit(c)){
+           evt.consume();
+       }
+    }//GEN-LAST:event_jTNombreKeyTyped
+
+    private void jTApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTApellidoKeyTyped
+          if(jTApellido.getText().length() >= 20){
+           evt.consume();
+       }
+       char c = evt.getKeyChar();
+       if (Character.isDigit(c)){
+           evt.consume();
+       }
+    }//GEN-LAST:event_jTApellidoKeyTyped
+
+    private void jTCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTCorreoFocusLost
+         if (!isValidEmail(jTCorreo.getText())) {
+            JOptionPane.showMessageDialog(null, "El correo electrónico no es válido");
+            jTCorreo.setText("");
+            return; // Detener el procesamiento si el correo no es válido
+        }
+    }//GEN-LAST:event_jTCorreoFocusLost
+
+    
+    
+    private boolean isValidEmail(String email) {
+    // Expresión regular para validar el correo electrónico
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    
+    Pattern pattern = Pattern.compile(emailRegex);
+    Matcher matcher = pattern.matcher(email);
+    return matcher.matches();
+}
+    
+    
     private void limpiarCampos(){
         
         jTDNI.setText("");
