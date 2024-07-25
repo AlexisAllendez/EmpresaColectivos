@@ -8,15 +8,15 @@ import java.time.LocalTime;
 public class Pasaje {
     
     private int idPasaje;
-    private Pasajeros pasajero;
+    private Pasajero pasajero;
     private Ruta ruta;
-    private Colectivos colectivo;
+    private Colectivo colectivo;
     private LocalDate fechaViaje;
     private LocalTime horaViaje;
     private int asiento;
     private double precio;
 
-    public Pasaje(int idPasaje, Pasajeros Pasajero, Ruta Ruta, Colectivos colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(int idPasaje, Pasajero Pasajero, Ruta Ruta, Colectivo colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
         this.pasajero = Pasajero;
         this.ruta = Ruta;
@@ -27,7 +27,7 @@ public class Pasaje {
         this.precio = precio;
     }
 
-    public Pasaje(Pasajeros Pasajero, Ruta Ruta, Colectivos colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(Pasajero Pasajero, Ruta Ruta, Colectivo colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
         this.pasajero = Pasajero;
         this.ruta = Ruta;
         this.colectivo = colectivo;
@@ -48,11 +48,11 @@ public class Pasaje {
         this.idPasaje = idPasaje;
     }
 
-    public Pasajeros getPasajero() {
+    public Pasajero getPasajero() {
         return pasajero;
     }
 
-    public void setPasajero(Pasajeros pasajero) {
+    public void setPasajero(Pasajero pasajero) {
         this.pasajero = pasajero;
     }
 
@@ -64,11 +64,11 @@ public class Pasaje {
         this.ruta = Ruta;
     }
 
-    public Colectivos getColectivo() {
+    public Colectivo getColectivo() {
         return colectivo;
     }
 
-    public void setColectivo(Colectivos colectivo) {
+    public void setColectivo(Colectivo colectivo) {
         this.colectivo = colectivo;
     }
 

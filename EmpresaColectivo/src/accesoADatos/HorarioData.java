@@ -4,7 +4,7 @@
  */
 package accesoADatos;
 
-import entidades.Horarios;
+import entidades.Horario;
 import entidades.Ruta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +28,7 @@ public class HorarioData {
         con = Conexion.getConexion();
     }
 
-    public void guardarHorario(Horarios horario) {
+    public void guardarHorario(Horario horario) {
         String sql = "INSERT INTO horarios(id_ruta, hora_salida, hora_llegada, estado) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -54,9 +54,9 @@ public class HorarioData {
         }
     }
 
-    public Horarios buscarHorario(int id) {
+    public Horario buscarHorario(int id) {
         String sql = "SELECT * FROM horarios WHERE estado = 1 AND id_horario = ?";
-        Horarios horario = null;
+        Horario horario = null;
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -64,7 +64,7 @@ public class HorarioData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                horario = new Horarios();
+                horario = new Horario();
                 
                 horario.setIdHorarios(rs.getInt("id_horario"));
                 Ruta ruta = new RutaData().buscarRuta(rs.getInt("id_ruta"));
@@ -83,7 +83,7 @@ public class HorarioData {
         return horario;
     }
 
-    public void modificarHorario(Horarios horario) {
+    public void modificarHorario(Horario horario) {
         String sql = "UPDATE horarios SET id_ruta = ?, hora_salida = ?, hora_llegada = ? WHERE ID_Horario = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -123,15 +123,15 @@ public class HorarioData {
         }
     }
 
-    public ArrayList<Horarios> listarHorarios() {
-        ArrayList<Horarios> horarios = new ArrayList<>();
+    public ArrayList<Horario> listarHorarios() {
+        ArrayList<Horario> horarios = new ArrayList<>();
         String sql = "SELECT * FROM horarios WHERE estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Horarios horario = new Horarios();
+                Horario horario = new Horario();
                 
                 horario.setIdHorarios(rs.getInt("id_horario"));
                 horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
@@ -148,8 +148,8 @@ public class HorarioData {
         return horarios;
     }
     
-    public ArrayList<Horarios> listarHorariosXRuta(int idRuta) {
-        ArrayList<Horarios> listaHorarios = new ArrayList<>();
+    public ArrayList<Horario> listarHorariosXRuta(int idRuta) {
+        ArrayList<Horario> listaHorarios = new ArrayList<>();
         String sql = "SELECT * FROM horarios WHERE estado = 1 AND id_ruta = ?";
         
         try {
@@ -159,7 +159,7 @@ public class HorarioData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Horarios horario = new Horarios();
+                Horario horario = new Horario();
                 horario.setIdHorarios(rs.getInt("id_horario"));
                 horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
@@ -175,8 +175,8 @@ public class HorarioData {
         return listaHorarios;
     }
     
-    public ArrayList<Horarios> listarHorariosXSalida(LocalTime hora){
-        ArrayList<Horarios> horaSalidas = new ArrayList<>();
+    public ArrayList<Horario> listarHorariosXSalida(LocalTime hora){
+        ArrayList<Horario> horaSalidas = new ArrayList<>();
         String sql = "SELECT * FROM horarios WHERE estado = 1 AND hora_salida = ?";
     
         try {
@@ -186,7 +186,7 @@ public class HorarioData {
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
-             Horarios horario = new Horarios();
+             Horario horario = new Horario();
             
              horario.setIdHorarios(rs.getInt("id_horario"));
              horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
@@ -203,8 +203,8 @@ public class HorarioData {
         return horaSalidas;
     }
     
-        public ArrayList<Horarios> listarHorariosDoble(int id, LocalTime hora){
-        ArrayList<Horarios> horaSalidas = new ArrayList<>();
+        public ArrayList<Horario> listarHorariosDoble(int id, LocalTime hora){
+        ArrayList<Horario> horaSalidas = new ArrayList<>();
         String sql = "SELECT * FROM horarios WHERE estado = 1 AND id_ruta = ? AND  hora_salida = ?";
     
         try {
@@ -215,7 +215,7 @@ public class HorarioData {
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
-             Horarios horario = new Horarios();
+             Horario horario = new Horario();
             
              horario.setIdHorarios(rs.getInt("id_horario"));
              horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));

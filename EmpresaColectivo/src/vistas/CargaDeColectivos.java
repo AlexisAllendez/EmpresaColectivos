@@ -5,7 +5,7 @@
 package vistas;
 
 import accesoADatos.ColectivosData;
-import entidades.Colectivos;
+import entidades.Colectivo;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 
 public class CargaDeColectivos extends javax.swing.JPanel {
- Colectivos colectivo = null;
+ Colectivo colectivo = null;
    
     public CargaDeColectivos() {
         initComponents();
@@ -271,7 +271,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
             int capacidad = Integer.parseInt(txtCapacidad.getText());
       
             boolean estado = true;
-            colectivo = new Colectivos (matricula, marca, modelo, capacidad, estado);
+            colectivo = new Colectivo (matricula, marca, modelo, capacidad, estado);
             
             String texto = "DESEA GUARDAR LA UNIDAD/A:\n"+"Matricula: " + matricula 
                             + "\nMarca: " + marca + "\nModelo: " + modelo 

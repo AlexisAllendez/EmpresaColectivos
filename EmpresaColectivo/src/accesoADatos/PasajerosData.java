@@ -4,7 +4,7 @@
  */
 package accesoADatos;
 
-import entidades.Pasajeros;
+import entidades.Pasajero;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +25,7 @@ public class PasajerosData {
         con = Conexion.getConexion();
     }
     
-    public void guardarPasajero(Pasajeros pasajero) {
+    public void guardarPasajero(Pasajero pasajero) {
         String sql = "INSERT INTO pasajeros(nombre, apellido, dni, correo, telefono, estado) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -57,8 +57,8 @@ public class PasajerosData {
         }
     }
     
-    public Pasajeros buscarPasajero(int id) {
-        Pasajeros pasaj = null;
+    public Pasajero buscarPasajero(int id) {
+        Pasajero pasaj = null;
         String sql = "SELECT * FROM pasajeros WHERE id_pasajero = ? AND estado = true";
 
         try {
@@ -67,7 +67,7 @@ public class PasajerosData {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
-                pasaj = new Pasajeros();
+                pasaj = new Pasajero();
                 
                 pasaj.setIdPasajero(rs.getInt("id_pasajero"));
                 pasaj.setNombre(rs.getString("nombre"));
@@ -88,8 +88,8 @@ public class PasajerosData {
         return pasaj;
     }
     
-    public Pasajeros buscarPasajeroDNI(String dni) {
-        Pasajeros pasaj = null;
+    public Pasajero buscarPasajeroDNI(String dni) {
+        Pasajero pasaj = null;
         String sql = "SELECT * FROM pasajeros WHERE dni = ? AND estado = true";
 
         try {
@@ -98,7 +98,7 @@ public class PasajerosData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                pasaj = new Pasajeros();
+                pasaj = new Pasajero();
 
                 pasaj.setIdPasajero(rs.getInt("id_pasajero"));
                 pasaj.setNombre(rs.getString("nombre"));
@@ -119,7 +119,7 @@ public class PasajerosData {
         return pasaj;
     }
    
-    public void modificarPasajero(Pasajeros psj) {
+    public void modificarPasajero(Pasajero psj) {
         String sql = "UPDATE pasajeros SET nombre= ?, apellido= ?, dni= ?, correo= ?, telefono= ? "
                + " WHERE id_Pasajero = ?";
        
@@ -144,7 +144,7 @@ public class PasajerosData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
         }
     }
-     public void modificarPasajeroPorDni(Pasajeros psj) {
+     public void modificarPasajeroPorDni(Pasajero psj) {
         String sql = "UPDATE pasajeros SET nombre= ?, apellido= ?, dni= ?, correo= ?, telefono= ? "
                + " WHERE dni = ?";
        
@@ -190,7 +190,7 @@ public class PasajerosData {
         }       
     }
     
-     public void eliminarPasajerosPorDni(Pasajeros psj) {
+     public void eliminarPasajerosPorDni(Pasajero psj) {
          
          String sql = "UPDATE pasajeros SET estado = 0 WHERE dni = ? AND estado = 1";
        
@@ -211,8 +211,8 @@ public class PasajerosData {
         }       
     }
    
-    public List<Pasajeros> listarPasajeros() {
-        ArrayList<Pasajeros> listaPasajeros = new ArrayList<>();
+    public List<Pasajero> listarPasajeros() {
+        ArrayList<Pasajero> listaPasajeros = new ArrayList<>();
         String sql = "SELECT * FROM pasajeros WHERE estado = 1";
         
         try {
@@ -220,7 +220,7 @@ public class PasajerosData {
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
-                Pasajeros pasaj = new Pasajeros();
+                Pasajero pasaj = new Pasajero();
                 
                 pasaj.setIdPasajero(rs.getInt("id_Pasajero"));
                 pasaj.setNombre(rs.getString("nombre"));
@@ -239,8 +239,8 @@ public class PasajerosData {
         return listaPasajeros;
     }
     
-    public List<Pasajeros> listarPasajerosPorDni(String dni) {
-        ArrayList<Pasajeros> listaPasajeros = new ArrayList<>();
+    public List<Pasajero> listarPasajerosPorDni(String dni) {
+        ArrayList<Pasajero> listaPasajeros = new ArrayList<>();
         String sql = "SELECT nombre, apellido, dni, correo, telefono FROM pasajeros WHERE dni = ? AND estado = 1";
         
         try {
@@ -249,7 +249,7 @@ public class PasajerosData {
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
-                Pasajeros pasaj = new Pasajeros();
+                Pasajero pasaj = new Pasajero();
                 
                 pasaj.setNombre(rs.getString("nombre"));
                 pasaj.setApellido(rs.getString("apellido"));

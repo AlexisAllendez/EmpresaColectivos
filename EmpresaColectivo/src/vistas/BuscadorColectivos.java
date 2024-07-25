@@ -2,7 +2,7 @@
 package vistas;
 import accesoADatos.ColectivosData;
 import dashboard.Dashboard;
-import entidades.Colectivos;
+import entidades.Colectivo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,14 +17,14 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 public class BuscadorColectivos extends javax.swing.JPanel {
-    List<Colectivos> listaCole;
+    List<Colectivo> listaCole;
     ColectivosData coleData = new ColectivosData();
-    List<Colectivos> listaMatri;
-    List<Colectivos> listaMarca;
-    List<Colectivos> listaCapac;
-    List<Colectivos> listaEspecifica;
-    List<Colectivos> listaColeDist;
-    List<Colectivos> listaColeDistCap;
+    List<Colectivo> listaMatri;
+    List<Colectivo> listaMarca;
+    List<Colectivo> listaCapac;
+    List<Colectivo> listaEspecifica;
+    List<Colectivo> listaColeDist;
+    List<Colectivo> listaColeDistCap;
     
     public BuscadorColectivos() {
          initComponents();
@@ -302,7 +302,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
                 String modelo = (String) jTable.getValueAt(filaSeleccionada, 2);
                 int capacidad = (int) jTable.getValueAt(filaSeleccionada, 4);
 
-                Colectivos colectivo = new Colectivos(idColectivo, nuevaMatricula, marca, modelo, capacidad);
+                Colectivo colectivo = new Colectivo(idColectivo, nuevaMatricula, marca, modelo, capacidad);
                 coleData.modificarColectivo(colectivo); // Actualizar en la base de datos
             } else {
                 JOptionPane.showMessageDialog(null, "La matrícula no puede estar vacía");
@@ -378,21 +378,21 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     }
     
     public void llenarComboMatricula() {
-    for (Colectivos c : listaCole){
+    for (Colectivo c : listaCole){
         jCBMatricula.addItem(c.getMatricula());
     }
     jCBMatricula.setSelectedIndex(-1);
     }
     
     private void llenarComboMarca(){
-        for (Colectivos c : listaColeDist) {
+        for (Colectivo c : listaColeDist) {
             jCBMarca.addItem(c.getMarca());
         }
         jCBMarca.setSelectedIndex(-1);
     }
     
     private void llenarComboCapac(){
-        for(Colectivos c : listaColeDistCap) {
+        for(Colectivo c : listaColeDistCap) {
             jCBCapacidad.addItem(""+c.getCapacidad());
         }
           jCBCapacidad.setSelectedIndex(-1);
@@ -418,7 +418,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     private void llenarTabla() {
         borrarFilas();
         listaCole = coleData.listarColectivos();
-        for (Colectivos c : listaCole) {
+        for (Colectivo c : listaCole) {
             modeloTabla.addRow(new Object[] {c.getIdColectivo(), c.getMarca(), c.getModelo(), c.getMatricula(), c.getCapacidad()});
         }
     }
@@ -426,7 +426,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     private void buscarTabla(String matri) {
         listaMatri = new ArrayList();
         listaMatri.addAll(coleData.listarColePorMatricula(matri));
-        for (Colectivos c : listaMatri) {
+        for (Colectivo c : listaMatri) {
             modeloTabla.addRow(new Object[] {c.getIdColectivo(), c.getMarca(), c.getModelo(), c.getMatricula(), c.getCapacidad()});
             
         }
@@ -435,7 +435,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     private void buscarTablaMarca(String marca) {
         listaMarca = new ArrayList();
         listaMarca.addAll(coleData.listarColePorMarca(marca));
-        for (Colectivos c : listaMarca) {
+        for (Colectivo c : listaMarca) {
             modeloTabla.addRow(new Object[] {c.getIdColectivo(), c.getMarca(), c.getModelo(), c.getMatricula(), c.getCapacidad()});
             
         }
@@ -443,7 +443,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     private void buscarTablaCapac(String cap) {
         listaCapac = new ArrayList();
         listaCapac.addAll(coleData.listarColePorCapaci(Integer.parseInt(cap)));
-        for (Colectivos c : listaCapac) {
+        for (Colectivo c : listaCapac) {
             modeloTabla.addRow(new Object[] {c.getIdColectivo(), c.getMarca(), c.getModelo(), c.getMatricula(), c.getCapacidad()});
             
         }
@@ -455,7 +455,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
         if (listaEspecifica.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se encuentra el colectivo ");
         } else {
-            for (Colectivos c : listaEspecifica) {
+            for (Colectivo c : listaEspecifica) {
                 modeloTabla.addRow(new Object[] {c.getIdColectivo(), c.getMarca(), c.getModelo(), c.getMatricula(), c.getCapacidad()});
             }
         

@@ -6,7 +6,7 @@ package vistas;
 
 import accesoADatos.HorarioData;
 import accesoADatos.RutaData;
-import entidades.Horarios;
+import entidades.Horario;
 import entidades.Ruta;
 import java.awt.Color;
 import java.sql.Time;
@@ -25,7 +25,7 @@ import javax.swing.SpinnerDateModel;
 public class CargaHorarios extends javax.swing.JPanel {
 
     ArrayList<Ruta> listaRutas;
-    Horarios horario = null;
+    Horario horario = null;
     Ruta ruta;
     LocalTime horaSalida;
     LocalTime horaLlegada;
@@ -290,7 +290,7 @@ public class CargaHorarios extends javax.swing.JPanel {
     }
 
     public void guardar() {
-        horario = new Horarios(ruta, horaLlegada, horaSalida, true);
+        horario = new Horario(ruta, horaLlegada, horaSalida, true);
         new HorarioData().guardarHorario(horario);
         limpiarCampos();
     }

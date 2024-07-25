@@ -2,7 +2,7 @@
 package vistas;
 
 import accesoADatos.PasajerosData;
-import entidades.Pasajeros;
+import entidades.Pasajero;
 import java.awt.Color;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class BuscadorPasajeros extends javax.swing.JPanel {
 
-    Pasajeros pasajero = null;
-    List<Pasajeros> listaPasajeroDni;
-    List<Pasajeros> listaPasajero;
+    Pasajero pasajero = null;
+    List<Pasajero> listaPasajeroDni;
+    List<Pasajero> listaPasajero;
     PasajerosData pasajeroData = new PasajerosData();
 
  
@@ -370,7 +370,7 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
             String correo = (String) jTable.getValueAt(filaSeleccionada, 3);
             String telefono = (String) jTable.getValueAt(filaSeleccionada, 4);
             boolean estado = true;
-            Pasajeros p1 = new Pasajeros(nombre, apellido, dni, correo, telefono, estado);
+            Pasajero p1 = new Pasajero(nombre, apellido, dni, correo, telefono, estado);
             pasajeroData.eliminarPasajerosPorDni(p1);
 
         } else {
@@ -438,7 +438,7 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
         borrarFilas();
         PasajerosData pasajeroData = new PasajerosData();
         listaPasajero = pasajeroData.listarPasajeros();
-        for (Pasajeros c : listaPasajero) {
+        for (Pasajero c : listaPasajero) {
             modeloTabla.addRow(new Object[]{c.getDni(), c.getNombre(), c.getApellido(), c.getCorreo(), c.getTelefono()});
         }
     }
@@ -450,7 +450,7 @@ public class BuscadorPasajeros extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No se encuentra el Pasajero/a");
             llenarTabla();
         } else {
-            for (Pasajeros pasajeros : listaPasajeroDni) {
+            for (Pasajero pasajeros : listaPasajeroDni) {
                 modeloTabla.addRow(new Object[]{pasajeros.getDni(), pasajeros.getNombre(), pasajeros.getApellido(), pasajeros.getCorreo(), pasajeros.getTelefono()});
             }
         }

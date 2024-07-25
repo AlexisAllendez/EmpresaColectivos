@@ -1,10 +1,10 @@
 
 package accesoADatos;
 
-import entidades.Colectivos;
-import entidades.Horarios;
+import entidades.Colectivo;
+import entidades.Horario;
 import entidades.Pasaje;
-import entidades.Pasajeros;
+import entidades.Pasajero;
 import entidades.Ruta;
 import java.sql.Connection;
 import java.sql.Date;
@@ -76,9 +76,9 @@ public class PasajeData {
                 pasaje = new Pasaje();
                 
                 pasaje.setIdPasaje(rs.getInt("id_pasajes"));
-                Pasajeros psjr = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
+                Pasajero psjr = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
                 pasaje.setPasajero(psjr);
-                Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
+                Colectivo cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
                 pasaje.setColectivo(cole);
                 Ruta ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
                 pasaje.setRuta(ruta);
@@ -179,7 +179,7 @@ public class PasajeData {
         return listaVentas;
     }
     //Stub - To do: usar getAsientosVendidos para mostrar una lista de asientos disponibles.
-    public List<Integer> getAsientosDisponibles(Colectivos colectivo, Ruta ruta, Horarios horario, LocalDate fechaViaje)    {
+    public List<Integer> getAsientosDisponibles(Colectivo colectivo, Ruta ruta, Horario horario, LocalDate fechaViaje)    {
         List<Integer> asientosDisponibles = new ArrayList<>();
         System.out.println("---------------PasajeData.getAsientosDisponibles()---------------------------");
         System.out.println("colectivo=" + colectivo);
@@ -257,9 +257,9 @@ public class PasajeData {
                 Pasaje pasaje = new Pasaje();
                 
                 pasaje.setIdPasaje(rs.getInt("id_pasajes"));
-                Pasajeros psjr = new PasajerosData().buscarPasajero(rs.getInt("id_pasajero"));
+                Pasajero psjr = new PasajerosData().buscarPasajero(rs.getInt("id_pasajero"));
                 pasaje.setPasajero(psjr);
-                Colectivos cole = new ColectivosData().buscarColectivo(rs.getInt("id_colectivo"));
+                Colectivo cole = new ColectivosData().buscarColectivo(rs.getInt("id_colectivo"));
                 pasaje.setColectivo(cole);
                 Ruta ruta = new RutaData().buscarRuta(rs.getInt("id_ruta"));
                 pasaje.setRuta(ruta);

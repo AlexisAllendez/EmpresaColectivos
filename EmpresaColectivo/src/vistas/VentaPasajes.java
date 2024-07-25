@@ -6,10 +6,10 @@ import accesoADatos.HorarioData;
 import accesoADatos.PasajeData;
 import accesoADatos.PasajerosData;
 import accesoADatos.RutaData;
-import entidades.Colectivos;
-import entidades.Horarios;
+import entidades.Colectivo;
+import entidades.Horario;
 import entidades.Pasaje;
-import entidades.Pasajeros;
+import entidades.Pasajero;
 import entidades.Ruta;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -40,10 +40,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class VentaPasajes extends javax.swing.JPanel {
 
-    List<Pasajeros> listaPasajeros;
+    List<Pasajero> listaPasajeros;
     List<Ruta> listaRutasOrigen;
-    List<Colectivos> listaColectivos;
-    List<Horarios> listaHorarios;
+    List<Colectivo> listaColectivos;
+    List<Horario> listaHorarios;
 
     private ArrayList lista = new ArrayList();
     RutaData rutaData = new RutaData();
@@ -533,16 +533,16 @@ public class VentaPasajes extends javax.swing.JPanel {
             
         
         
-        Pasajeros pasajero = (Pasajeros) jCBPasajero.getSelectedItem();
+        Pasajero pasajero = (Pasajero) jCBPasajero.getSelectedItem();
         Ruta ruta = (Ruta) jCBOrigen.getSelectedItem();
-        Colectivos colectivo = (Colectivos) jCBColectivo.getSelectedItem();
+        Colectivo colectivo = (Colectivo) jCBColectivo.getSelectedItem();
         LocalDate fechaViaje = null;
         List<Integer> asientosDisponibles = null;
         if(jCHFecha.getDate() != null){
             Instant instant = jCHFecha.getDate().toInstant();
             fechaViaje = instant.atZone(ZoneId.systemDefault()).toLocalDate();
         }
-        Horarios horario = (Horarios) jCBHorario.getSelectedItem();
+        Horario horario = (Horario) jCBHorario.getSelectedItem();
         LocalTime horaSalida = horario.getHoraSalida();
         
         Pasaje pasaje = new Pasaje(pasajero, ruta, colectivo, fechaViaje,
@@ -592,7 +592,7 @@ public class VentaPasajes extends javax.swing.JPanel {
         if (rutaSeleccionada != null) {
             listaHorarios = horarioData.listarHorariosXRuta(rutaSeleccionada.getIdRuta());
             jCBHorario.removeAllItems();
-            for (Horarios horariosVisibles : listaHorarios) {
+            for (Horario horariosVisibles : listaHorarios) {
                 jCBHorario.addItem(horariosVisibles);
             }
             jCBHorario.setSelectedIndex(-1);
@@ -610,14 +610,13 @@ public class VentaPasajes extends javax.swing.JPanel {
             Instant instant = jCHFecha.getDate().toInstant();
             localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
             
-            System.out.println("colectivo=" + (Colectivos) jCBColectivo.getSelectedItem());
+            System.out.println("colectivo=" + (Colectivo) jCBColectivo.getSelectedItem());
             System.out.println("ruta= " + (Ruta) jCBOrigen.getSelectedItem());
-            System.out.println("horario= " + (Horarios) jCBHorario.getSelectedItem());
+            System.out.println("horario= " + (Horario) jCBHorario.getSelectedItem());
             
-            asientosDisponibles = pasajeData.getAsientosDisponibles(
-                (Colectivos) jCBColectivo.getSelectedItem(),
+            asientosDisponibles = pasajeData.getAsientosDisponibles((Colectivo) jCBColectivo.getSelectedItem(),
                 (Ruta) jCBOrigen.getSelectedItem(),
-                (Horarios) jCBHorario.getSelectedItem(),
+                (Horario) jCBHorario.getSelectedItem(),
                 localDate
             );
         }
@@ -650,10 +649,10 @@ public class VentaPasajes extends javax.swing.JPanel {
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBVender;
     private javax.swing.JComboBox<Integer> jCBAsiento;
-    private javax.swing.JComboBox<Colectivos> jCBColectivo;
-    private javax.swing.JComboBox<Horarios> jCBHorario;
+    private javax.swing.JComboBox<Colectivo> jCBColectivo;
+    private javax.swing.JComboBox<Horario> jCBHorario;
     private javax.swing.JComboBox<Ruta> jCBOrigen;
-    private javax.swing.JComboBox<Pasajeros> jCBPasajero;
+    private javax.swing.JComboBox<Pasajero> jCBPasajero;
     private com.toedter.calendar.JDateChooser jCHFecha;
     private javax.swing.JLabel jLAsiento;
     private javax.swing.JLabel jLBuscarPasaje;
@@ -693,7 +692,7 @@ public class VentaPasajes extends javax.swing.JPanel {
     }
 
     public void llenarComboPasajero() {
-        for (Pasajeros pasajeros : listaPasajeros) {
+        for (Pasajero pasajeros : listaPasajeros) {
             jCBPasajero.addItem(pasajeros);
 //            jCBPasajero.addItem(pasajeros.getNombre() + ", " + pasajeros.getApellido());
 
@@ -710,7 +709,7 @@ public class VentaPasajes extends javax.swing.JPanel {
     }
 
     public void llenarComboHorariosValoresPorDefecto() {
-        for (Horarios Horariosmuestra : listaHorarios) {
+        for (Horario Horariosmuestra : listaHorarios) {
             jCBHorario.addItem(Horariosmuestra);
 //            jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " + "Llegada " + Horariosmuestra.getHoraLLegada());
         }
@@ -718,7 +717,7 @@ public class VentaPasajes extends javax.swing.JPanel {
     }
 
     private void llenarComboColectivos() {
-        for (Colectivos cole : listaColectivos) {
+        for (Colectivo cole : listaColectivos) {
             jCBColectivo.addItem(cole);
 //            jCBColectivo.addItem(cole.getMarca() + " - " + cole.getModelo());
 

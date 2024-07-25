@@ -5,7 +5,7 @@
 package vistas;
 
 import accesoADatos.PasajerosData;
-import entidades.Pasajeros;
+import entidades.Pasajero;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class CargaDePasajero extends javax.swing.JPanel {
 
-    Pasajeros pasajero = null;
+    Pasajero pasajero = null;
     
     public CargaDePasajero() {
         initComponents();
@@ -260,7 +260,7 @@ public class CargaDePasajero extends javax.swing.JPanel {
             String telefono = jTTelefono.getText();
             boolean estado = true;
             
-           pasajero = new Pasajeros(nombre, apellido, dni, correo, telefono, estado);
+           pasajero = new Pasajero(nombre, apellido, dni, correo, telefono, estado);
            
            String texto = "DESEA GUARDAR EL/LA PASAJERO:\n"+"Nombre: " + nombre
                    +"\nApellido: " + apellido + "\nDNI: " + dni;

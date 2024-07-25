@@ -4,7 +4,7 @@ package entidades;
 import java.time.LocalTime;
 
 
-public class Horarios {
+public class Horario {
     
     private int idHorarios;
     private Ruta ruta;
@@ -12,27 +12,27 @@ public class Horarios {
     private LocalTime horaSalida;
     private boolean estado;
 
-    public Horarios(Ruta ruta, LocalTime horaLLegada, LocalTime horaSalida, boolean estado) {
+    public Horario(Ruta ruta, LocalTime horaLLegada, LocalTime horaSalida, boolean estado) {
         this.ruta = ruta;
         this.horaLLegada = horaLLegada;
         this.horaSalida = horaSalida;
         this.estado = estado;
     }
 
-    public Horarios(int idHorarios, Ruta Ruta, LocalTime horaSalida, boolean estado) {
+    public Horario(int idHorarios, Ruta Ruta, LocalTime horaSalida, boolean estado) {
         this.idHorarios = idHorarios;
         this.ruta = Ruta;
         this.horaSalida = horaSalida;
         this.estado = estado;
     }
 
-    public Horarios(Ruta Ruta, LocalTime horaSalida, boolean estado) {
+    public Horario(Ruta Ruta, LocalTime horaSalida, boolean estado) {
         this.ruta = Ruta;
         this.horaSalida = horaSalida;
         this.estado = estado;
     }
 
-    public Horarios() {
+    public Horario() {
     }
 
     public int getIdHorarios() {

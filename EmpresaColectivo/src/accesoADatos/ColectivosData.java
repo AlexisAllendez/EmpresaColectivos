@@ -4,7 +4,7 @@
  */
 package accesoADatos;
 
-import entidades.Colectivos;
+import entidades.Colectivo;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,13 +22,13 @@ import javax.swing.JOptionPane;
  */
 public class ColectivosData {
    private Connection con =  null;
-    Colectivos colectivo = null;
+    Colectivo colectivo = null;
 
     public ColectivosData() {
        con = Conexion.getConexion();
     }
 
-    public void guardarColectivo(Colectivos colectivo) {
+    public void guardarColectivo(Colectivo colectivo) {
         String sql = "INSERT INTO colectivos (matricula, marca, modelo, capacidad, estado) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -55,7 +55,7 @@ public class ColectivosData {
         }
     }
 
-    public Colectivos buscarColectivo(int id) {
+    public Colectivo buscarColectivo(int id) {
         String sql = "SELECT * FROM colectivos WHERE estado = 1 AND id_colectivo = ?";
         
         try {
@@ -65,7 +65,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setIdColectivo(rs.getInt("id_colectivo"));
                 colectivo.setMatricula(rs.getString("matricula"));
@@ -84,7 +84,7 @@ public class ColectivosData {
         return colectivo;
     }
 
-    public void modificarColectivo(Colectivos colectivo) {
+    public void modificarColectivo(Colectivo colectivo) {
         String sql = "UPDATE colectivos SET matricula = ?, marca = ?, modelo = ?, capacidad = ? WHERE id_colectivo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -126,15 +126,15 @@ public class ColectivosData {
         }
     }
     
-    public ArrayList<Colectivos> listarColectivos() {
-        ArrayList<Colectivos> listaColectivos = new ArrayList<>();
+    public ArrayList<Colectivo> listarColectivos() {
+        ArrayList<Colectivo> listaColectivos = new ArrayList<>();
         String sql = "SELECT * FROM colectivos WHERE estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setIdColectivo(rs.getInt("id_colectivo"));
                 colectivo.setMatricula(rs.getString("matricula"));
@@ -152,8 +152,8 @@ public class ColectivosData {
     }
     
 //LISTO COLECTIVOS ASIGNADOS A DETERMINADO RECOORRIDO - USO EN VENTAS PARA CARGAR EL COLECTIVO
-    public ArrayList<Colectivos> listarColectivosAsignados(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
-        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
+    public ArrayList<Colectivo> listarColectivosAsignados(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+        ArrayList<Colectivo> listaColeAsig = new ArrayList<>();
         String sql = "SELECT DISTINCT c.* FROM pasajes p " +
                     "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
                     "WHERE p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?";
@@ -165,7 +165,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setIdColectivo(rs.getInt("id_colectivo"));
                 colectivo.setMatricula(rs.getString("matricula"));
@@ -184,8 +184,8 @@ public class ColectivosData {
     }
     
 //LISTO LOS COLECTIVOS DISPONIBLES - LO UTILIZO PARA ASIGNAR NUEVA UNIDAD
-    public ArrayList<Colectivos> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaSalida) {
-        ArrayList<Colectivos> listaColectivos = new ArrayList<>();
+    public ArrayList<Colectivo> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaSalida) {
+        ArrayList<Colectivo> listaColectivos = new ArrayList<>();
         String sql = "SELECT DISTINCT c.* FROM colectivos c "
                     + "WHERE estado = 1 ";
 //        String sql = "SELECT DISTINCT c.* FROM pasajes p "
@@ -200,7 +200,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setIdColectivo(rs.getInt("id_colectivo"));
                 colectivo.setMatricula(rs.getString("matricula"));
@@ -220,8 +220,8 @@ public class ColectivosData {
     
     
     
-    public ArrayList<Colectivos> listarColePorMatricula(String matri) {
-        ArrayList<Colectivos> lista = new ArrayList<>();
+    public ArrayList<Colectivo> listarColePorMatricula(String matri) {
+        ArrayList<Colectivo> lista = new ArrayList<>();
         String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE matricula = ? AND estado = 1";
      try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -229,7 +229,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setMatricula(rs.getString("matricula"));
                 colectivo.setMarca(rs.getString("marca"));
@@ -246,8 +246,8 @@ public class ColectivosData {
         return lista;
     }
     
-     public ArrayList<Colectivos> listarColePorMarca(String marca) {
-        ArrayList<Colectivos> lista = new ArrayList<>();
+     public ArrayList<Colectivo> listarColePorMarca(String marca) {
+        ArrayList<Colectivo> lista = new ArrayList<>();
         String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE marca = ? AND estado = 1";
      try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -255,7 +255,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setMatricula(rs.getString("matricula"));
                 colectivo.setMarca(rs.getString("marca"));
@@ -272,8 +272,8 @@ public class ColectivosData {
         return lista;
     }
      
-      public ArrayList<Colectivos> listarColePorCapaci(int cap) {
-        ArrayList<Colectivos> lista = new ArrayList<>();
+      public ArrayList<Colectivo> listarColePorCapaci(int cap) {
+        ArrayList<Colectivo> lista = new ArrayList<>();
         String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE capacidad = ? AND estado = 1";
      try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -281,7 +281,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setMatricula(rs.getString("matricula"));
                 colectivo.setMarca(rs.getString("marca"));
@@ -298,8 +298,8 @@ public class ColectivosData {
         return lista;
     }
     
-    public ArrayList<Colectivos> listarColePorEspec(String matri, String marca, int cap) {
-        ArrayList<Colectivos> lista = new ArrayList<>();
+    public ArrayList<Colectivo> listarColePorEspec(String matri, String marca, int cap) {
+        ArrayList<Colectivo> lista = new ArrayList<>();
         String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE matricula = ? AND marca = ? AND capacidad = ? AND estado = 1";
      try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -310,7 +310,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                colectivo = new Colectivos();
+                colectivo = new Colectivo();
                 
                 colectivo.setMatricula(rs.getString("matricula"));
                 colectivo.setMarca(rs.getString("marca"));
@@ -326,8 +326,8 @@ public class ColectivosData {
         }
         return lista;
     }
-      public ArrayList<Colectivos> listaColeDist() {
-          ArrayList<Colectivos> lista = new ArrayList<>();
+      public ArrayList<Colectivo> listaColeDist() {
+          ArrayList<Colectivo> lista = new ArrayList<>();
           String sql = "SELECT DISTINCT marca FROM colectivos WHERE estado = 1";
         
         try {
@@ -335,7 +335,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Colectivos marca = new Colectivos();
+                Colectivo marca = new Colectivo();
                 marca.setMarca(rs.getString("marca"));
                 lista.add(marca);
             }
@@ -346,8 +346,8 @@ public class ColectivosData {
         return lista;
     }
       
-       public ArrayList<Colectivos> listaColeDistCap() {
-          ArrayList<Colectivos> lista = new ArrayList<>();
+       public ArrayList<Colectivo> listaColeDistCap() {
+          ArrayList<Colectivo> lista = new ArrayList<>();
           String sql = "SELECT DISTINCT capacidad FROM colectivos WHERE estado = 1";
         
         try {
@@ -355,7 +355,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Colectivos capa = new Colectivos();
+                Colectivo capa = new Colectivo();
                 capa.setCapacidad(rs.getInt("capacidad"));
                 lista.add(capa);
             }

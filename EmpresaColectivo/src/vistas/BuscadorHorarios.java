@@ -6,7 +6,7 @@ package vistas;
 
 import accesoADatos.HorarioData;
 import accesoADatos.RutaData;
-import entidades.Horarios;
+import entidades.Horario;
 import entidades.Ruta;
 import java.awt.Color;
 import java.time.LocalTime;
@@ -22,11 +22,11 @@ public class BuscadorHorarios extends javax.swing.JPanel {
 
     RutaData rutaData = new RutaData();
     HorarioData horarioData = new HorarioData();
-    List<Horarios> listadoHorariosXID;
+    List<Horario> listadoHorariosXID;
     List<Ruta> listaRutas;
-    List<Horarios> listadoHorarios;
-    List<Horarios> listaXhora;
-    List<Horarios> listaXhorayRuta;
+    List<Horario> listadoHorarios;
+    List<Horario> listaXhora;
+    List<Horario> listaXhorayRuta;
 
     private DefaultTableModel modeloTabla = new DefaultTableModel() {
         public boolean isCellEditable(int i, int i1) {
@@ -272,13 +272,13 @@ public class BuscadorHorarios extends javax.swing.JPanel {
         buscarTabla();
     } else if (jCRuta.getSelectedIndex() == -1 && jCHoraSalida.getSelectedIndex() != -1) {
         // Solo Hora de salida seleccionada
-        Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
+        Horario h = (Horario) jCHoraSalida.getSelectedItem();
         listaXhora = horarioData.listarHorariosXSalida(h.getHoraSalida());
         llenarTablaHorarios();
     } else if (jCRuta.getSelectedIndex() != -1 && jCHoraSalida.getSelectedIndex() != -1) {
         // Ambas opciones seleccionadas
         Ruta i = (Ruta) jCRuta.getSelectedItem();
-        Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
+        Horario h = (Horario) jCHoraSalida.getSelectedItem();
         listaXhorayRuta = horarioData.listarHorariosDoble(i.getIdRuta(), h.getHoraSalida());
         llenarTablaDoble();
     }
@@ -304,7 +304,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
 
     private void llenarTablas() {
         borrarFilas();
-        for (Horarios x : listadoHorarios) {
+        for (Horario x : listadoHorarios) {
             modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
         }
     }
@@ -323,7 +323,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
 
     public void llenarComboHoraSalida() {
         borrarComboBox();
-        for (Horarios s : listadoHorarios) {
+        for (Horario s : listadoHorarios) {
             jCHoraSalida.addItem(s);
         }
         jCHoraSalida.setSelectedIndex(-1);
@@ -341,7 +341,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
 
     public void llenarComboHoraSalidaXRuta() {
         borrarComboBoxHoras();
-        for (Horarios s : listadoHorariosXID) {
+        for (Horario s : listadoHorariosXID) {
             jCHoraSalida.addItem(s);
         }
         jCHoraSalida.setSelectedIndex(-1);
@@ -349,21 +349,21 @@ public class BuscadorHorarios extends javax.swing.JPanel {
 
     public void buscarTabla() {
         borrarFilas();
-        for (Horarios x : listadoHorariosXID) {
+        for (Horario x : listadoHorariosXID) {
             modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
         }
     }
 
     private void llenarTablaHorarios() {
         borrarFilas();
-        for (Horarios x : listaXhora) {
+        for (Horario x : listaXhora) {
             modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
         }
     }
     
     private void llenarTablaDoble(){
         borrarFilas();
-        for (Horarios x : listaXhorayRuta) {
+        for (Horario x : listaXhorayRuta) {
                 modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
         } 
     }
@@ -371,7 +371,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBLimpiar;
-    private javax.swing.JComboBox<Horarios> jCHoraSalida;
+    private javax.swing.JComboBox<Horario> jCHoraSalida;
     private javax.swing.JComboBox<Ruta> jCRuta;
     private javax.swing.JLabel jLBuscarHorario;
     private javax.swing.JLabel jLHorarioSalida;

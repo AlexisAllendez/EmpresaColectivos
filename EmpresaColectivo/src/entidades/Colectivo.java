@@ -2,7 +2,7 @@
 package entidades;
 
 
-public class Colectivos {
+public class Colectivo {
     
     private int idColectivo;
     private String matricula;
@@ -11,7 +11,7 @@ public class Colectivos {
     private int capacidad;
     private boolean estado = true;
 
-    public Colectivos(int idColectivo, String matricula, String marca, String modelo, int capacidad, boolean estado) {
+    public Colectivo(int idColectivo, String matricula, String marca, String modelo, int capacidad, boolean estado) {
         this.idColectivo = idColectivo;
         this.matricula = matricula;
         this.marca = marca;
@@ -20,7 +20,7 @@ public class Colectivos {
         this.estado = estado;
     }
 
-    public Colectivos(String matricula, String marca, String modelo, int capacidad, boolean estado) {
+    public Colectivo(String matricula, String marca, String modelo, int capacidad, boolean estado) {
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
@@ -28,7 +28,7 @@ public class Colectivos {
         this.estado = estado;
     }
 
-    public Colectivos(int idColectivo, String matricula, String marca, String modelo, int capacidad) {
+    public Colectivo(int idColectivo, String matricula, String marca, String modelo, int capacidad) {
         this.idColectivo = idColectivo;
         this.matricula = matricula;
         this.marca = marca;
@@ -38,7 +38,7 @@ public class Colectivos {
     
     
 
-    public Colectivos() {
+    public Colectivo() {
     }
 
     public int getIdColectivo() {

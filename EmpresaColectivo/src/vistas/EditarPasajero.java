@@ -2,13 +2,13 @@
 package vistas;
 
 import accesoADatos.PasajerosData;
-import entidades.Pasajeros;
+import entidades.Pasajero;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class EditarPasajero extends javax.swing.JDialog {
 
-    Pasajeros pasajero = null;
+    Pasajero pasajero = null;
     PasajerosData pasa;
     public EditarPasajero(java.awt.Frame parent, boolean modal,String dni) {
         super(parent, modal);
@@ -221,7 +221,7 @@ public class EditarPasajero extends javax.swing.JDialog {
             String telefono = jTTelefono.getText();
             boolean estado = true;
 
-            pasajero = new Pasajeros(nombre, apellido, dni, correo, telefono,estado);
+            pasajero = new Pasajero(nombre, apellido, dni, correo, telefono,estado);
 
             new PasajerosData().modificarPasajeroPorDni(pasajero);
             this.dispose();

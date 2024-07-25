@@ -1,7 +1,7 @@
 
 package entidades;
 
-public class Pasajeros {
+public class Pasajero {
     
     private int idPasajero;
     private String nombre;
@@ -11,7 +11,7 @@ public class Pasajeros {
     private String telefono;
     private boolean estado;
 
-    public Pasajeros(int idPasajero, String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
+    public Pasajero(int idPasajero, String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
         this.idPasajero = idPasajero;
         this.nombre = Nombre;
         this.apellido = Apellido;
@@ -21,7 +21,7 @@ public class Pasajeros {
         this.estado = estado;
     }
 
-    public Pasajeros(String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
+    public Pasajero(String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
         this.nombre = Nombre;
         this.apellido = Apellido;
         this.dni = dni;
@@ -30,7 +30,7 @@ public class Pasajeros {
         this.estado = estado;
     }
 
-    public Pasajeros() {
+    public Pasajero() {
     }
 
     public int getIdPasajero() {

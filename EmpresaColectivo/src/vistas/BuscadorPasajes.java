@@ -3,7 +3,7 @@ package vistas;
 import accesoADatos.PasajeData;
 import accesoADatos.PasajerosData;
 import entidades.Pasaje;
-import entidades.Pasajeros;
+import entidades.Pasajero;
 import entidades.Ruta;
 import java.awt.Color;
 import java.util.List;
@@ -307,7 +307,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
         PasajerosData pasajeroData = new PasajerosData();
 
-        Pasajeros pasa = pasajeroData.buscarPasajeroDNI(jTPasaje.getText());
+        Pasajero pasa = pasajeroData.buscarPasajeroDNI(jTPasaje.getText());
 
         if (pasa != null) {
             cargarTabla(pasa.getIdPasajero());
