@@ -30,8 +30,8 @@ public class BuscadorColectivos extends javax.swing.JPanel {
          initComponents();
        
         listaCole = coleData.listarColectivos();
-        listaColeDist = coleData.listaColeDist();
-        listaColeDistCap = coleData.listaColeDistCap();
+        listaColeDist = coleData.listaColeDistinto();
+        listaColeDistCap = coleData.listaColeDistintoCapacidad();
         armarCabecera();
         llenarTabla();
         llenarComboMatricula();

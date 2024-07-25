@@ -326,7 +326,7 @@ public class ColectivoData {
         }
         return lista;
     }
-      public ArrayList<Colectivo> listaColeDist() {
+      public ArrayList<Colectivo> listaColeDistinto() {
           ArrayList<Colectivo> lista = new ArrayList<>();
           String sql = "SELECT DISTINCT marca FROM colectivos WHERE estado = 1";
         
@@ -346,7 +346,7 @@ public class ColectivoData {
         return lista;
     }
       
-       public ArrayList<Colectivo> listaColeDistCap() {
+       public ArrayList<Colectivo> listaColeDistintoCapacidad() {
           ArrayList<Colectivo> lista = new ArrayList<>();
           String sql = "SELECT DISTINCT capacidad FROM colectivos WHERE estado = 1";
         
