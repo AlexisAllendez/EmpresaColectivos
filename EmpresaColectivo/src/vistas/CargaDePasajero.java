@@ -71,7 +71,7 @@ public class CargaDePasajero extends javax.swing.JPanel {
 
         jBEditar.setBackground(new java.awt.Color(255, 255, 255));
         jBEditar.setForeground(new java.awt.Color(102, 102, 102));
-        jBEditar.setText("Editar");
+        jBEditar.setText("Agregar");
         jBEditar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
         jBEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
