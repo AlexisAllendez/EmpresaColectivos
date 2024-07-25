@@ -11,7 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class buscarPasajes extends javax.swing.JPanel {
+
     PasajeData pasajedata = null;
+
     public buscarPasajes() {
         initComponents();
         armarCabecera();
@@ -303,13 +305,15 @@ public class buscarPasajes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe ingresar un DNI para poder buscar un pasajero");
         }
 
-        PasajerosData pasajero = new PasajerosData();
+        PasajerosData pasajeroData = new PasajerosData();
 
-        Pasajeros pasa = pasajero.buscarPasajeroDNI(jTPasaje.getText());
+        Pasajeros pasa = pasajeroData.buscarPasajeroDNI(jTPasaje.getText());
 
-        cargarTabla(pasa.getIdPasajero());
+        if (pasa != null) {
+            cargarTabla(pasa.getIdPasajero());
 
-        jTPasaje2.setText(pasa.getNombre() + ", " + pasa.getApellido());
+            jTPasaje2.setText(pasa.getNombre() + ", " + pasa.getApellido());
+        }
     }//GEN-LAST:event_jBFiltrarActionPerformed
 
     private void jTPasajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPasajeKeyTyped
@@ -330,20 +334,20 @@ public class buscarPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        
-        if(tablaPasajes.getRowCount() > 0){
-            
-            if(tablaPasajes.getSelectedRow() != -1){
+
+        if (tablaPasajes.getRowCount() > 0) {
+
+            if (tablaPasajes.getSelectedRow() != -1) {
                 int id = Integer.parseInt(String.valueOf(tablaPasajes.getValueAt(tablaPasajes.getSelectedRow(), 0)));
-                
-                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres ELIMINAR?","confirmar eliminación",JOptionPane.YES_NO_OPTION);
-                if (confirmacion == JOptionPane.YES_OPTION){
+
+                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres ELIMINAR?", "confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if (confirmacion == JOptionPane.YES_OPTION) {
                     pasajedata.eliminarVenta(id);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se seleccionó ningún pasaje");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No hay nada para eliminar");
         }
         limpiarCampos();
@@ -381,7 +385,7 @@ public class buscarPasajes extends javax.swing.JPanel {
         //recorre la lista y mostrar los elementos
         if (listaPasaje != null) {
             for (Pasaje pasaj : listaPasaje) {
-                Object[] objeto = {pasaj.getIdPasaje(),pasaj.getFechaViaje(), pasaj.getHoraViaje(), pasaj.getAsiento(), pasaj.getPrecio()};
+                Object[] objeto = {pasaj.getIdPasaje(), pasaj.getFechaViaje(), pasaj.getHoraViaje(), pasaj.getAsiento(), pasaj.getPrecio()};
 
                 tabla.addRow(objeto);
             }
