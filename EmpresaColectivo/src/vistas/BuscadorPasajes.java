@@ -317,6 +317,9 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBFiltrarActionPerformed
 
     private void jTPasajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPasajeKeyTyped
+        if(jTPasaje.getText().length() >= 8){
+           evt.consume();
+       }
         char c = evt.getKeyChar();
         // Permitir solo números y el punto decimal
         if (!Character.isDigit(c)) {

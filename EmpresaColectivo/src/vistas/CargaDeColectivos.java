@@ -19,6 +19,9 @@ public class CargaDeColectivos extends javax.swing.JPanel {
    
     public CargaDeColectivos() {
         initComponents();
+        txtMatricula.setEnabled(false);
+        txtCapacidad.setEnabled(false);
+        
     }
     private static Map<String, String> capacidadMap;
   
@@ -59,6 +62,11 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         txtMatricula.setBackground(new java.awt.Color(255, 255, 255));
         txtMatricula.setForeground(new java.awt.Color(102, 102, 102));
         txtMatricula.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
+        txtMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMatriculaActionPerformed(evt);
+            }
+        });
         txtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtMatriculaKeyTyped(evt);
@@ -70,7 +78,8 @@ public class CargaDeColectivos extends javax.swing.JPanel {
 
         jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setForeground(new java.awt.Color(102, 102, 102));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Volkswagen", "Mercedez Benz", "Scania", "Marcopolo" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Mercedez Benz", "Scania", "Marcopolo" }));
+        jComboBox1.setToolTipText("");
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -92,7 +101,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
 
         txtCapacidad.setEditable(false);
         txtCapacidad.setBackground(new java.awt.Color(255, 255, 255));
-        txtCapacidad.setForeground(new java.awt.Color(102, 102, 102));
+        txtCapacidad.setForeground(new java.awt.Color(0, 0, 0));
         txtCapacidad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 153, 153)));
 
         jBAgregar.setBackground(new java.awt.Color(255, 255, 255));
@@ -172,7 +181,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
                         .addComponent(lblCapacidad)
                         .addGap(40, 40, 40)
                         .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(263, Short.MAX_VALUE))))
+                        .addContainerGap(251, Short.MAX_VALUE))))
         );
         panelColectivoLayout.setVerticalGroup(
             panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,11 +211,17 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelColectivo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelColectivo, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -236,6 +251,14 @@ public class CargaDeColectivos extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         String selectedValue = (String) jComboBox1.getSelectedItem();
         actualizarCombo(jComboBox2, selectedValue);
+        
+        if(jComboBox1.getSelectedIndex() >= 1){
+            txtMatricula.setEnabled(true);          
+        }
+        if (jComboBox1.getSelectedIndex() == 0 && jComboBox1.getSelectedIndex() == -1){
+            jComboBox2.setEnabled(false);
+        }
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -294,6 +317,10 @@ public class CargaDeColectivos extends javax.swing.JPanel {
            evt.consume();
        }
     }//GEN-LAST:event_txtMatriculaKeyTyped
+
+    private void txtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMatriculaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -401,6 +428,8 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         jComboBox2.setSelectedItem("");
         txtMatricula.setText("");
         txtCapacidad.setText("");
+        txtMatricula.setEnabled(false);
+        jComboBox2.setEnabled(false);
        
         
     }
