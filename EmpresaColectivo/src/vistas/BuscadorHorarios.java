@@ -108,6 +108,12 @@ public class BuscadorHorarios extends javax.swing.JPanel {
             }
         });
 
+        jCHoraSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCHoraSalidaActionPerformed(evt);
+            }
+        });
+
         jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
         jBBuscar.setForeground(new java.awt.Color(102, 102, 102));
         jBBuscar.setText("Buscar");
@@ -255,7 +261,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-        borrarComboBox();
+        limpiarComboRutas();
         llenarTablas();
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
@@ -289,6 +295,10 @@ public class BuscadorHorarios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCRutaActionPerformed
 
+    private void jCHoraSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCHoraSalidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCHoraSalidaActionPerformed
+
     private void armarCabecera() {
         modeloTabla.addColumn("Salida");
         modeloTabla.addColumn("Llegada");
@@ -317,20 +327,20 @@ public class BuscadorHorarios extends javax.swing.JPanel {
         jCRuta.setSelectedIndex(-1);
     }
 
-    private void borrarComboBox() {
+    private void limpiarComboRutas() {
         jCRuta.setSelectedIndex(-1);
         jCHoraSalida.setSelectedIndex(-1);
     }
 
     public void llenarComboHoraSalida() {
-        borrarComboBox();
+        limpiarComboRutas();
         for (Horario s : listadoHorarios) {
             jCHoraSalida.addItem(s);
         }
         jCHoraSalida.setSelectedIndex(-1);
     }
 
-    private void borrarComboBoxHoras() {
+    private void limpiarComboHoras() {
         jCHoraSalida.removeAllItems();
     }
 
@@ -341,7 +351,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
     }
 
     public void llenarComboHoraSalidaXRuta() {
-        borrarComboBoxHoras();
+        limpiarComboHoras();
         for (Horario s : listadoHorariosXID) {
             jCHoraSalida.addItem(s);
         }

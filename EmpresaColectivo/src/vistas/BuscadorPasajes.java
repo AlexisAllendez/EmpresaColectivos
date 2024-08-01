@@ -1,7 +1,10 @@
 package vistas;
 
+import accesoADatos.HorarioData;
 import accesoADatos.PasajeData;
 import accesoADatos.PasajeroData;
+import accesoADatos.RutaData;
+import entidades.Horario;
 import entidades.Pasaje;
 import entidades.Pasajero;
 import entidades.Ruta;
@@ -13,10 +16,18 @@ import javax.swing.table.DefaultTableModel;
 public class BuscadorPasajes extends javax.swing.JPanel {
 
     PasajeData pasajedata = null;
+    RutaData rutaData = new RutaData();
+    HorarioData horarioData = new HorarioData();
+    List<Ruta> listaRutas;
+    List<Horario> listadoHorarios;
 
     public BuscadorPasajes() {
         initComponents();
         armarCabecera();
+        listaRutas = rutaData.listarRutas();
+        listadoHorarios = horarioData.listarHorarios();
+        llenarComboRuta();
+        llenarComboHoraSalida();
         pasajedata = new PasajeData();
     }
 
@@ -476,6 +487,30 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         tabla.addColumn("Butaca");
         tabla.addColumn("Precio");
         tablaPasajes.setModel(tabla);
+    }
+    
+    public void llenarComboRuta() {
+        for (Ruta e : listaRutas) {
+            jCRuta.addItem(e);
+        }
+        jCRuta.setSelectedIndex(-1);
+    }
+
+    private void limpiarComboRutas() {
+        jCRuta.setSelectedIndex(-1);
+        jCHoraSalida.setSelectedIndex(-1);
+    }
+
+    public void llenarComboHoraSalida() {
+        limpiarComboRutas();
+        for (Horario s : listadoHorarios) {
+            jCHoraSalida.addItem(s);
+        }
+        jCHoraSalida.setSelectedIndex(-1);
+    }
+
+    private void limpiarComboHoras() {
+        jCHoraSalida.removeAllItems();
     }
 
 }
