@@ -20,7 +20,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
     public CargaDeColectivos() {
         initComponents();
         txtMatricula.setEnabled(false);
-        txtCapacidad.setEnabled(false);
+        
         
     }
     private static Map<String, String> capacidadMap;
@@ -255,9 +255,7 @@ public class CargaDeColectivos extends javax.swing.JPanel {
         if(jComboBox1.getSelectedIndex() >= 1){
             txtMatricula.setEnabled(true);          
         }
-        if (jComboBox1.getSelectedIndex() == 0 && jComboBox1.getSelectedIndex() == -1){
-            jComboBox2.setEnabled(false);
-        }
+      
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
