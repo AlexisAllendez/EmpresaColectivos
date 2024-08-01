@@ -430,7 +430,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 //Definir el modelo de la tabla y decimos que no es editable
 
         //Establecer los nombres de las columnas
-        String titulos[] = {"idPasaje", "Fecha viaje", "Hora viaje", "butaca", "Precio"};
+        String titulos[] = {"ID Pasaje", "Fecha viaje", "Hora viaje", "butaca", "Precio"};
         tabla.setColumnIdentifiers(titulos);
 
         PasajeData pasaje = new PasajeData();
@@ -464,7 +464,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     }
 
     private void armarCabecera() {
-        tabla.addColumn("idPasaje");
+        tabla.addColumn("ID Pasaje");
         tabla.addColumn("Fecha viaje");
         tabla.addColumn("Hora viaje");
         tabla.addColumn("Butaca");
