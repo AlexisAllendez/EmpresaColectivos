@@ -72,9 +72,33 @@ public class Ruta {
     @Override
     public String toString() {
         if(idRuta != -1){
-            return origen + " - " + destino;
+            return idRuta + " " + origen + " - " + destino;
         }
         return "";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + this.idRuta;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ruta other = (Ruta) obj;
+        return this.idRuta == other.idRuta;
+    }
+    
+    
 
 }

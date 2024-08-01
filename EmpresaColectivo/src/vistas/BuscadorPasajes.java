@@ -9,6 +9,8 @@ import entidades.Pasaje;
 import entidades.Pasajero;
 import entidades.Ruta;
 import java.awt.Color;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,16 +20,16 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     PasajeData pasajedata = null;
     RutaData rutaData = new RutaData();
     HorarioData horarioData = new HorarioData();
-    List<Ruta> listaRutas;
-    List<Horario> listadoHorarios;
+//    List<Ruta> listaRutas;
+//    List<Horario> listadoHorarios;
 
     public BuscadorPasajes() {
         initComponents();
         armarCabecera();
-        listaRutas = rutaData.listarRutas();
-        listadoHorarios = horarioData.listarHorarios();
-        llenarComboRuta();
-        llenarComboHoraSalida();
+//        listaRutas = rutaData.listarRutas();
+//        listadoHorarios = horarioData.listarHorarios();
+//        llenarComboRuta();
+//        llenarComboHoraSalida();
         pasajedata = new PasajeData();
     }
 
@@ -143,19 +145,16 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         jLRuta.setText("Seleccionar ruta");
 
         jLHorarioSalida.setForeground(new java.awt.Color(102, 102, 102));
-        jLHorarioSalida.setText("Horario de salida");
+        jLHorarioSalida.setText("Horario");
 
+        jCRuta.setEnabled(false);
         jCRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCRutaActionPerformed(evt);
             }
         });
 
-        jCHoraSalida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCHoraSalidaActionPerformed(evt);
-            }
-        });
+        jCHoraSalida.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -370,9 +369,12 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
         if (pasa != null) {
             limpiarTabla();
+            limpiarCombos();
             cargarTabla(pasa.getIdPasajero());
 
             jTPasaje2.setText(pasa.getNombre() + ", " + pasa.getApellido());
+            jCRuta.setEnabled(true);
+            jCHoraSalida.setEnabled(true);
         }
     }//GEN-LAST:event_jBFiltrarActionPerformed
 
@@ -426,21 +428,12 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jCRutaActionPerformed
 
-    private void jCHoraSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCHoraSalidaActionPerformed
-        if(jCHoraSalida.getSelectedIndex() != -1){
-            Horario horario = (Horario) jCHoraSalida.getSelectedItem();
-            if(horario.getIdHorario() == -1){
-                jCHoraSalida.setSelectedIndex(-1);
-            }
-        }
-    }//GEN-LAST:event_jCHoraSalidaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBFiltrar;
     private javax.swing.JButton jBLimpiar;
-    private javax.swing.JComboBox<entidades.Horario> jCHoraSalida;
+    private javax.swing.JComboBox<LocalTime> jCHoraSalida;
     private javax.swing.JComboBox<Ruta> jCRuta;
     private javax.swing.JLabel jLHorarioSalida;
     private javax.swing.JLabel jLRuta;
@@ -466,9 +459,12 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
         PasajeData pasaje = new PasajeData();
         List<Pasaje> listaPasaje = pasaje.listarVentasXPasajero(idPasajero);
+        List<Ruta> rutas = new ArrayList<>();
+        List<LocalTime> horarios = new ArrayList<>();
 
         //recorre la lista y mostrar los elementos
         if (listaPasaje != null) {
+            limpiarCombos();
             for (Pasaje pasaj : listaPasaje) {
                 Object[] objeto = {pasaj.getIdPasaje(),
                                    pasaj.getRuta().toString(),
@@ -478,17 +474,32 @@ public class BuscadorPasajes extends javax.swing.JPanel {
                                    pasaj.getPrecio()};
 
                 tabla.addRow(objeto);
+                
+                Ruta ruta = pasaj.getRuta();
+                if(!rutas.contains(ruta)){
+                    rutas.add(ruta);
+                }
+                
+                LocalTime horarioSalida = pasaj.getHoraViaje();
+                if(!horarios.contains(horarioSalida)){
+                    horarios.add(horarioSalida);
+                }
+
+                
             }
         }
 
         //Asignamos a la tabla los valores 
         tablaPasajes.setModel(tabla);
+        llenarComboRuta(rutas);
+        llenarComboHoraSalida(horarios);
 
     }
 
     private void limpiarCampos() {
         jTPasaje.setText("");
         jTPasaje2.setText("");
+        setCombosReadOnly();
     }
 
     private void limpiarTabla() {
@@ -509,35 +520,39 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         tablaPasajes.setModel(tabla);
     }
     
-    public void llenarComboRuta() {
+    public void llenarComboRuta(List<Ruta> listaRutas) {
         Ruta rutaVacia = new Ruta();
         rutaVacia.setIdRuta(-1);
         
         jCRuta.addItem(rutaVacia);
-        for (Ruta e : listaRutas) {
-            jCRuta.addItem(e);
+        for (Ruta ruta : listaRutas) {
+            jCRuta.addItem(ruta);
         }
         jCRuta.setSelectedIndex(-1);
     }
-
-    private void limpiarComboRutas() {
-        jCRuta.setSelectedIndex(-1);
-        jCHoraSalida.setSelectedIndex(-1);
-    }
-
-    public void llenarComboHoraSalida() {
-        limpiarComboRutas();
-        Horario horarioVacio = new Horario();
-        horarioVacio.setIdHorario(-1);
-        jCHoraSalida.addItem(horarioVacio);
-        for (Horario s : listadoHorarios) {
-            jCHoraSalida.addItem(s);
+    
+    public void llenarComboHoraSalida(List<LocalTime> listadoHorarios) {
+        for (LocalTime horaSalida : listadoHorarios) {
+            jCHoraSalida.addItem(horaSalida);
         }
         jCHoraSalida.setSelectedIndex(-1);
     }
+    
+    private void setCombosReadOnly(){
+        jCRuta.setSelectedIndex(-1);
+        jCHoraSalida.setSelectedIndex(-1);
+        jCRuta.setEnabled(false);
+        jCHoraSalida.setEnabled(false);
+    }
 
-    private void limpiarComboHoras() {
+    private void limpiarCombos() {
+        jCRuta.setSelectedIndex(-1);
+        jCHoraSalida.setSelectedIndex(-1);
+        jCRuta.removeAllItems();;
         jCHoraSalida.removeAllItems();
+        
     }
+
+    
 
 }

@@ -2,6 +2,7 @@
 package entidades;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 
 public class Horario {
@@ -82,5 +83,33 @@ public class Horario {
         }
         return "";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.horaLLegada);
+        hash = 29 * hash + Objects.hashCode(this.horaSalida);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Horario other = (Horario) obj;
+        if (!Objects.equals(this.horaLLegada, other.horaLLegada)) {
+            return false;
+        }
+        return Objects.equals(this.horaSalida, other.horaSalida);
+    }
+    
+    
 
 }
