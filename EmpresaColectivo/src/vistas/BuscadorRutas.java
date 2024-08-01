@@ -82,6 +82,7 @@ public class BuscadorRutas extends javax.swing.JPanel {
                 "Ruta", "Origen", "Destino", "Duracion Estimada"
             }
         ));
+        jTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable);
 
         jLRutas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N

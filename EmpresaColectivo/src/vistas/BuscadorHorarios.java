@@ -86,6 +86,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
                 "Salida", "Llegada", "Ruta"
             }
         ));
+        jTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -229,7 +230,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -371,7 +372,7 @@ public class BuscadorHorarios extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBLimpiar;
-    private javax.swing.JComboBox<Horario> jCHoraSalida;
+    private javax.swing.JComboBox<entidades.Horario> jCHoraSalida;
     private javax.swing.JComboBox<Ruta> jCRuta;
     private javax.swing.JLabel jLBuscarHorario;
     private javax.swing.JLabel jLHorarioSalida;

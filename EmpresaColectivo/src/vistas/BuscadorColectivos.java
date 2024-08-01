@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +34,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
         listaColeDist = coleData.listaColeDistinto();
         listaColeDistCap = coleData.listaColeDistintoCapacidad();
         armarCabecera();
+        jTablaColectivos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         llenarTabla();
         llenarComboMatricula();
         llenarComboMarca();
@@ -53,7 +55,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
+        jTablaColectivos = new javax.swing.JTable();
         jLColectivo = new javax.swing.JLabel();
         jBModificar = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
@@ -74,10 +76,10 @@ public class BuscadorColectivos extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jScrollPane1.setForeground(new java.awt.Color(0, 51, 51));
 
-        jTable.setBackground(new java.awt.Color(255, 255, 255));
-        jTable.setBorder(new javax.swing.border.MatteBorder(null));
-        jTable.setForeground(new java.awt.Color(0, 51, 51));
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
+        jTablaColectivos.setBackground(new java.awt.Color(255, 255, 255));
+        jTablaColectivos.setBorder(new javax.swing.border.MatteBorder(null));
+        jTablaColectivos.setForeground(new java.awt.Color(0, 51, 51));
+        jTablaColectivos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -96,9 +98,9 @@ public class BuscadorColectivos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable.setGridColor(new java.awt.Color(0, 51, 51));
-        jTable.setOpaque(false);
-        jScrollPane1.setViewportView(jTable);
+        jTablaColectivos.setGridColor(new java.awt.Color(0, 51, 51));
+        jTablaColectivos.setOpaque(false);
+        jScrollPane1.setViewportView(jTablaColectivos);
 
         jLColectivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLColectivo.setForeground(new java.awt.Color(51, 51, 51));
@@ -297,18 +299,18 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     }//GEN-LAST:event_LimpiarActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        int filaSeleccionada = jTable.getSelectedRow();
+        int filaSeleccionada = jTablaColectivos.getSelectedRow();
         if (filaSeleccionada != -1) {
-            String matricula = (String) jTable.getValueAt(filaSeleccionada, 3); // Obtener la matrícula actual
+            String matricula = (String) jTablaColectivos.getValueAt(filaSeleccionada, 3); // Obtener la matrícula actual
             String nuevaMatricula = JOptionPane.showInputDialog(null, "Modificar matrícula:", matricula);
 
             if (nuevaMatricula != null && !nuevaMatricula.isEmpty()) {
                 // Actualizar la matrícula en la tabla y en la base de datos
-                jTable.setValueAt(nuevaMatricula, filaSeleccionada, 3); // Actualizar en la tabla
-                int idColectivo = (int) jTable.getValueAt(filaSeleccionada, 0);
-                String marca = (String) jTable.getValueAt(filaSeleccionada, 1);
-                String modelo = (String) jTable.getValueAt(filaSeleccionada, 2);
-                int capacidad = (int) jTable.getValueAt(filaSeleccionada, 4);
+                jTablaColectivos.setValueAt(nuevaMatricula, filaSeleccionada, 3); // Actualizar en la tabla
+                int idColectivo = (int) jTablaColectivos.getValueAt(filaSeleccionada, 0);
+                String marca = (String) jTablaColectivos.getValueAt(filaSeleccionada, 1);
+                String modelo = (String) jTablaColectivos.getValueAt(filaSeleccionada, 2);
+                int capacidad = (int) jTablaColectivos.getValueAt(filaSeleccionada, 4);
 
                 Colectivo colectivo = new Colectivo(idColectivo, nuevaMatricula, marca, modelo, capacidad);
                 coleData.modificarColectivo(colectivo); // Actualizar en la base de datos
@@ -343,9 +345,9 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        int filaSeleccionada = jTable.getSelectedRow();
+        int filaSeleccionada = jTablaColectivos.getSelectedRow();
         if (filaSeleccionada != -1) {
-            int matricula = (Integer) jTable.getValueAt(filaSeleccionada, 0);
+            int matricula = (Integer) jTablaColectivos.getValueAt(filaSeleccionada, 0);
             coleData.eliminarColectivo(matricula);
               
         } else {
@@ -371,7 +373,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     private javax.swing.JLabel jLMarca;
     private javax.swing.JLabel jLMatricula;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable;
+    private javax.swing.JTable jTablaColectivos;
     // End of variables declaration//GEN-END:variables
 
 
@@ -412,7 +414,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
         modeloTabla.addColumn("Modelo");
         modeloTabla.addColumn("Matricula");
         modeloTabla.addColumn("Capacidad");
-        jTable.setModel(modeloTabla);
+        jTablaColectivos.setModel(modeloTabla);
     }
      
      

@@ -133,6 +133,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
             }
         ));
+        tablaPasajes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tablaPasajes);
 
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
