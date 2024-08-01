@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
+import javax.swing.text.*;
 
 public class BuscadorColectivos extends javax.swing.JPanel {
     List<Colectivo> listaCole;
@@ -307,6 +309,7 @@ public class BuscadorColectivos extends javax.swing.JPanel {
             if (nuevaMatricula != null && !nuevaMatricula.isEmpty()) {
                 // Actualizar la matrícula en la tabla y en la base de datos
                 jTablaColectivos.setValueAt(nuevaMatricula, filaSeleccionada, 3); // Actualizar en la tabla
+                
                 int idColectivo = (int) jTablaColectivos.getValueAt(filaSeleccionada, 0);
                 String marca = (String) jTablaColectivos.getValueAt(filaSeleccionada, 1);
                 String modelo = (String) jTablaColectivos.getValueAt(filaSeleccionada, 2);
@@ -322,7 +325,9 @@ public class BuscadorColectivos extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_jBModificarActionPerformed
+   llenarComboMatricula();
     }
+    
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         borrarFilas();
 
@@ -388,6 +393,8 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     }
     
     public void llenarComboMatricula() {
+        jCBMatricula.removeAllItems();
+        listaCole = coleData.listarColectivos();
     for (Colectivo c : listaCole){
         jCBMatricula.addItem(c.getMatricula());
     }
