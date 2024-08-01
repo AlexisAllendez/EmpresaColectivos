@@ -610,10 +610,6 @@ public class VentaPasajes extends javax.swing.JPanel {
             Instant instant = jCHFecha.getDate().toInstant();
             localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
             
-            System.out.println("colectivo=" + (Colectivo) jCBColectivo.getSelectedItem());
-            System.out.println("ruta= " + (Ruta) jCBOrigen.getSelectedItem());
-            System.out.println("horario= " + (Horario) jCBHorario.getSelectedItem());
-            
             asientosDisponibles = pasajeData.getAsientosDisponibles((Colectivo) jCBColectivo.getSelectedItem(),
                 (Ruta) jCBOrigen.getSelectedItem(),
                 (Horario) jCBHorario.getSelectedItem(),
@@ -621,13 +617,8 @@ public class VentaPasajes extends javax.swing.JPanel {
             );
         }
         
-        if(asientosDisponibles == null){
-            System.out.println("No hay registro de asientos disponibles en esa fecha");
-        }
-        
         if(asientosDisponibles != null){
             for(Integer asiento : asientosDisponibles){
-                System.out.println("[" + asiento + "]");
                 jCBAsiento.addItem(asiento);
             }
         }
@@ -694,8 +685,6 @@ public class VentaPasajes extends javax.swing.JPanel {
     public void llenarComboPasajero() {
         for (Pasajero pasajeros : listaPasajeros) {
             jCBPasajero.addItem(pasajeros);
-//            jCBPasajero.addItem(pasajeros.getNombre() + ", " + pasajeros.getApellido());
-
         }
         jCBPasajero.setSelectedIndex(-1);
     }
@@ -711,7 +700,6 @@ public class VentaPasajes extends javax.swing.JPanel {
     public void llenarComboHorariosValoresPorDefecto() {
         for (Horario Horariosmuestra : listaHorarios) {
             jCBHorario.addItem(Horariosmuestra);
-//            jCBHorario.addItem("Salida " + Horariosmuestra.getHoraSalida() + " - " + "Llegada " + Horariosmuestra.getHoraLLegada());
         }
         jCBHorario.setSelectedIndex(-1);
     }
@@ -719,8 +707,6 @@ public class VentaPasajes extends javax.swing.JPanel {
     private void llenarComboColectivos() {
         for (Colectivo cole : listaColectivos) {
             jCBColectivo.addItem(cole);
-//            jCBColectivo.addItem(cole.getMarca() + " - " + cole.getModelo());
-
             jCBColectivo.setSelectedIndex(-1);
         }
 

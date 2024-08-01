@@ -181,13 +181,6 @@ public class PasajeData {
     //Stub - To do: usar getAsientosVendidos para mostrar una lista de asientos disponibles.
     public List<Integer> getAsientosDisponibles(Colectivo colectivo, Ruta ruta, Horario horario, LocalDate fechaViaje)    {
         List<Integer> asientosDisponibles = new ArrayList<>();
-        System.out.println("---------------PasajeData.getAsientosDisponibles()---------------------------");
-        System.out.println("colectivo=" + colectivo);
-        System.out.println("ruta=" + ruta);
-        System.out.println("horario=" + horario);
-        System.out.println("fecha=" + fechaViaje);
-        
-        System.out.println("--------------------------------------------------------------------");
         if(ruta != null){
             int maxCapacidad = -1;
             ArrayList<Integer> asientosVendidos = getAsientosVendidos(
@@ -201,7 +194,6 @@ public class PasajeData {
 
             for(Integer asiento: asientosVendidos){
                 if(asiento > maxCapacidad && asiento > capacidadActual){
-                    System.out.println("asiento max enum vendido: "  + asiento);
                     maxCapacidad = asiento;
                 }
             }
