@@ -426,20 +426,25 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     private javax.swing.JTable tablaPasajes;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarTabla(int id) {
+    private void cargarTabla(int idPasajero) {
 //Definir el modelo de la tabla y decimos que no es editable
 
         //Establecer los nombres de las columnas
-        String titulos[] = {"ID Pasaje", "Fecha viaje", "Hora viaje", "butaca", "Precio"};
+        String titulos[] = {"ID Pasaje", "Ruta", "Fecha viaje", "Hora viaje", "butaca", "Precio"};
         tabla.setColumnIdentifiers(titulos);
 
         PasajeData pasaje = new PasajeData();
-        List<Pasaje> listaPasaje = pasaje.listarVentasXPasajero(id);
+        List<Pasaje> listaPasaje = pasaje.listarVentasXPasajero(idPasajero);
 
         //recorre la lista y mostrar los elementos
         if (listaPasaje != null) {
             for (Pasaje pasaj : listaPasaje) {
-                Object[] objeto = {pasaj.getIdPasaje(), pasaj.getFechaViaje(), pasaj.getHoraViaje(), pasaj.getAsiento(), pasaj.getPrecio()};
+                Object[] objeto = {pasaj.getIdPasaje(),
+                                   pasaj.getRuta().toString(),
+                                   pasaj.getFechaViaje(),
+                                   pasaj.getHoraViaje(),
+                                   pasaj.getAsiento(),
+                                   pasaj.getPrecio()};
 
                 tabla.addRow(objeto);
             }
@@ -465,6 +470,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
     private void armarCabecera() {
         tabla.addColumn("ID Pasaje");
+        tabla.addColumn("Ruta");
         tabla.addColumn("Fecha viaje");
         tabla.addColumn("Hora viaje");
         tabla.addColumn("Butaca");
