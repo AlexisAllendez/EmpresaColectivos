@@ -90,7 +90,7 @@ public class HorarioData {
             ps.setInt(1, horario.getRuta().getIdRuta());
             ps.setTime(2, Time.valueOf(horario.getHoraSalida()));
             ps.setTime(3, Time.valueOf(horario.getHoraLLegada()));
-            ps.setInt(4, horario.getIdHorarios());
+            ps.setInt(4, horario.getIdHorario());
             
             int filasAfectadas = ps.executeUpdate();
 

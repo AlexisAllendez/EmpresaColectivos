@@ -35,7 +35,7 @@ public class Horario {
     public Horario() {
     }
 
-    public int getIdHorarios() {
+    public int getIdHorario() {
         return idHorario;
     }
 

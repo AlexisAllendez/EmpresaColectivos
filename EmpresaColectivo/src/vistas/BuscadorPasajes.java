@@ -151,6 +151,12 @@ public class BuscadorPasajes extends javax.swing.JPanel {
             }
         });
 
+        jCHoraSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCHoraSalidaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -290,7 +296,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(115, 115, 115)
                                         .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,8 +418,22 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jCRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCRutaActionPerformed
-        // TODO add your handling code here:
+        if(jCRuta.getSelectedIndex() != -1){
+            Ruta ruta = (Ruta) jCRuta.getSelectedItem();
+            if(ruta.getIdRuta() == -1){
+                jCRuta.setSelectedIndex(-1);
+            }
+        }
     }//GEN-LAST:event_jCRutaActionPerformed
+
+    private void jCHoraSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCHoraSalidaActionPerformed
+        if(jCHoraSalida.getSelectedIndex() != -1){
+            Horario horario = (Horario) jCHoraSalida.getSelectedItem();
+            if(horario.getIdHorario() == -1){
+                jCHoraSalida.setSelectedIndex(-1);
+            }
+        }
+    }//GEN-LAST:event_jCHoraSalidaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
