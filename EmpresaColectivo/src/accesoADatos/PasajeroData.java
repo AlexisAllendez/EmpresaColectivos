@@ -87,8 +87,38 @@ public class PasajeroData {
         }
         return pasaj;
     }
-    
     public Pasajero buscarPasajeroDNI(String dni) {
+        Pasajero pasaj = null;
+        String sql = "SELECT * FROM pasajeros WHERE dni = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, dni);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                pasaj = new Pasajero();
+
+                pasaj.setIdPasajero(rs.getInt("id_pasajero"));
+                pasaj.setNombre(rs.getString("nombre"));
+                pasaj.setApellido(rs.getString("apellido"));
+                pasaj.setDni(rs.getString("dni"));
+                pasaj.setCorreo(rs.getString("correo"));
+                pasaj.setTelefono(rs.getString("telefono"));
+                pasaj.setEstado(rs.getBoolean("estado"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe un pasajero con ese DNI");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
+        }
+        return pasaj;
+    }
+    
+    public Pasajero buscarPasajeroActivoDNI(String dni) {
         Pasajero pasaj = null;
         String sql = "SELECT * FROM pasajeros WHERE dni = ? AND estado = true";
 

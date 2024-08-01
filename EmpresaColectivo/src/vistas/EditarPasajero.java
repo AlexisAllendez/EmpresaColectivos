@@ -377,7 +377,7 @@ public class EditarPasajero extends javax.swing.JDialog {
     }
  
  private void cargarDatos(String dni) {
-        this.pasajero= pasa.buscarPasajeroDNI(dni);
+        this.pasajero= pasa.buscarPasajeroActivoDNI(dni);
          
      jTDNI.setText(pasajero.getDni());
      jTDNI.setForeground(Color.black);

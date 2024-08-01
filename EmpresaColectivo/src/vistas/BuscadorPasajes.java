@@ -310,6 +310,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         Pasajero pasa = pasajeroData.buscarPasajeroDNI(jTPasaje.getText());
 
         if (pasa != null) {
+            limpiarTabla();
             cargarTabla(pasa.getIdPasajero());
 
             jTPasaje2.setText(pasa.getNombre() + ", " + pasa.getApellido());
