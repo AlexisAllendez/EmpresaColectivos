@@ -286,7 +286,14 @@ public class BuscadorRutas extends javax.swing.JPanel {
     public void buscarTabla(String origen, String destino) {
         
         rutasEspecificas = rutaData.buscarRuta(origen, destino);
-        tabla.addRow(new Object[]{rutasEspecificas.getIdRuta(), rutasEspecificas.getOrigen(), rutasEspecificas.getDestino(), rutasEspecificas.getDuracionEst()});
+        if(rutasEspecificas != null){
+            tabla.addRow(new Object[]{
+                rutasEspecificas.getIdRuta(),
+                rutasEspecificas.getOrigen(),
+                rutasEspecificas.getDestino(),
+                rutasEspecificas.getDuracionEst()
+            });
+        }
     }
     
 
