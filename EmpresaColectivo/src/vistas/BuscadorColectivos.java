@@ -87,7 +87,15 @@ public class BuscadorColectivos extends javax.swing.JPanel {
             new String [] {
                 "Modelo", "Marca", "Matricula", "Capacidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable.setGridColor(new java.awt.Color(0, 51, 51));
         jTable.setOpaque(false);
         jScrollPane1.setViewportView(jTable);
