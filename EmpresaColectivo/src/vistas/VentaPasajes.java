@@ -23,6 +23,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -717,7 +718,12 @@ public class VentaPasajes extends javax.swing.JPanel {
     }
 
     private void limpiarCampos() {
-         Date fechaHoy = new Date();
+        Date fechaHoy = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaHoy);
+        calendar.add(Calendar.YEAR, 1);
+        Date fechaMax = calendar.getTime();
+//        Date fechaMax = new Date(System.currentTimeMillis() + 24*60*60*1000*365);
         
         jCBOrigen.setSelectedIndex(-1);
         jCBPasajero.setSelectedIndex(-1);
@@ -725,6 +731,9 @@ public class VentaPasajes extends javax.swing.JPanel {
         jCBColectivo.setSelectedIndex(-1);
         jCBAsiento.setSelectedIndex(-1);
         jCHFecha.setDate(fechaHoy);
+        jCHFecha.setMinSelectableDate(fechaHoy);
+        jCHFecha.setMaxSelectableDate(fechaMax);
+        
         txtPrecio.setText("");
     }
 
