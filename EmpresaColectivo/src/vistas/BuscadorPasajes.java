@@ -490,6 +490,10 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     }
     
     public void llenarComboRuta() {
+        Ruta rutaVacia = new Ruta();
+        rutaVacia.setIdRuta(-1);
+        
+        jCRuta.addItem(rutaVacia);
         for (Ruta e : listaRutas) {
             jCRuta.addItem(e);
         }
@@ -503,6 +507,9 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
     public void llenarComboHoraSalida() {
         limpiarComboRutas();
+        Horario horarioVacio = new Horario();
+        horarioVacio.setIdHorario(-1);
+        jCHoraSalida.addItem(horarioVacio);
         for (Horario s : listadoHorarios) {
             jCHoraSalida.addItem(s);
         }

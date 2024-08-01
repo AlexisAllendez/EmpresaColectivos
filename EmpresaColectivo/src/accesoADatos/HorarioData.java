@@ -41,7 +41,7 @@ public class HorarioData {
             ResultSet idHorario = ps.getGeneratedKeys();
 
             if (idHorario.next()) {
-                horario.setIdHorarios(idHorario.getInt(1));
+                horario.setIdHorario(idHorario.getInt(1));
                 JOptionPane.showMessageDialog(null, "Horario guardado");
             }
             ps.close();
@@ -66,7 +66,7 @@ public class HorarioData {
             if (rs.next()) {
                 horario = new Horario();
                 
-                horario.setIdHorarios(rs.getInt("id_horario"));
+                horario.setIdHorario(rs.getInt("id_horario"));
                 Ruta ruta = new RutaData().buscarRuta(rs.getInt("id_ruta"));
                 horario.setRuta(ruta);
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
@@ -133,7 +133,7 @@ public class HorarioData {
             while (rs.next()) {
                 Horario horario = new Horario();
                 
-                horario.setIdHorarios(rs.getInt("id_horario"));
+                horario.setIdHorario(rs.getInt("id_horario"));
                 horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
@@ -160,7 +160,7 @@ public class HorarioData {
 
             while (rs.next()) {
                 Horario horario = new Horario();
-                horario.setIdHorarios(rs.getInt("id_horario"));
+                horario.setIdHorario(rs.getInt("id_horario"));
                 horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
@@ -188,7 +188,7 @@ public class HorarioData {
             while (rs.next()) {
              Horario horario = new Horario();
             
-             horario.setIdHorarios(rs.getInt("id_horario"));
+             horario.setIdHorario(rs.getInt("id_horario"));
              horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
              horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
              horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
@@ -217,7 +217,7 @@ public class HorarioData {
             while (rs.next()) {
              Horario horario = new Horario();
             
-             horario.setIdHorarios(rs.getInt("id_horario"));
+             horario.setIdHorario(rs.getInt("id_horario"));
              horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
              horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
              horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());

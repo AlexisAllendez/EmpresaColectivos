@@ -71,7 +71,10 @@ public class Ruta {
 
     @Override
     public String toString() {
-        return origen + " - " + destino;
+        if(idRuta != -1){
+            return origen + " - " + destino;
+        }
+        return "";
     }
 
 }
