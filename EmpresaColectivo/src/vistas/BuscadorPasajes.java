@@ -371,7 +371,6 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         Pasajero pasa = pasajeroData.buscarPasajeroDNI(jTPasaje.getText());
 
         if (pasa != null) {
-            limpiarTabla();
             limpiarCombos();
             cargarTabla(pasa.getIdPasajero());
 
@@ -472,7 +471,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
     private void cargarTabla(int idPasajero) {
 //Definir el modelo de la tabla y decimos que no es editable
-
+        limpiarTabla();
         //Establecer los nombres de las columnas
         String titulos[] = {"ID Pasaje", "Ruta", "Fecha viaje", "Hora viaje", "butaca", "Precio"};
         tabla.setColumnIdentifiers(titulos);
