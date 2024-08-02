@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package accesoADatos;
 
 import entidades.Horario;
@@ -12,7 +15,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-
+/**
+ *
+ * @author 54266
+ */
 public class HorarioData {
      private Connection con = null;
     private RutaData rutaData = new RutaData();
