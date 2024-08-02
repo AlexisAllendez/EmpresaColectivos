@@ -19,6 +19,15 @@ public class Horario {
         this.estado = estado;
     }
 
+    public Horario(int idHorarios, Ruta ruta, LocalTime horaLLegada, LocalTime horaSalida, boolean estado) {
+        this.idHorarios = idHorarios;
+        this.ruta = ruta;
+        this.horaLLegada = horaLLegada;
+        this.horaSalida = horaSalida;
+        this.estado = estado;
+    }
+    
+
     public Horario(int idHorarios, Ruta Ruta, LocalTime horaSalida, boolean estado) {
         this.idHorarios = idHorarios;
         this.ruta = Ruta;
