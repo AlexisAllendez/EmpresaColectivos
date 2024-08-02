@@ -13,23 +13,20 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class BuscadorPasajes extends javax.swing.JPanel {
 
     PasajeData pasajedata = null;
     RutaData rutaData = new RutaData();
     HorarioData horarioData = new HorarioData();
-//    List<Ruta> listaRutas;
-//    List<Horario> listadoHorarios;
+    TableRowSorter<DefaultTableModel> filtrador;
 
     public BuscadorPasajes() {
         initComponents();
         armarCabecera();
-//        listaRutas = rutaData.listarRutas();
-//        listadoHorarios = horarioData.listarHorarios();
-//        llenarComboRuta();
-//        llenarComboHoraSalida();
         pasajedata = new PasajeData();
     }
 
@@ -40,6 +37,8 @@ public class BuscadorPasajes extends javax.swing.JPanel {
             return false;
         }
     };
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -426,6 +425,21 @@ public class BuscadorPasajes extends javax.swing.JPanel {
                 jCRuta.setSelectedIndex(-1);
             }
         }
+        if(jCRuta.getSelectedIndex() == -1){
+            if(this.filtrador != null){
+                filtrador.setRowFilter(null);
+            }
+        }else{
+            Ruta rutaSeleccionada = (Ruta) jCRuta.getSelectedItem();
+            String rutaFiltro = rutaSeleccionada.toString();
+            filtrador.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
+                        @Override
+                        public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                            String ruta = (String) entry.getValue(1);
+                            return ruta.equalsIgnoreCase(rutaFiltro);
+                        }
+                    });
+        }
     }//GEN-LAST:event_jCRutaActionPerformed
 
 
@@ -491,6 +505,8 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
         //Asignamos a la tabla los valores 
         tablaPasajes.setModel(tabla);
+        filtrador = new TableRowSorter<>(tabla);
+        tablaPasajes.setRowSorter(filtrador);
         llenarComboRuta(rutas);
         llenarComboHoraSalida(horarios);
 
