@@ -81,13 +81,75 @@ public class RutaData {
     }
     
 // BUSCO RUTA POR ORIGEN Y DESTINO ESPECIFICO //LO UTILIZO PARA BUSCAR EL HORARIO
-    public Ruta buscarRuta(String origen, String destino) {   
+  public Ruta buscarRuta(String origen, String destino) {   
         String sql = "SELECT * FROM ruta WHERE estado = 1 AND origen = ? AND destino = ?";
         Ruta ruta = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, origen);
             ps.setString(2, destino);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                ruta = new Ruta();
+                
+                ruta.setIdRuta(rs.getInt("id_ruta"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDestino(rs.getString("destino"));
+                ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
+                ruta.setEstado(true);
+                     
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe esta ruta");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Error al llenar la tabla: " + e.getMessage());
+    }
+        return ruta;
+    }
+    
+    
+    public Ruta buscarRutaXDestino(String destino) {   
+        String sql = "SELECT * FROM ruta WHERE estado = 1 AND destino = ?";
+        Ruta ruta = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, destino);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                ruta = new Ruta();
+                
+                ruta.setIdRuta(rs.getInt("id_ruta"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDestino(rs.getString("destino"));
+                ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
+                ruta.setEstado(true);
+                     
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe una ruta con ese ID");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Error al llenar la tabla: " + e.getMessage());
+    }
+        return ruta;
+    }
+    
+    
+     public Ruta buscarRutaXOrigen(String origen) {   
+        String sql = "SELECT * FROM ruta WHERE estado = 1 AND origen = ? ";
+        Ruta ruta = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, origen);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {

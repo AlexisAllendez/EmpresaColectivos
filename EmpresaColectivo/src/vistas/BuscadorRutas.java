@@ -22,7 +22,10 @@ public class BuscadorRutas extends javax.swing.JPanel {
     List<Ruta> listaRutas;
     List<Ruta> listaRutasporOrigen;
     List<Ruta> listaRutasporDestino;
+    List<String> listaDestinoporOrigen;
     Ruta rutasEspecificas = new Ruta();
+    Ruta rutasOrigen = new Ruta();
+    Ruta rutasDestino = new Ruta();
 
     private DefaultTableModel tabla = new DefaultTableModel() {
         public boolean isCellEditable(int i, int i1) {
@@ -36,6 +39,7 @@ public class BuscadorRutas extends javax.swing.JPanel {
         listaRutas = rutaData.listarRutas();
         listaRutasporOrigen = rutaData.listarRutasPorOrigenBusqueda();
         listaRutasporDestino = rutaData.listarRutasPorDestinoBusqueda();
+        listaDestinoporOrigen = rutaData.listarRutasDestino();
         llenarComboOrigen();
         llenarComboDestino();
         llenarTablas();
@@ -233,10 +237,53 @@ public class BuscadorRutas extends javax.swing.JPanel {
     }//GEN-LAST:event_jBLimpiarMouseExited
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        borrarFilas();
-        String origen = (String) jCOrigen.getSelectedItem();
-        String destino = (String) jCDestino.getSelectedItem();
-        buscarTabla(origen, destino);
+        if (jCOrigen.getSelectedIndex() == -1 && jCDestino.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un origen y un destino.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (jCOrigen.getSelectedIndex() != -1 && jCDestino.getSelectedIndex() == -1) {
+            
+            String origen = (String) jCOrigen.getSelectedItem();
+            rutasOrigen = rutaData.buscarRutaXOrigen(origen);
+            if (rutasOrigen != null) {
+                borrarFilas();
+                tabla.addRow(new Object[]{
+                    rutasOrigen.getIdRuta(),
+                    rutasOrigen.getOrigen(),
+                    rutasOrigen.getDestino(),
+                    rutasOrigen.getDuracionEst()
+                });
+            }
+            
+       
+        } else if (jCOrigen.getSelectedIndex() == -1 && jCDestino.getSelectedIndex() != -1) {
+            String destino = (String) jCDestino.getSelectedItem();
+            rutasDestino = rutaData.buscarRutaXDestino(destino);
+             if (rutasDestino != null) {
+                borrarFilas();
+                tabla.addRow(new Object[]{
+                    rutasDestino.getIdRuta(),
+                    rutasDestino.getOrigen(),
+                    rutasDestino.getDestino(),
+                    rutasDestino.getDuracionEst()
+                });
+            }
+            
+        } else if (jCOrigen.getSelectedIndex() != -1 && jCDestino.getSelectedIndex() != -1) {
+            String origen = (String) jCOrigen.getSelectedItem();
+            String destino = (String) jCDestino.getSelectedItem();
+            rutasEspecificas = rutaData.buscarRuta(origen, destino);
+            if (rutasEspecificas != null) {
+                borrarFilas();
+                tabla.addRow(new Object[]{
+                    rutasEspecificas.getIdRuta(),
+                    rutasEspecificas.getOrigen(),
+                    rutasEspecificas.getDestino(),
+                    rutasEspecificas.getDuracionEst()
+                });
+            }
+
+        }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
@@ -255,18 +302,32 @@ public class BuscadorRutas extends javax.swing.JPanel {
     }
 
     public void llenarComboOrigen() {
-        for (Ruta e : listaRutasporOrigen) {
-            jCOrigen.addItem(e.getOrigen());
+        jCOrigen.removeAllItems();
+        if (listaRutasporOrigen != null) {
+            for (Ruta e : listaRutasporOrigen) {
+                jCOrigen.addItem(e.getOrigen());
+            }
         }
         jCOrigen.setSelectedIndex(-1);
     }
 
     public void llenarComboDestino() {
-        for (Ruta x : listaRutasporDestino) {
-            jCDestino.addItem(x.getDestino());
+        jCDestino.removeAllItems();
+        if (listaRutasporDestino != null) {
+            for (Ruta x : listaRutasporDestino) {
+                jCDestino.addItem(x.getDestino());
+            }
         }
         jCDestino.setSelectedIndex(-1);
     }
+    
+//    public void llenarDestinoOrigen(){
+//        jCDestino.removeAllItems();
+//        for (String des : listaDestinoporOrigen) {
+//            jCDestino.addItem(des);
+//        }
+//        
+//    }
 
     private void llenarTablas() {
         borrarFilas();
@@ -277,6 +338,8 @@ public class BuscadorRutas extends javax.swing.JPanel {
         }
     }
 
+
+
     private void borrarFilas() {
         int filas = tabla.getRowCount() - 1;
         for (int f = filas; f >= 0; f--) {
@@ -284,19 +347,14 @@ public class BuscadorRutas extends javax.swing.JPanel {
         }
     }
 
-    public void buscarTabla(String origen, String destino) {
-        
-        rutasEspecificas = rutaData.buscarRuta(origen, destino);
-        if(rutasEspecificas != null){
-            tabla.addRow(new Object[]{
-                rutasEspecificas.getIdRuta(),
-                rutasEspecificas.getOrigen(),
-                rutasEspecificas.getDestino(),
-                rutasEspecificas.getDuracionEst()
-            });
+    public void buscarTabla() {
+
+        borrarFilas();
+        for (Ruta ruta : listaRutasporOrigen) {
+            tabla.addRow(new Object[]{ruta.getIdRuta(), ruta.getOrigen(), ruta.getDestino(), ruta.getDuracionEst()});
         }
+
     }
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
