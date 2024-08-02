@@ -6,6 +6,7 @@ import entidades.Colectivo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -301,32 +302,29 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     }//GEN-LAST:event_LimpiarActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        int filaSeleccionada = jTablaColectivos.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            String matricula = (String) jTablaColectivos.getValueAt(filaSeleccionada, 3); // Obtener la matrícula actual
-            String nuevaMatricula = JOptionPane.showInputDialog(null, "Modificar matrícula:", matricula);
-
-            if (nuevaMatricula != null && !nuevaMatricula.isEmpty()) {
-                // Actualizar la matrícula en la tabla y en la base de datos
-                jTablaColectivos.setValueAt(nuevaMatricula, filaSeleccionada, 3); // Actualizar en la tabla
-                
-                int idColectivo = (int) jTablaColectivos.getValueAt(filaSeleccionada, 0);
-                String marca = (String) jTablaColectivos.getValueAt(filaSeleccionada, 1);
-                String modelo = (String) jTablaColectivos.getValueAt(filaSeleccionada, 2);
-                int capacidad = (int) jTablaColectivos.getValueAt(filaSeleccionada, 4);
-
-                Colectivo colectivo = new Colectivo(idColectivo, nuevaMatricula, marca, modelo, capacidad);
-                coleData.modificarColectivo(colectivo); // Actualizar en la base de datos
-            } else {
-                JOptionPane.showMessageDialog(null, "La matrícula no puede estar vacía");
+     
+  if (jTablaColectivos.getRowCount() > 0) {
+            // se controla que se selecciono una categoria
+            if (jTablaColectivos.getSelectedRow() != -1) {
+    
+  int idColectivo = Integer.parseInt(String.valueOf(jTablaColectivos.getValueAt(jTablaColectivos.getSelectedRow(), 0)));                Frame f = JOptionPane.getFrameForComponent(this);
+                ModificarColectivo v1 = new ModificarColectivo(f, true,idColectivo);
+                v1.setLocationRelativeTo(null);
+                v1.setVisible(true);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un colectivo para modificar");
-
-
+            else{
+            JOptionPane.showMessageDialog(null, "No se selecciono ningun colectivo ");
+            }
+         
+        }
+        else{
+             JOptionPane.showMessageDialog(null, "No hay nada para eliminar en la tabla");
+        }
+        
+        limpiarCampos();
+        llenarTabla();
+        
     }//GEN-LAST:event_jBModificarActionPerformed
-   llenarComboMatricula();
-    }
     
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         borrarFilas();
@@ -350,18 +348,38 @@ public class BuscadorColectivos extends javax.swing.JPanel {
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        int filaSeleccionada = jTablaColectivos.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            int matricula = (Integer) jTablaColectivos.getValueAt(filaSeleccionada, 0);
-            coleData.eliminarColectivo(matricula);
-              
+           // Controla que la tabla no esté vacía
+        if (jTablaColectivos.getRowCount() > 0) {
+            // Controla que se haya seleccionado un producto
+            if (jTablaColectivos.getSelectedRow() != -1) {
+                // Obtener el id del producto
+                 int matricula = Integer.parseInt(String.valueOf(jTablaColectivos.getValueAt(jTablaColectivos.getSelectedRow(), 0)));
+
+      
+                int confirmacion = JOptionPane.showConfirmDialog(this,
+                        "¿Está seguro de que desea eliminar el colectivo?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION);
+
+                // Si el usuario confirma, proceder con la eliminación
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    // Llamar al método borrar
+                   coleData.eliminarColectivo(matricula);
+ 
+                }
+            } else {
+             JOptionPane.showMessageDialog(null, "No selecciono ningun colectivo");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un colectivo para eliminar");
+           JOptionPane.showMessageDialog(null, "No hay nada para eliminar en la tabla");
         }
-        
         limpiarCampos();
         llenarTabla();
 
+      
+
+        
+        
     }//GEN-LAST:event_jBEliminarActionPerformed
 
 
