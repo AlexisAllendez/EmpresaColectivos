@@ -23,6 +23,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     RutaData rutaData = new RutaData();
     HorarioData horarioData = new HorarioData();
     TableRowSorter<DefaultTableModel> filtrador;
+    List<RowFilter<Object, Object>> filtros = new ArrayList<>();
 
     public BuscadorPasajes() {
         initComponents();
@@ -37,8 +38,6 @@ public class BuscadorPasajes extends javax.swing.JPanel {
             return false;
         }
     };
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -154,6 +153,11 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         });
 
         jCHoraSalida.setEnabled(false);
+        jCHoraSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCHoraSalidaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -378,9 +382,9 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBFiltrarActionPerformed
 
     private void jTPasajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPasajeKeyTyped
-        if(jTPasaje.getText().length() >= 8){
-           evt.consume();
-       }
+        if (jTPasaje.getText().length() >= 8) {
+            evt.consume();
+        }
         char c = evt.getKeyChar();
         // Permitir solo números y el punto decimal
         if (!Character.isDigit(c)) {
@@ -419,35 +423,37 @@ public class BuscadorPasajes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jCRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCRutaActionPerformed
-        if(jCRuta.getSelectedIndex() != -1){
+        if (jCRuta.getSelectedIndex() != -1) {
             Ruta ruta = (Ruta) jCRuta.getSelectedItem();
-            if(ruta.getIdRuta() == -1){
+            if (ruta.getIdRuta() == -1) {
                 jCRuta.setSelectedIndex(-1);
             }
         }
-        if(jCRuta.getSelectedIndex() == -1){
-            if(this.filtrador != null){
-                filtrador.setRowFilter(null);
-            }
-        }else{
-            Ruta rutaSeleccionada = (Ruta) jCRuta.getSelectedItem();
-            String rutaFiltro = rutaSeleccionada.toString();
-            filtrador.setRowFilter(new RowFilter<DefaultTableModel, Integer>() {
-                        @Override
-                        public boolean include(Entry<? extends DefaultTableModel, ? extends Integer> entry) {
-                            String ruta = (String) entry.getValue(1);
-                            return ruta.equalsIgnoreCase(rutaFiltro);
-                        }
-                    });
-        }
+        aplicarFiltros();
+       
     }//GEN-LAST:event_jCRutaActionPerformed
+
+    private void jCHoraSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCHoraSalidaActionPerformed
+        if (jCHoraSalida.getSelectedIndex() != -1){
+            String horaSeleccionada = (String) jCHoraSalida.getSelectedItem();
+            if(horaSeleccionada.isEmpty()){
+                jCHoraSalida.setSelectedIndex(-1);
+            }
+//            LocalTime horaSeleccionada = (LocalTime) jCHoraSalida.getSelectedItem();
+//            if (horaSeleccionada != null && !horaSeleccionada.isBlank()) {
+//                filtros.add(RowFilter.regexFilter(horaSeleccionada, 3));
+//            }
+//            
+        }
+        aplicarFiltros();
+    }//GEN-LAST:event_jCHoraSalidaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBFiltrar;
     private javax.swing.JButton jBLimpiar;
-    private javax.swing.JComboBox<LocalTime> jCHoraSalida;
+    private javax.swing.JComboBox<String> jCHoraSalida;
     private javax.swing.JComboBox<Ruta> jCRuta;
     private javax.swing.JLabel jLHorarioSalida;
     private javax.swing.JLabel jLRuta;
@@ -481,25 +487,24 @@ public class BuscadorPasajes extends javax.swing.JPanel {
             limpiarCombos();
             for (Pasaje pasaj : listaPasaje) {
                 Object[] objeto = {pasaj.getIdPasaje(),
-                                   pasaj.getRuta().toString(),
-                                   pasaj.getFechaViaje(),
-                                   pasaj.getHoraViaje(),
-                                   pasaj.getAsiento(),
-                                   pasaj.getPrecio()};
+                    pasaj.getRuta().toString(),
+                    pasaj.getFechaViaje(),
+                    pasaj.getHoraViaje().toString(),
+                    pasaj.getAsiento(),
+                    pasaj.getPrecio()};
 
                 tabla.addRow(objeto);
-                
+
                 Ruta ruta = pasaj.getRuta();
-                if(!rutas.contains(ruta)){
+                if (!rutas.contains(ruta)) {
                     rutas.add(ruta);
                 }
-                
+
                 LocalTime horarioSalida = pasaj.getHoraViaje();
-                if(!horarios.contains(horarioSalida)){
+                if (!horarios.contains(horarioSalida)) {
                     horarios.add(horarioSalida);
                 }
 
-                
             }
         }
 
@@ -535,26 +540,27 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         tabla.addColumn("Precio");
         tablaPasajes.setModel(tabla);
     }
-    
+
     public void llenarComboRuta(List<Ruta> listaRutas) {
         Ruta rutaVacia = new Ruta();
         rutaVacia.setIdRuta(-1);
-        
+
         jCRuta.addItem(rutaVacia);
         for (Ruta ruta : listaRutas) {
             jCRuta.addItem(ruta);
         }
         jCRuta.setSelectedIndex(-1);
     }
-    
+
     public void llenarComboHoraSalida(List<LocalTime> listadoHorarios) {
+        jCHoraSalida.addItem("");
         for (LocalTime horaSalida : listadoHorarios) {
-            jCHoraSalida.addItem(horaSalida);
+            jCHoraSalida.addItem(horaSalida.toString());
         }
         jCHoraSalida.setSelectedIndex(-1);
     }
-    
-    private void setCombosReadOnly(){
+
+    private void setCombosReadOnly() {
         jCRuta.setSelectedIndex(-1);
         jCHoraSalida.setSelectedIndex(-1);
         jCRuta.setEnabled(false);
@@ -566,9 +572,35 @@ public class BuscadorPasajes extends javax.swing.JPanel {
         jCHoraSalida.setSelectedIndex(-1);
         jCRuta.removeAllItems();;
         jCHoraSalida.removeAllItems();
-        
+        filtros = new ArrayList<>();
+
     }
 
-    
+    private void aplicarFiltros() {
+      
+        filtros = new ArrayList<>();
+        Ruta rutaSeleccionada = (Ruta) jCRuta.getSelectedItem();
+        String rutaSeleccion = "";
+        if(rutaSeleccionada != null){
+            rutaSeleccion = rutaSeleccionada.toString();
+        }
+        if (!rutaSeleccion.isEmpty()) {
+            filtros.add(RowFilter.regexFilter(rutaSeleccion, 1));
+        }
+
+        String horarioSeleccionado = (String) jCHoraSalida.getSelectedItem();
+        if (horarioSeleccionado != null && !horarioSeleccionado.isEmpty()) {
+            filtros.add(RowFilter.regexFilter(horarioSeleccionado, 3));
+        }
+        
+        if(filtrador != null){
+
+            if (filtros.isEmpty()) {
+                filtrador.setRowFilter(null); // No filters, show all rows
+            } else {
+                filtrador.setRowFilter(RowFilter.andFilter(filtros));
+            }
+        }
+    }
 
 }
