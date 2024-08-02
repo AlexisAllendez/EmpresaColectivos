@@ -509,11 +509,7 @@ public class BuscadorPasajes extends javax.swing.JPanel {
 
         //Asignamos a la tabla los valores 
         tablaPasajes.setModel(tabla);
-        filtrador = new TableRowSorter<>(tabla);
-        tablaPasajes.setRowSorter(filtrador);
-        llenarComboRuta(rutas);
-        llenarComboHoraSalida(horarios);
-
+        
     }
 
     private void limpiarCampos() {

@@ -1,21 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package vistas;
 
 import accesoADatos.RutaData;
 import entidades.Ruta;
 import java.awt.Color;
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author 54266
- */
+
 public class BuscadorRutas extends javax.swing.JPanel {
 
     RutaData rutaData = new RutaData();
@@ -60,6 +55,7 @@ public class BuscadorRutas extends javax.swing.JPanel {
         jLDestino = new javax.swing.JLabel();
         jCOrigen = new javax.swing.JComboBox<>();
         jCDestino = new javax.swing.JComboBox<>();
+        jBEliminar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(817, 602));
@@ -142,6 +138,24 @@ public class BuscadorRutas extends javax.swing.JPanel {
         jLDestino.setForeground(new java.awt.Color(102, 102, 102));
         jLDestino.setText("Destino");
 
+        jBEliminar.setBackground(new java.awt.Color(255, 255, 255));
+        jBEliminar.setForeground(new java.awt.Color(102, 102, 102));
+        jBEliminar.setText("Eliminar");
+        jBEliminar.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 102)));
+        jBEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBEliminarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBEliminarMouseExited(evt);
+            }
+        });
+        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -155,37 +169,41 @@ public class BuscadorRutas extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(65, 65, 65))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(306, 306, 306)
+                .addGap(308, 308, 308)
                 .addComponent(jLBuscarRutas)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLBuscarRutas)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jCOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLOrigen))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLOrigen))
-                        .addGap(23, 23, 23)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLDestino)
                             .addComponent(jCDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLBuscarRutas)
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -197,7 +215,7 @@ public class BuscadorRutas extends javax.swing.JPanel {
                 .addComponent(jLRutas)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 46, Short.MAX_VALUE)
+                .addGap(0, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
@@ -293,6 +311,49 @@ public class BuscadorRutas extends javax.swing.JPanel {
         llenarTablas();
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
+    private void jBEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEliminarMouseEntered
+        jBEliminar.setBackground(new Color(0, 102, 102));
+        jBEliminar.setForeground(new Color(255, 255, 255));
+    }//GEN-LAST:event_jBEliminarMouseEntered
+
+    private void jBEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEliminarMouseExited
+        jBEliminar.setBackground(new Color(255, 255, 255));
+        jBEliminar.setForeground(new Color(102, 102, 102));
+    }//GEN-LAST:event_jBEliminarMouseExited
+
+    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
+         // Controla que la tabla no esté vacía
+        if (jTable.getRowCount() > 0) {
+            // Controla que se haya seleccionado un producto
+            if (jTable.getSelectedRow() != -1) {
+                // Obtener el id del producto
+                 int id = Integer.parseInt(String.valueOf(jTable.getValueAt(jTable.getSelectedRow(), 0)));
+
+      
+                int confirmacion = JOptionPane.showConfirmDialog(this,
+                        "¿Está seguro de que desea eliminar la ruta?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION);
+
+                // Si el usuario confirma, proceder con la eliminación
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    // Llamar al método borrar
+                   rutaData.eliminarRuta(id);
+ 
+                }
+            } else {
+             JOptionPane.showMessageDialog(null, "No selecciono ninguna ruta");
+            }
+        } else {
+           JOptionPane.showMessageDialog(null, "No hay nada para eliminar en la tabla");
+        }
+      
+          llenarComboOrigen();
+        llenarComboDestino();
+        llenarTablas();
+
+    }//GEN-LAST:event_jBEliminarActionPerformed
+
     private void armarCabecera() {
         tabla.addColumn("Ruta");
         tabla.addColumn("Origen");
@@ -331,6 +392,7 @@ public class BuscadorRutas extends javax.swing.JPanel {
 
     private void llenarTablas() {
         borrarFilas();
+         listaRutas = rutaData.listarRutas();
         for (Ruta x : listaRutas) {
             if (x != null) {
                 tabla.addRow(new Object[]{x.getIdRuta(), x.getOrigen(), x.getDestino(), x.getDuracionEst()});
@@ -359,6 +421,7 @@ public class BuscadorRutas extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JComboBox<String> jCDestino;
     private javax.swing.JComboBox<String> jCOrigen;
